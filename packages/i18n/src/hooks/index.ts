@@ -1,1 +1,1 @@
-export * from "./use-safe-translations.hook";
+export * from './use-safe-translations.hook';

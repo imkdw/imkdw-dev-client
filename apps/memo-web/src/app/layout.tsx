@@ -17,11 +17,11 @@ export default async function RootLayout({
   return (
     <html className={cn(mapleFont.className, 'bg-bg-primary')}>
       <body>
-        <main className="flex p-8 bg-gray-100 gap-4">
+        <main className='flex p-8 bg-gray-100 gap-4'>
           <Sidebar />
-          <section className="flex-1 flex flex-col gap-4">
+          <section className='flex-1 flex flex-col gap-4'>
             <Header />
-            <section className="flex-1">{children}</section>
+            <section className='flex-1'>{children}</section>
           </section>
         </main>
       </body>

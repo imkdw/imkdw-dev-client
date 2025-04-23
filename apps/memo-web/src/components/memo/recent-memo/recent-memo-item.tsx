@@ -20,25 +20,25 @@ export const RecentMemoItem = ({ title, content, views, date, color }: RecentMem
       style={{ borderColor: color }}
     >
       {/* Title Section */}
-      <div className="flex justify-between items-center mb-2">
-        <h3 className="text-xl">{title}</h3>
+      <div className='flex justify-between items-center mb-2'>
+        <h3 className='text-xl'>{title}</h3>
         {/* <button>
           <Ellipsis className="text-gray-400" width={24} height={24} />
         </button> */}
       </div>
 
       {/* Content Section */}
-      <p className="text-gray-400 text-lg line-clamp-3 overflow-hidden text-ellipsis break-words">{content}</p>
+      <p className='text-gray-400 text-lg line-clamp-3 overflow-hidden text-ellipsis break-words'>{content}</p>
 
       {/* Footer Section */}
-      <div className="flex justify-between items-center pt-2 mt-auto">
-        <div className="flex items-center gap-1">
-          <Eye className="text-gray-400" width={16} height={16} />
-          <span className="text-sm text-gray-400">{views}</span>
+      <div className='flex justify-between items-center pt-2 mt-auto'>
+        <div className='flex items-center gap-1'>
+          <Eye className='text-gray-400' width={16} height={16} />
+          <span className='text-sm text-gray-400'>{views}</span>
         </div>
-        <div className="flex items-center gap-1">
-          <Calendar className="text-gray-400" width={16} height={16} />
-          <span className="text-sm text-gray-400">{date}</span>
+        <div className='flex items-center gap-1'>
+          <Calendar className='text-gray-400' width={16} height={16} />
+          <span className='text-sm text-gray-400'>{date}</span>
         </div>
       </div>
     </Link>
