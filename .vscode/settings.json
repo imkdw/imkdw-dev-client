@@ -1,5 +1,4 @@
 {
-  "cSpell.words": ["imkdw", "Pretendard", "turbopack"],
-  "typescript.preferences.importModuleSpecifier": "relative",
-  "typescript.preferences.importModuleSpecifierEnding": "auto"
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "typescript.preferences.importModuleSpecifierEnding": "auto",
 }
