@@ -1,11 +1,14 @@
 # AI.md
 
-- First, look for glob `**/.AI.md` by using terminal command `find . -name '.AI.md'` from the project root.
-- Second, if you are going to read and/or write any file in a directory containing `.AI.md` file from the first step, read it and respect the instructions in it.
-- For example, if you are reading or writing a file at /a/b/c, you should check for `/a/.AI.md`, `/a/b/.AI.md` and `/a/b/c/.AI.md` in the order.
+- 우선 프로젝트의 최상위 경로에서 터미널에 `find . -name '.AI.md'` 명령어를 통해서 각 폴더에 존재하는 `**/.AI.md` 파일을 찾아줘
+- 그 다음에 첫 번째 단계부터 '.AI.md ' 파일이 포함된 디렉토리에 있는 파일을 읽고/또는 작성하려는 경우, 이를 읽고 해당 지침을 준수해야돼
+- 예를 들어서 /a/b/c에서 파일을 읽거나 쓰는 경우 '/a/.AI.md ', '/a/b/.AI.md ', '/a/b/c/.AI.md ' 순으로 확인해야돼
 
-# Stack
+# 공통
+- 항상 한국어로 답변해줘
 
-- Framework : Next.js v15
-- Language : TypeScript
-- Styling : TailwindCSS
+# 기술 스택들
+
+- 프레임워크 : Next.js
+- 스타일링 : Tailwind CSS
+
