@@ -72,7 +72,7 @@ function MenuItem({ menu, depth = 0 }: MenuItemProps) {
 }
 
 export function SidebarMenu() {
-  const generateRandomChildren = (depth: number = 0, maxDepth: number = 3): SidebarMenu[] => {
+  const generateRandomChildren = (depth = 0, maxDepth = 3): SidebarMenu[] => {
     if (depth >= maxDepth) {
       return [];
     }
