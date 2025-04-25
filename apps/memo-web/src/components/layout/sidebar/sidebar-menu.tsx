@@ -29,6 +29,7 @@ function MenuItem({ menu, depth = 0 }: MenuItemProps) {
   return (
     <li>
       <button
+        type="button"
         onClick={handleToggle}
         className={`
           w-full flex items-center gap-2 p-2 text-sm text-gray-600
@@ -44,8 +45,8 @@ function MenuItem({ menu, depth = 0 }: MenuItemProps) {
 
         {/* Menu Collapse Icon */}
         {menu.type === 'folder' && menu.children.length > 0 && (
-          <motion.div className='ml-auto' animate={{ rotate: isOpen ? 90 : 0 }} transition={{ duration: 0.2 }}>
-            <ChevronRight className='w-5 h-5' />
+          <motion.div className="ml-auto" animate={{ rotate: isOpen ? 90 : 0 }} transition={{ duration: 0.2 }}>
+            <ChevronRight className="w-5 h-5" />
           </motion.div>
         )}
       </button>
@@ -104,13 +105,6 @@ export function SidebarMenu() {
       children: generateRandomChildren(),
     }),
   );
-
-  menus.unshift({
-    name: 'Pinned',
-    icon: <Pin size={22} />,
-    type: 'folder',
-    children: [],
-  });
 
   return (
     <section>
