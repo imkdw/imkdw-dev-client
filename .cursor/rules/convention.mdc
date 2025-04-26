@@ -1,0 +1,8 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# 파일 및 폴더명
+- 모든 파일은 kebab case를 따릅니다
+  - ex) kebab-case.tsx, sidebar-nav

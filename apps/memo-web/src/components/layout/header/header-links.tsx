@@ -1,9 +1,9 @@
 import { GithubIcon, InstagramIcon } from 'lucide-react';
-import Link from 'next/link';
+import { Link } from '@imkdw-dev-client/i18n';
 
 export function HeaderLinks() {
   return (
-    <div className="flex items-center gap-4">
+    <div className="flex items-center gap-4 px-2">
       <Link
         href="https://github.com/imkdw/imkdw-dev-client"
         target="_blank"

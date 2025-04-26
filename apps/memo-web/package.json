@@ -21,7 +21,8 @@
     "next-intl": "^3.26.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "tailwindcss": "^4.0.0"
+    "tailwindcss": "^4.0.0",
+    "zustand": "^5.0.3"
   },
   "devDependencies": {
     "@imkdw-dev-client/tailwind-config": "workspace:*",

@@ -108,8 +108,8 @@ export function Sidebar() {
       {!isCollapsed && (
         <div
           ref={resizeRef}
-          className={`w-1 hover:bg-blue-500 active:bg-blue-600 z-20
-            ${isResizing ? 'bg-blue-600 cursor-col-resize' : 'bg-transparent cursor-col-resize'}`}
+          className={`w-1 hover:bg-blue-500 active:bg-blue-600 z-20 cursor-col-resize
+            ${isResizing ? 'bg-blue-600' : 'bg-transparent'}`}
           onMouseDown={startResizing}
         />
       )}
