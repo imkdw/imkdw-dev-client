@@ -1,3 +1,3 @@
 import { routing } from './routing';
 
-export type SupportLocale = (typeof routing.locales)[number];
+export type SupportedLocale = (typeof routing.locales)[number];

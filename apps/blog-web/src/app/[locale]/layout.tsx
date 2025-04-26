@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { routing, SupportLocale } from '@imkdw-dev-client/i18n';
+import { routing, SupportedLocale } from '@imkdw-dev-client/i18n';
 import { notFound } from 'next/navigation';
 import { getMessages } from 'next-intl/server';
 import localFont from 'next/font/local';
@@ -36,7 +36,7 @@ export default async function RootLayout({
 }>) {
   const { locale } = await params;
 
-  if (!routing.locales.includes(locale as SupportLocale)) {
+  if (!routing.locales.includes(locale as SupportedLocale)) {
     notFound();
   }
 
