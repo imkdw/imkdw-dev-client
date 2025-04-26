@@ -1,8 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { ChevronDown, ChevronRight, Folder, File } from 'lucide-react';
+import { ChevronRight, Folder, File } from 'lucide-react';
 import { cn } from '@imkdw-dev-client/utils';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface FolderItem {
   id: string;
@@ -99,6 +100,26 @@ export function FolderContent() {
     fetchFolders();
   }, []);
 
+  // 애니메이션 variants 정의
+  const folderVariants = {
+    expanded: {
+      height: 'auto',
+      opacity: 1,
+      transition: {
+        height: { duration: 0.2, ease: 'easeOut' },
+        opacity: { duration: 0.2, ease: 'easeOut' },
+      },
+    },
+    collapsed: {
+      height: 0,
+      opacity: 0,
+      transition: {
+        height: { duration: 0.2, ease: 'easeIn' },
+        opacity: { duration: 0.1, ease: 'easeIn' },
+      },
+    },
+  };
+
   const renderTree = (items: FolderItem[], level = 0) => {
     return items.map((item) => (
       <div key={item.id}>
@@ -109,9 +130,13 @@ export function FolderContent() {
         >
           {item.type === 'folder' ? (
             <>
-              <span className="mr-1 text-gray-400">
-                {expandedFolders[item.id] ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
-              </span>
+              <motion.div
+                className="mr-1 text-gray-400"
+                animate={{ rotate: expandedFolders[item.id] ? 90 : 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                <ChevronRight size={16} />
+              </motion.div>
               <Folder size={16} className="mr-2 text-blue-400" />
             </>
           ) : (
@@ -122,7 +147,22 @@ export function FolderContent() {
           )}
           <span>{item.name}</span>
         </div>
-        {item.children && expandedFolders[item.id] && renderTree(item.children, level + 1)}
+
+        {item.type === 'folder' && item.children && (
+          <AnimatePresence initial={false}>
+            {expandedFolders[item.id] && (
+              <motion.div
+                initial="collapsed"
+                animate="expanded"
+                exit="collapsed"
+                variants={folderVariants}
+                style={{ overflow: 'hidden' }}
+              >
+                {renderTree(item.children, level + 1)}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        )}
       </div>
     ));
   };
