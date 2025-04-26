@@ -1,24 +1,35 @@
-import { Link } from '@imkdw-dev-client/i18n';
-import { MOCK_MEMOS } from '@/src/components/memo/mock-data';
-import { Memo } from '@/src/components/memo/memo.type';
+import Image from 'next/image';
+import styles from './page.module.css';
 
 export default function HomePage() {
-  const memos = Object.values(MOCK_MEMOS) as Memo[];
+  const title = 'Finetura Petuchia';
 
   return (
-    <div className="flex flex-col p-6 bg-[#242424] text-white w-full">
-      <h1 className="text-2xl font-bold mb-6">메모 목록</h1>
+    <div className={styles.container}>
+      <div className={`${styles.imageWrapper} ${styles.pulseAnimation}`}>
+        <Image
+          src="/images/angelic-buster.webp"
+          alt="Angelic Buster"
+          width={500}
+          height={500}
+          className={styles.image}
+        />
+      </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {memos.map((memo) => (
-          <Link key={memo.id} href={`/memo/${memo.id}`} className="block">
-            <div className="bg-[#2d2d2d] p-4 rounded hover:bg-[#3d3d3d] transition-colors">
-              <h2 className="text-lg font-semibold mb-2">{memo.title}</h2>
-              <p className="text-gray-400 text-sm">{memo.path.join(' > ')}</p>
-              <p className="text-gray-400 text-xs mt-2">마지막 수정: {new Date(memo.updatedAt).toLocaleDateString()}</p>
-            </div>
-          </Link>
-        ))}
+      <div className={`${styles.starsEffect} ${styles.sparkleEffect}`}>
+        <h1 className={`${styles.title} ${styles.shimmerAnimation}`} data-text={title}>
+          {title}
+        </h1>
+
+        <div className={styles.shootingStarContainer}>
+          <div className={`${styles.shootingStar} ${styles.shootingStar1}`}></div>
+          <div className={`${styles.shootingStar} ${styles.shootingStar2}`}></div>
+          <div className={`${styles.shootingStar} ${styles.shootingStar3}`}></div>
+
+          <div className={`${styles.popStar} ${styles.popStar1}`}></div>
+          <div className={`${styles.popStar} ${styles.popStar2}`}></div>
+          <div className={`${styles.popStar} ${styles.popStar3}`}></div>
+        </div>
       </div>
     </div>
   );
