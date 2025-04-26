@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, Dispatch, SetStateAction } from 'react';
 import { SidebarNav } from './sidebar-nav';
 import { SidebarContent } from '@/src/components/layout/sidebar/content';
+import { cn } from '@imkdw-dev-client/utils';
 
 const MIN_WIDTH = 20;
 const MAX_WIDTH = 600;
@@ -16,6 +17,7 @@ export function Sidebar() {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const resizeRef = useRef<HTMLDivElement>(null);
   const dragOffsetRef = useRef<number>(0);
+  const sidebarRef = useRef<HTMLDivElement>(null);
 
   const startResizing = (event: React.MouseEvent) => {
     event.preventDefault();
@@ -87,20 +89,28 @@ export function Sidebar() {
     };
   }, [isResizing]);
 
+  // 사이드바 너비를 동적으로 설정
+  useEffect(() => {
+    if (sidebarRef.current) {
+      sidebarRef.current.style.width = isCollapsed ? '0px' : `${sidebarWidth}px`;
+    }
+  }, [isCollapsed, sidebarWidth]);
+
   return (
-    <div className="flex h-full">
+    <div className="flex h-full bg-[#242424]">
       <div className="h-full w-16 flex-shrink-0 bg-[#3B3B3C] z-10 border-r border-[#383838]">
         <SidebarNav activeItem={activeItemId} onItemChange={handleItemChange} />
       </div>
 
       <div
-        className={`flex-shrink-0 bg-[#242424] text-white border-r border-[#383838] overflow-hidden
-          ${isResizing ? '' : 'transition-all duration-200'}`}
-        style={{
-          width: isCollapsed ? '0px' : `${sidebarWidth}px`,
-          opacity: isCollapsed ? 0 : 1,
-          visibility: isCollapsed ? 'hidden' : 'visible',
-        }}
+        ref={sidebarRef}
+        className={cn(
+          'flex-shrink-0 bg-[#242424] text-white overflow-hidden',
+          !isCollapsed && 'border-r border-[#383838]',
+          !isResizing && 'transition-[width,opacity] duration-200',
+          isCollapsed && 'opacity-0 invisible',
+        )}
+        data-collapsed={isCollapsed}
       >
         <SidebarContent activeItemId={activeItemId} />
       </div>
@@ -108,8 +118,10 @@ export function Sidebar() {
       {!isCollapsed && (
         <div
           ref={resizeRef}
-          className={`w-1 hover:bg-blue-500 active:bg-blue-600 z-20 cursor-col-resize
-            ${isResizing ? 'bg-blue-600' : 'bg-transparent'}`}
+          className={cn(
+            'w-1 bg-[#3d3d3d] hover:bg-[#4d4d4d] active:bg-[#5d5d5d] z-20 cursor-col-resize',
+            isResizing && 'bg-[#5d5d5d]',
+          )}
           onMouseDown={startResizing}
         />
       )}
