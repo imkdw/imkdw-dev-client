@@ -1,0 +1,10 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Styling
+- Tailwind v4
+
+# Framework
+- Next.js v15

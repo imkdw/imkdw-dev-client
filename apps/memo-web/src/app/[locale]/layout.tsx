@@ -7,6 +7,7 @@ import { notFound } from 'next/navigation';
 import { getMessages } from 'next-intl/server';
 import { NextIntlClientProvider } from 'next-intl';
 import { Header } from '@/src/components/layout/header';
+import { Sidebar } from '@/src/components/layout/sidebar';
 
 interface Props {
   children: React.ReactNode;
@@ -32,7 +33,10 @@ export default async function RootLayout({ children, params }: Props) {
       <body>
         <NextIntlClientProvider messages={messages} locale={locale}>
           <Header />
-          <section>{children}</section>
+          <section className="flex">
+            <Sidebar />
+            {children}
+          </section>
         </NextIntlClientProvider>
       </body>
     </html>
