@@ -23,7 +23,6 @@ function SidebarItem({ icon, isActive = false, onClick }: SidebarItemProps) {
   );
 }
 
-// 사이드바 아이템 상수 정의
 const SIDEBAR_ITEMS = [
   {
     id: 1,

@@ -1,17 +1,7 @@
-@import "@imkdw-dev-client/ui/globals.css";
+@import '@imkdw-dev-client/ui/globals.css';
 
-@theme {
-  --text-primary: #848486;
-  --bg-primary: #eef0f8;
-  --border-primary: #dcdddf;
-  --rounded-primary: 10px;
-  --shadow-primary: 0px 8px 24px 0px #959da533;
-  --padding-primary: 20px;
-  --padding-secondary: 10px;
-}
-
-@layer utilities {
-  .shadow-primary {
-    box-shadow: 0px 8px 24px 0px #959da533;
-  }
+html,
+body,
+#root {
+  height: 100vh;
 }

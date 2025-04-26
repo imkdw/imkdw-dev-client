@@ -7,7 +7,7 @@ interface ContentRendererProps {
   activeItemId: number | null;
 }
 
-export function ContentRenderer({ activeItemId }: ContentRendererProps) {
+export function SidebarContent({ activeItemId }: ContentRendererProps) {
   if (activeItemId === 1) {
     return <FolderContent />;
   }
@@ -19,8 +19,8 @@ export function ContentRenderer({ activeItemId }: ContentRendererProps) {
   return (
     <div className="flex items-center justify-center h-full text-gray-400">
       <div className="text-center">
+        {/* TODO: 다국어처리 */}
         <p className="text-lg">사이드바에서 항목을 선택해주세요.</p>
-        <p className="text-sm mt-2">폴더나 메모 아이콘을 클릭하면 해당 내용이 여기에 표시됩니다.</p>
       </div>
     </div>
   );

@@ -33,7 +33,7 @@ export default async function RootLayout({ children, params }: Props) {
       <body>
         <NextIntlClientProvider messages={messages} locale={locale}>
           <Header />
-          <section className="flex">
+          <section className="flex h-full">
             <Sidebar />
             {children}
           </section>
