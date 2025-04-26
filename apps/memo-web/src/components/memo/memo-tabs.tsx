@@ -1,66 +1,42 @@
-import { useRouter } from '@imkdw-dev-client/i18n';
+'use client';
+
+import { Link } from '@imkdw-dev-client/i18n';
+import { MemoTab } from './memo.type';
 import { X } from 'lucide-react';
-import { useMemoTabStore } from './memo-tab-store';
 
 interface Props {
-  currentMemoId: string;
-  onCloseTab?: (id: string) => void;
+  tabs: MemoTab[];
+  currentMemoId?: string;
+  onCloseTab: (id: string) => void;
 }
 
-export function MemoTabs({ currentMemoId, onCloseTab }: Props) {
-  const { tabs, removeTab, setActiveTab } = useMemoTabStore();
-  const router = useRouter();
-
-  const handleTabClick = (id: string) => {
-    setActiveTab(id);
-    router.push(`/memo/${id}`);
-  };
-
-  const handleCloseTab = (e: React.MouseEvent, id: string) => {
-    e.stopPropagation();
-
-    if (onCloseTab) {
-      onCloseTab(id);
-    } else {
-      removeTab(id);
-
-      if (id === currentMemoId && tabs.length > 1) {
-        const activeTab = tabs.find((tab) => tab.isActive && tab.id !== id);
-        const remainingTabs = tabs.filter((tab) => tab.id !== id);
-
-        if (activeTab) {
-          router.push(`/memo/${activeTab.id}`);
-        } else if (remainingTabs.length > 0) {
-          const firstRemainingTab = remainingTabs[0];
-          if (firstRemainingTab) {
-            router.push(`/memo/${firstRemainingTab.id}`);
-          }
-        }
-      }
-    }
-  };
-
+export function MemoTabs({ tabs, currentMemoId, onCloseTab }: Props) {
   if (tabs.length === 0) {
     return null;
   }
 
   return (
-    <div className="flex overflow-x-auto bg-[#2d2d2d] h-9">
+    <div className="flex items-center overflow-x-auto">
       {tabs.map((tab) => (
         <div
           key={tab.id}
-          className={`flex items-center cursor-pointer min-w-fit px-3 h-full border-r border-[#3d3d3d] ${
-            tab.isActive ? 'bg-[#1e1e1e]' : 'bg-[#2d2d2d] hover:bg-[#363636]'
+          className={`flex items-center px-4 py-2 border-r border-gray-600 ${
+            tab.id === currentMemoId ? 'bg-[#333333]' : ''
           }`}
-          onClick={() => handleTabClick(tab.id)}
         >
-          <span className="text-white text-sm">{tab.title}</span>
+          <Link href={`/memo/${tab.id}`} className="mr-2 text-sm font-medium truncate max-w-[150px]" title={tab.title}>
+            {tab.title}
+          </Link>
           <button
-            className="ml-2 p-1 rounded-full hover:bg-[#3d3d3d] focus:outline-none"
-            onClick={(e) => handleCloseTab(e, tab.id)}
+            onClick={(event) => {
+              event.preventDefault();
+              event.stopPropagation();
+              onCloseTab(tab.id);
+            }}
+            className="text-gray-500 hover:text-gray-700 transition-colors"
             aria-label="탭 닫기"
           >
-            <X size={14} className="text-white" />
+            <X size={16} />
           </button>
         </div>
       ))}

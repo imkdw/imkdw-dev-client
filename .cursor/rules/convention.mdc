@@ -1,8 +1,12 @@
 ---
 description: 
 globs: 
-alwaysApply: false
+alwaysApply: true
 ---
 # 파일 및 폴더명
 - 모든 파일은 kebab case를 따릅니다
   - ex) kebab-case.tsx, sidebar-nav
+
+# 주석
+- 불필요한 라인마다 주석을 작성하지 말아주세요
+- 꼭 필요하거나 복잡한 부분에만 주석을 작성해주면 됩니다

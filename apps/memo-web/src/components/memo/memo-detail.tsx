@@ -1,22 +1,20 @@
-import { MOCK_MEMOS } from './mock-data';
+'use client';
+
+import { useState, useEffect } from 'react';
 import { MemoBreadcrumb } from './memo-breadcrumb';
 import { MemoLineNumbers } from './memo-line-numbers';
 import { MemoTabManager } from './memo-tab-manager';
+import { Memo } from './memo.type';
+import { MOCK_MEMOS } from './mock-data';
 
 interface Props {
-  memoId: string;
+  memo: Memo;
 }
 
-export function MemoDetail({ memoId }: Props) {
-  const memo = MOCK_MEMOS[memoId];
-
-  if (!memo) {
-    return <div className="flex items-center justify-center h-full w-full text-white">메모를 찾을 수 없습니다.</div>;
-  }
-
+export function MemoDetail({ memo }: Props) {
   return (
     <div className="flex flex-col h-full bg-[#242424] text-white">
-      <MemoTabManager memoId={memoId} title={memo.title} />
+      <MemoTabManager memoId={memo.id} title={memo.title} />
       <MemoBreadcrumb path={memo.path} />
 
       <div className="px-4 py-2 border-b border-[#3d3d3d]">

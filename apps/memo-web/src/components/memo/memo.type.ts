@@ -11,4 +11,5 @@ export interface MemoTab {
   id: string;
   title: string;
   isActive: boolean;
+  uid?: string;
 }
