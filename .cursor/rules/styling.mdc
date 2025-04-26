@@ -1,0 +1,11 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# 아이콘
+- lucide-react를 사용합니다
+
+# CSS
+- 기본적으로 TailwindCSS v4를 사용합니다
+- 만약 구현이 복잡한 경우는 CSS를 사용합니다

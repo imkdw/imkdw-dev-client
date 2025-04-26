@@ -6,6 +6,7 @@ import { routing, SupportedLocale } from '@imkdw-dev-client/i18n';
 import { notFound } from 'next/navigation';
 import { getMessages } from 'next-intl/server';
 import { NextIntlClientProvider } from 'next-intl';
+import { Header } from '@/src/components/layout/header';
 
 interface Props {
   children: React.ReactNode;
@@ -30,7 +31,8 @@ export default async function RootLayout({ children, params }: Props) {
     <html className={cn(mapleFont.className)}>
       <body>
         <NextIntlClientProvider messages={messages} locale={locale}>
-          <main>{children}</main>
+          <Header />
+          <section>{children}</section>
         </NextIntlClientProvider>
       </body>
     </html>
