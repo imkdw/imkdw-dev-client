@@ -2,6 +2,7 @@ import { MemoDetail } from '@/src/components/memo/memo-detail';
 import { Metadata } from 'next';
 import { Memo } from '@/src/components/memo/memo.type';
 import { MOCK_MEMOS } from '@/src/components/memo/mock-data';
+import { MemoBreadcrumb } from '@/src/components/memo/memo-breadcrumb';
 
 export const metadata: Metadata = {
   title: '메모 상세 | IMKDW Dev',
@@ -22,6 +23,7 @@ export default async function MemoDetailPage({ params }: MemoDetailPageProps) {
 
   return (
     <div className="w-full h-full">
+      <MemoBreadcrumb path={memo.path} />
       <MemoDetail memo={memo} />
     </div>
   );
