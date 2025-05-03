@@ -4,6 +4,10 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+* {
+  box-sizing: border-box;
+}
+
 button {
   cursor: pointer;
   border: none;

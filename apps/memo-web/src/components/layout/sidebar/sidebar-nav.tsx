@@ -13,10 +13,10 @@ interface SidebarItemProps {
 
 function SidebarItem({ icon, isActive = false, onClick }: SidebarItemProps) {
   return (
-    <li>
+    <li className='w-full relative'>
       <button
         type='button'
-        className={cn('flex justify-center items-center w-full cursor-pointer p-4 relative', 'hover:bg-[#4A4A4C]')}
+        className={cn('flex justify-center items-center w-full cursor-pointer p-4', 'hover:bg-[#4A4A4C]')}
         onClick={onClick}
       >
         {isActive && <div className='absolute left-0 top-0 h-full w-0.5 bg-white' />}

@@ -3,19 +3,19 @@
 import { usePathname, useRouter } from '@imkdw-dev-client/i18n';
 import { cn } from '@imkdw-dev-client/utils';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ChevronRight, File, Folder } from 'lucide-react';
+import { ChevronRight, Clock, File, FileText, Folder, Search, Star } from 'lucide-react';
 import { MouseEvent, useCallback, useEffect, useState } from 'react';
 
-interface FolderItem {
+interface SidebarItem {
   id: string;
   name: string;
   type: 'folder' | 'file';
-  children?: FolderItem[];
+  children?: SidebarItem[];
   memoId?: string;
 }
 
 // 더미 데이터를 컴포넌트 외부에 정의하여 리렌더링에 영향을 받지 않게 함
-const dummyFolders: FolderItem[] = [
+const dummyData: SidebarItem[] = [
   {
     id: 'folder-react',
     name: 'React',
@@ -59,10 +59,16 @@ const initialExpandedState: Record<string, boolean> = {
   'folder-nextjs': true,
 };
 
-export function FolderContent() {
+interface SidebarContentProps {
+  activeItemId: number | null;
+}
+
+export function SidebarContent({ activeItemId }: SidebarContentProps) {
   const router = useRouter();
   const pathname = usePathname();
   const [expandedFolders, setExpandedFolders] = useState<Record<string, boolean>>(initialExpandedState);
+  const [selectedGroup, setSelectedGroup] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
 
   // 현재 메모 ID 추출
   const getCurrentMemoId = useCallback((): string | null => {
@@ -106,7 +112,7 @@ export function FolderContent() {
     if (!currentMemoId) return;
 
     // 메모의 상위 폴더를 찾아 확장하는 함수
-    const expandParentFolders = (items: FolderItem[]): boolean => {
+    const expandParentFolders = (items: SidebarItem[]): boolean => {
       for (const item of items) {
         // 파일이고 현재 메모 ID와 일치하면 찾음
         if (item.type === 'file' && item.memoId === currentMemoId) {
@@ -129,19 +135,22 @@ export function FolderContent() {
     };
 
     // 실행
-    expandParentFolders(dummyFolders);
+    expandParentFolders(dummyData);
   }, [currentMemoId]);
 
   // 폴더 트리 렌더링
   const renderTree = useCallback(
-    (items: FolderItem[], level = 0) => {
+    (items: SidebarItem[], level = 0) => {
       return items.map((item) => (
         <div key={item.id}>
           {item.type === 'folder' ? (
             // 폴더 아이템
             <button
               type='button'
-              className={cn('flex items-center p-1 cursor-pointer hover:bg-[#3B3B3C] rounded', 'text-sm text-gray-300')}
+              className={cn(
+                'flex items-center p-1 w-full cursor-pointer hover:bg-[#3B3B3C] rounded',
+                'text-lg text-gray-300',
+              )}
               style={{ paddingLeft: `${level * 16 + 8}px` }}
               onClick={(event) => toggleFolder(item.id, event)}
             >
@@ -161,14 +170,14 @@ export function FolderContent() {
               type='button'
               onClick={(e) => item.memoId && handleMemoClick(e, item.memoId)}
               className={cn(
-                'flex items-center p-1 cursor-pointer hover:bg-[#3B3B3C] rounded',
-                'text-sm text-gray-300 hover:text-white',
+                'flex items-center p-1 w-full cursor-pointer hover:bg-[#3B3B3C] rounded',
+                'text-lg text-gray-300 hover:text-white',
                 isFileActive(item.memoId) && 'bg-[#3B3B3C] text-white font-medium',
               )}
               style={{ paddingLeft: `${level * 16 + 8}px` }}
             >
               <span className='mr-1 text-gray-400 w-4' />
-              <File size={16} className={cn('mr-2', isFileActive(item.memoId) ? 'text-blue-400' : 'text-gray-400')} />
+              <File size={16} className={cn('mr-2 text-gray-400')} />
               <span>{item.name}</span>
             </button>
           )}
@@ -213,10 +222,46 @@ export function FolderContent() {
     [expandedFolders, isFileActive, toggleFolder, handleMemoClick],
   );
 
+  // 메모 그룹 정의
+  const memoGroups = [
+    { id: 'recent', name: '최근 메모', icon: <Clock size={16} className='mr-2 text-yellow-400' /> },
+    { id: 'important', name: '중요 메모', icon: <Star size={16} className='mr-2 text-red-400' /> },
+    { id: 'all', name: '모든 메모', icon: <FileText size={16} className='mr-2 text-blue-400' /> },
+  ];
+
+  if (!activeItemId) {
+    return (
+      <div className='flex items-center justify-center h-full text-gray-400'>
+        <div className='text-center'>
+          {/* TODO: 다국어 처리 */}
+          <p className='text-lg'>사이드바에서 항목을 선택해주세요.</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className='px-2'>
-      <div className='text-sm text-gray-400 uppercase font-semibold mt-4 mb-2 px-2'>FOLDERS</div>
-      <div className='mt-2'>{renderTree(dummyFolders)}</div>
+    <div className='p-2 h-full overflow-auto bg-[#202020]'>
+      {/* 검색 영역 */}
+      <div className='relative'>
+        <div className='absolute inset-y-0 left-0 pl-2 flex items-center pointer-events-none'>
+          <Search size={16} className='text-gray-400' />
+        </div>
+        <input
+          type='text'
+          // TODO: 다국어 처리
+          placeholder='메모 검색...'
+          className='w-full bg-[#3B3B3C] text-white text-lg rounded pl-8 pr-2 py-1.5 focus:outline-none focus:ring-1 focus:ring-blue-500'
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+      </div>
+
+      {/* 폴더 구조 */}
+      <div className=''>
+        {/* TODO: 다국어 처리 */}
+        <div className='mt-2'>{renderTree(dummyData)}</div>
+      </div>
     </div>
   );
 }
