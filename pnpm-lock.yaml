@@ -23,6 +23,9 @@ importers:
 
   apps/memo-web:
     dependencies:
+      '@imkdw-dev-client/api-client':
+        specifier: workspace:*
+        version: link:../../packages/api-client
       '@imkdw-dev-client/fonts':
         specifier: workspace:*
         version: link:../../packages/fonts
@@ -83,6 +86,10 @@ importers:
         version: 5.7.3
 
   packages/api-client:
+    dependencies:
+      dotenv:
+        specifier: ^16.5.0
+        version: 16.5.0
     devDependencies:
       '@imkdw-dev-client/typescript-config':
         specifier: workspace:*
@@ -597,6 +604,10 @@ packages:
   detect-libc@2.0.3:
     resolution: {integrity: sha512-bwy0MGW55bG41VqxxypOsdSdGqLwXPI/focwgTYCFMbdUiBAxLg9CFzG08sz2aqzknwiX7Hkl0bQENjg8iLByw==}
     engines: {node: '>=8'}
+
+  dotenv@16.5.0:
+    resolution: {integrity: sha512-m/C+AwOAr9/W1UOIZUo232ejMNnJAJtYQjUbHoNTBNTJSvqzzDh7vnrei3o3r3m9blf6ZoDkvcw0VmozNRFJxg==}
+    engines: {node: '>=12'}
 
   enhanced-resolve@5.18.1:
     resolution: {integrity: sha512-ZSW3ma5GkcQBIpwZTSRAI8N71Uuwgs93IezB7mf7R60tC8ZbJideoDNKjHn2O9KIlx6rkGTTEk1xUCK2E1Y2Yg==}
@@ -1170,6 +1181,8 @@ snapshots:
 
   detect-libc@2.0.3:
     optional: true
+
+  dotenv@16.5.0: {}
 
   enhanced-resolve@5.18.1:
     dependencies:

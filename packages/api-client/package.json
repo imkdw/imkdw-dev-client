@@ -3,12 +3,17 @@
   "version": "0.0.1",
   "private": true,
   "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
   "scripts": {
     "lint": "biome check --write",
     "generate:component": "turbo gen react-component",
     "check-types": "tsc --noEmit"
   },
-  "dependencies": {},
+  "dependencies": {
+    "dotenv": "^16.5.0"
+  },
   "devDependencies": {
     "@imkdw-dev-client/typescript-config": "workspace:*",
     "@types/node": "^22.13.0",

@@ -3,7 +3,7 @@ import { request } from '../api-client';
 
 export function findRootMemoFolders() {
   return request<never, FindRootMemoFoldersResponse>({
-    url: '/memo-folders/root',
+    url: 'v1/memo-folders/root',
     method: 'GET',
   });
 }
