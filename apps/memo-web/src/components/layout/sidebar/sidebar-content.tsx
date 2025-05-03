@@ -3,7 +3,7 @@
 import { usePathname, useRouter } from '@imkdw-dev-client/i18n';
 import { cn } from '@imkdw-dev-client/utils';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ChevronRight, Clock, File, FileText, Folder, Search, Star } from 'lucide-react';
+import { ChevronRight, File, Folder, Search } from 'lucide-react';
 import { MouseEvent, useCallback, useEffect, useState } from 'react';
 
 interface SidebarItem {
@@ -67,7 +67,6 @@ export function SidebarContent({ activeItemId }: SidebarContentProps) {
   const router = useRouter();
   const pathname = usePathname();
   const [expandedFolders, setExpandedFolders] = useState<Record<string, boolean>>(initialExpandedState);
-  const [selectedGroup, setSelectedGroup] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
 
   // 현재 메모 ID 추출
@@ -222,13 +221,6 @@ export function SidebarContent({ activeItemId }: SidebarContentProps) {
     [expandedFolders, isFileActive, toggleFolder, handleMemoClick],
   );
 
-  // 메모 그룹 정의
-  const memoGroups = [
-    { id: 'recent', name: '최근 메모', icon: <Clock size={16} className='mr-2 text-yellow-400' /> },
-    { id: 'important', name: '중요 메모', icon: <Star size={16} className='mr-2 text-red-400' /> },
-    { id: 'all', name: '모든 메모', icon: <FileText size={16} className='mr-2 text-blue-400' /> },
-  ];
-
   if (!activeItemId) {
     return (
       <div className='flex items-center justify-center h-full text-gray-400'>
@@ -259,7 +251,6 @@ export function SidebarContent({ activeItemId }: SidebarContentProps) {
 
       {/* 폴더 구조 */}
       <div className=''>
-        {/* TODO: 다국어 처리 */}
         <div className='mt-2'>{renderTree(dummyData)}</div>
       </div>
     </div>

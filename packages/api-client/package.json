@@ -1,0 +1,19 @@
+{
+  "name": "@imkdw-dev-client/api-client",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "lint": "biome check --write",
+    "generate:component": "turbo gen react-component",
+    "check-types": "tsc --noEmit"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@imkdw-dev-client/typescript-config": "workspace:*",
+    "@types/node": "^22.13.0",
+    "@types/react": "19.0.8",
+    "@types/react-dom": "19.0.3",
+    "typescript": "5.7.3"
+  }
+}
