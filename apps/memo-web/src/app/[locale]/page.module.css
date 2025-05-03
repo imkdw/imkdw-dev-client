@@ -120,9 +120,7 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-  animation:
-    shimmer 3s linear infinite,
-    colorChange 10s linear infinite;
+  animation: shimmer 3s linear infinite, colorChange 10s linear infinite;
 }
 
 .shimmerAnimation {
@@ -154,14 +152,13 @@
 }
 
 .starsEffect::before {
-  content: '';
+  content: "";
   position: absolute;
   top: -20px;
   left: -20px;
   right: -20px;
   bottom: -20px;
-  background-image:
-    radial-gradient(circle at 20% 30%, white 1px, transparent 2px),
+  background-image: radial-gradient(circle at 20% 30%, white 1px, transparent 2px),
     radial-gradient(circle at 40% 70%, white 1px, transparent 3px),
     radial-gradient(circle at 60% 20%, white 2px, transparent 3px),
     radial-gradient(circle at 80% 50%, white 1px, transparent 2px),
@@ -178,14 +175,13 @@
 }
 
 .sparkleEffect::after {
-  content: '';
+  content: "";
   position: absolute;
   top: -10px;
   left: -10px;
   right: -10px;
   bottom: -10px;
-  background-image:
-    radial-gradient(circle at 30% 50%, #ffff99 1px, transparent 2px),
+  background-image: radial-gradient(circle at 30% 50%, #ffff99 1px, transparent 2px),
     radial-gradient(circle at 70% 40%, #ffcc99 1px, transparent 3px),
     radial-gradient(circle at 45% 80%, #ff99cc 2px, transparent 4px),
     radial-gradient(circle at 85% 30%, #99ccff 1px, transparent 2px);

@@ -1,13 +1,13 @@
-import type { Metadata } from 'next';
 import { mapleFont } from '@imkdw-dev-client/fonts';
+import type { Metadata } from 'next';
 import './globals.css';
-import { cn } from '@imkdw-dev-client/utils';
-import { routing, SupportedLocale } from '@imkdw-dev-client/i18n';
-import { notFound } from 'next/navigation';
-import { getMessages } from 'next-intl/server';
-import { NextIntlClientProvider } from 'next-intl';
 import { Header } from '@/src/components/layout/header';
 import { Sidebar } from '@/src/components/layout/sidebar';
+import { SupportedLocale, routing } from '@imkdw-dev-client/i18n';
+import { cn } from '@imkdw-dev-client/utils';
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages } from 'next-intl/server';
+import { notFound } from 'next/navigation';
 
 interface Props {
   children: React.ReactNode;
@@ -29,11 +29,11 @@ export default async function RootLayout({ children, params }: Props) {
   const messages = await getMessages({ locale });
 
   return (
-    <html className={cn(mapleFont.className)}>
+    <html lang={locale} className={cn(mapleFont.className)}>
       <body>
         <NextIntlClientProvider messages={messages} locale={locale}>
           <Header />
-          <section className="flex h-full">
+          <section className='flex h-full'>
             <Sidebar />
             {children}
           </section>

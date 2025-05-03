@@ -8,7 +8,6 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types",
     "============================== APPS ==============================": "",
-    "blog-web": "pnpm -F blog-web",
     "memo-web": "pnpm -F memo-web",
     "============================== PACKAGES ==============================": "",
     "ui": "pnpm -F ui",

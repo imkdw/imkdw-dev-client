@@ -1,10 +1,10 @@
 'use client';
 
-import { useEffect, useState, useCallback, MouseEvent } from 'react';
-import { ChevronRight, Folder, File } from 'lucide-react';
+import { usePathname, useRouter } from '@imkdw-dev-client/i18n';
 import { cn } from '@imkdw-dev-client/utils';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useRouter, usePathname } from '@imkdw-dev-client/i18n';
+import { AnimatePresence, motion } from 'framer-motion';
+import { ChevronRight, File, Folder } from 'lucide-react';
+import { MouseEvent, useCallback, useEffect, useState } from 'react';
 
 interface FolderItem {
   id: string;
@@ -139,24 +139,26 @@ export function FolderContent() {
         <div key={item.id}>
           {item.type === 'folder' ? (
             // 폴더 아이템
-            <div
+            <button
+              type='button'
               className={cn('flex items-center p-1 cursor-pointer hover:bg-[#3B3B3C] rounded', 'text-sm text-gray-300')}
               style={{ paddingLeft: `${level * 16 + 8}px` }}
               onClick={(event) => toggleFolder(item.id, event)}
             >
               <motion.div
-                className="mr-1 text-gray-400 z-10"
+                className='mr-1 text-gray-400 z-10'
                 animate={{ rotate: expandedFolders[item.id] ? 90 : 0 }}
                 transition={{ duration: 0.15 }}
               >
                 <ChevronRight size={16} />
               </motion.div>
-              <Folder size={16} className="mr-2 text-blue-400" />
+              <Folder size={16} className='mr-2 text-blue-400' />
               <span>{item.name}</span>
-            </div>
+            </button>
           ) : (
             // 파일 아이템
-            <div
+            <button
+              type='button'
               onClick={(e) => item.memoId && handleMemoClick(e, item.memoId)}
               className={cn(
                 'flex items-center p-1 cursor-pointer hover:bg-[#3B3B3C] rounded',
@@ -165,21 +167,21 @@ export function FolderContent() {
               )}
               style={{ paddingLeft: `${level * 16 + 8}px` }}
             >
-              <span className="mr-1 text-gray-400 w-4"></span>
+              <span className='mr-1 text-gray-400 w-4' />
               <File size={16} className={cn('mr-2', isFileActive(item.memoId) ? 'text-blue-400' : 'text-gray-400')} />
               <span>{item.name}</span>
-            </div>
+            </button>
           )}
 
           {/* 폴더 하위 항목 렌더링 */}
           {item.type === 'folder' && item.children && (
-            <AnimatePresence initial={false} mode="wait">
+            <AnimatePresence initial={false} mode='wait'>
               {expandedFolders[item.id] && (
                 <motion.div
                   key={`folder-${item.id}-content`}
-                  initial="collapsed"
-                  animate="expanded"
-                  exit="collapsed"
+                  initial='collapsed'
+                  animate='expanded'
+                  exit='collapsed'
                   variants={{
                     expanded: {
                       height: 'auto',
@@ -212,9 +214,9 @@ export function FolderContent() {
   );
 
   return (
-    <div className="px-2">
-      <div className="text-sm text-gray-400 uppercase font-semibold mt-4 mb-2 px-2">FOLDERS</div>
-      <div className="mt-2">{renderTree(dummyFolders)}</div>
+    <div className='px-2'>
+      <div className='text-sm text-gray-400 uppercase font-semibold mt-4 mb-2 px-2'>FOLDERS</div>
+      <div className='mt-2'>{renderTree(dummyFolders)}</div>
     </div>
   );
 }

@@ -17,10 +17,10 @@ export function SidebarContent({ activeItemId }: ContentRendererProps) {
   }
 
   return (
-    <div className="flex items-center justify-center h-full text-gray-400">
-      <div className="text-center">
+    <div className='flex items-center justify-center h-full text-gray-400'>
+      <div className='text-center'>
         {/* TODO: 다국어처리 */}
-        <p className="text-lg">사이드바에서 항목을 선택해주세요.</p>
+        <p className='text-lg'>사이드바에서 항목을 선택해주세요.</p>
       </div>
     </div>
   );

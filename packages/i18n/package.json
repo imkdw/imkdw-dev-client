@@ -8,7 +8,7 @@
     "./request": "./src/request/request.ts"
   },
   "scripts": {
-    "lint": "eslint . --max-warnings 0",
+    "lint": "biome check --write",
     "generate:component": "turbo gen react-component",
     "check-types": "tsc --noEmit"
   },

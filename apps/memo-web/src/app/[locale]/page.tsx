@@ -8,8 +8,8 @@ export default function HomePage() {
     <div className={styles.container}>
       <div className={`${styles.imageWrapper} ${styles.pulseAnimation}`}>
         <Image
-          src="/images/angelic-buster.webp"
-          alt="Angelic Buster"
+          src='/images/angelic-buster.webp'
+          alt='Angelic Buster'
           width={500}
           height={500}
           className={styles.image}
@@ -22,13 +22,13 @@ export default function HomePage() {
         </h1>
 
         <div className={styles.shootingStarContainer}>
-          <div className={`${styles.shootingStar} ${styles.shootingStar1}`}></div>
-          <div className={`${styles.shootingStar} ${styles.shootingStar2}`}></div>
-          <div className={`${styles.shootingStar} ${styles.shootingStar3}`}></div>
+          <div className={`${styles.shootingStar} ${styles.shootingStar1}`} />
+          <div className={`${styles.shootingStar} ${styles.shootingStar2}`} />
+          <div className={`${styles.shootingStar} ${styles.shootingStar3}`} />
 
-          <div className={`${styles.popStar} ${styles.popStar1}`}></div>
-          <div className={`${styles.popStar} ${styles.popStar2}`}></div>
-          <div className={`${styles.popStar} ${styles.popStar3}`}></div>
+          <div className={`${styles.popStar} ${styles.popStar1}`} />
+          <div className={`${styles.popStar} ${styles.popStar2}`} />
+          <div className={`${styles.popStar} ${styles.popStar3}`} />
         </div>
       </div>
     </div>

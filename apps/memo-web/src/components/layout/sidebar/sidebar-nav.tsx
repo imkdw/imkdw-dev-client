@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '@imkdw-dev-client/utils';
-import { FileText, Folder } from 'lucide-react';
+import { Folder } from 'lucide-react';
 import { Dispatch, SetStateAction } from 'react';
 
 interface SidebarItemProps {
@@ -13,12 +13,15 @@ interface SidebarItemProps {
 
 function SidebarItem({ icon, isActive = false, onClick }: SidebarItemProps) {
   return (
-    <li
-      className={cn('flex justify-center items-center w-full cursor-pointer p-4 relative', 'hover:bg-[#4A4A4C]')}
-      onClick={onClick}
-    >
-      {isActive && <div className="absolute left-0 top-0 h-full w-0.5 bg-white"></div>}
-      <div className="text-gray-400 hover:text-white">{icon}</div>
+    <li>
+      <button
+        type='button'
+        className={cn('flex justify-center items-center w-full cursor-pointer p-4 relative', 'hover:bg-[#4A4A4C]')}
+        onClick={onClick}
+      >
+        {isActive && <div className='absolute left-0 top-0 h-full w-0.5 bg-white' />}
+        <div className='text-gray-400 hover:text-white'>{icon}</div>
+      </button>
     </li>
   );
 }
@@ -41,8 +44,8 @@ export function SidebarNav({ activeItem, onItemChange }: SidebarNavProps) {
   };
 
   return (
-    <div className="flex flex-col justify-between h-full">
-      <ul className="flex flex-col items-center">
+    <div className='flex flex-col justify-between h-full'>
+      <ul className='flex flex-col items-center'>
         {SIDEBAR_ITEMS.map((item) => (
           <SidebarItem
             key={item.id}
