@@ -149,7 +149,7 @@ export function SidebarContent({ activeItemId }: SidebarContentProps) {
               type='button'
               className={cn(
                 'flex items-center p-1 w-full cursor-pointer hover:bg-[#3B3B3C] rounded',
-                'text-lg text-gray-300',
+                'text-base text-gray-300',
               )}
               style={{ paddingLeft: `${level * 16 + 8}px` }}
               onClick={(event) => toggleFolder(item.id, event)}
@@ -171,7 +171,7 @@ export function SidebarContent({ activeItemId }: SidebarContentProps) {
               onClick={(e) => item.memoId && handleMemoClick(e, item.memoId)}
               className={cn(
                 'flex items-center p-1 w-full cursor-pointer hover:bg-[#3B3B3C] rounded',
-                'text-lg text-gray-300 hover:text-white',
+                'text-base text-gray-300 hover:text-white',
                 isFileActive(item.memoId) && 'bg-[#3B3B3C] text-white font-medium',
               )}
               style={{ paddingLeft: `${level * 16 + 8}px` }}
@@ -234,7 +234,7 @@ export function SidebarContent({ activeItemId }: SidebarContentProps) {
       <div className='flex items-center justify-center h-full text-gray-400'>
         <div className='text-center'>
           {/* TODO: 다국어 처리 */}
-          <p className='text-lg'>사이드바에서 항목을 선택해주세요.</p>
+          <p className='text-base'>사이드바에서 항목을 선택해주세요.</p>
         </div>
       </div>
     );
@@ -251,7 +251,7 @@ export function SidebarContent({ activeItemId }: SidebarContentProps) {
           type='text'
           // TODO: 다국어 처리
           placeholder='메모 검색...'
-          className='w-full bg-[#3B3B3C] text-white text-lg rounded pl-8 pr-2 py-1.5 focus:outline-none focus:ring-1 focus:ring-blue-500'
+          className='w-full bg-[#3B3B3C] text-white text-base rounded pl-8 pr-2 py-1.5 focus:outline-none focus:ring-1 focus:ring-blue-500'
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
