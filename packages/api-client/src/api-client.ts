@@ -9,7 +9,6 @@ interface Params<Body> {
 }
 export async function request<Body, Response>({ url, method, body }: Params<Body>): Promise<Response> {
   const BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}`;
-  console.log(BASE_URL);
 
   const options: RequestInit = {
     method,
@@ -21,7 +20,6 @@ export async function request<Body, Response>({ url, method, body }: Params<Body
   }
 
   const response = await fetch(`${BASE_URL}/${url}`, options);
-  console.log(response);
 
   const json = await response.json();
 

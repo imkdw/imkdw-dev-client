@@ -1,6 +1,6 @@
 import { MemoBreadcrumb } from '@/src/components/memo/memo-breadcrumb';
 import { MemoDetail } from '@/src/components/memo/memo-detail';
-import { Memo } from '@/src/components/memo/memo.type';
+import { getMemo } from '@imkdw-dev-client/api-client';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -9,19 +9,13 @@ export const metadata: Metadata = {
 };
 
 interface MemoDetailPageProps {
-  params: Promise<{ memoId: string }>;
+  params: Promise<{ slug: string }>;
 }
 
 export default async function MemoDetailPage({ params }: MemoDetailPageProps) {
-  const { memoId } = await params;
-  const memo: Memo = {
-    content: 'content',
-    createdAt: 'createdAt',
-    id: 'id',
-    path: ['path'],
-    title: 'title',
-    updatedAt: 'updatedAt',
-  };
+  const { slug } = await params;
+
+  const memo = await getMemo(slug);
 
   if (!memo) {
     return <div className='w-full h-full flex items-center justify-center text-white'>메모를 찾을 수 없습니다.</div>;
@@ -29,7 +23,7 @@ export default async function MemoDetailPage({ params }: MemoDetailPageProps) {
 
   return (
     <div className='w-full h-full'>
-      <MemoBreadcrumb path={memo.path} />
+      <MemoBreadcrumb memo={memo} />
       <MemoDetail memo={memo} />
     </div>
   );
