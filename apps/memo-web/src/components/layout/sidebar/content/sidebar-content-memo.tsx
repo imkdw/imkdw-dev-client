@@ -25,9 +25,9 @@ export function SidebarContentMemo({ level = 0, memoName, slug }: Props) {
         )}
         style={{ paddingLeft: `${level * 16 + 8}px` }}
       >
-        <span className='text-gray-400 w-4' />
-        <File size={16} className={cn('mr-2 text-gray-400')} />
-        <span>{memoName}</span>
+        <span className='text-gray-400 w-4 flex-shrink-0' />
+        <File size={16} className={cn('mr-2 flex-shrink-0 text-gray-400')} />
+        <span className='truncate min-w-0'>{memoName}</span>
       </Link>
     </li>
   );

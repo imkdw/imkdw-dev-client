@@ -59,14 +59,14 @@ export function SidebarContentFolder({ level = 0, folderName, folderId }: Props)
         onClick={toggleFolder}
       >
         <motion.div
-          className='mr-1 text-gray-400 z-10'
+          className='mr-1 flex-shrink-0 text-gray-400 z-10'
           animate={{ rotate: isOpen ? 90 : 0 }}
           transition={{ duration: 0.15 }}
         >
           <ChevronRight size={16} />
         </motion.div>
-        <Folder size={16} className='mr-2 text-blue-400' />
-        <span>{folderName}</span>
+        <Folder size={16} className='mr-2 flex-shrink-0 text-blue-400' />
+        <span className='truncate min-w-0'>{folderName}</span>
       </button>
 
       <AnimatePresence initial={false}>

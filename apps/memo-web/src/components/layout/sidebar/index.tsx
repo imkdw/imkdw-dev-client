@@ -89,7 +89,6 @@ export function Sidebar() {
     };
   }, [isResizing]);
 
-  // 사이드바 너비를 동적으로 설정
   useEffect(() => {
     if (sidebarRef.current) {
       sidebarRef.current.style.width = isCollapsed ? '0px' : `${sidebarWidth}px`;
@@ -112,7 +111,7 @@ export function Sidebar() {
         )}
         data-collapsed={isCollapsed}
       >
-        <SidebarContent activeItemId={activeItemId} />
+        <SidebarContent />
       </div>
 
       {!isCollapsed && (

@@ -5,11 +5,7 @@ import { FindRootMemoFoldersResponse, findRootMemoFolders } from '@imkdw-dev-cli
 import { Search } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
-interface SidebarContentProps {
-  activeItemId: number | null;
-}
-
-export function SidebarContent({ activeItemId }: SidebarContentProps) {
+export function SidebarContent() {
   const [searchQuery, setSearchQuery] = useState('');
   const [rootMemoFolders, setRootMemoFolders] = useState<FindRootMemoFoldersResponse[]>([]);
 
