@@ -8,6 +8,7 @@ import { cn } from '@imkdw-dev-client/utils';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
+import { Analytics } from '@vercel/analytics/react';
 
 interface Props {
   children: React.ReactNode;
@@ -39,6 +40,7 @@ export default async function RootLayout({ children, params }: Props) {
           </section>
         </NextIntlClientProvider>
       </body>
+      <Analytics />
     </html>
   );
 }

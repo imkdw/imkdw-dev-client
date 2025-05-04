@@ -10,12 +10,13 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
+    "@imkdw-dev-client/api-client": "workspace:*",
     "@imkdw-dev-client/fonts": "workspace:*",
     "@imkdw-dev-client/i18n": "workspace:*",
     "@imkdw-dev-client/ui": "workspace:*",
     "@imkdw-dev-client/utils": "workspace:*",
-    "@imkdw-dev-client/api-client": "workspace:*",
     "@tailwindcss/postcss": "^4.0.9",
+    "@vercel/analytics": "^1.5.0",
     "framer-motion": "^12.6.2",
     "lucide-react": "^0.483.0",
     "next": "^15.1.6",
