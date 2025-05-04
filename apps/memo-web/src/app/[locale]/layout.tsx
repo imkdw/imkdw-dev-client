@@ -30,7 +30,7 @@ export default async function RootLayout({ children, params }: Props) {
 
   return (
     <html lang={locale} className={cn(mapleFont.className)}>
-      <body>
+      <body className='overflow-hidden'>
         <NextIntlClientProvider messages={messages} locale={locale}>
           <Header />
           <section className='flex h-full'>

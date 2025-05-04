@@ -119,7 +119,7 @@ export function Sidebar() {
         <div
           ref={resizeRef}
           className={cn(
-            'w-1 bg-[#3d3d3d] hover:bg-[#4d4d4d] active:bg-[#5d5d5d] z-20 cursor-col-resize',
+            'w-0.5 bg-[#3d3d3d] hover:bg-[#4d4d4d] active:bg-[#5d5d5d] z-20 cursor-col-resize',
             isResizing && 'bg-[#5d5d5d]',
           )}
           onMouseDown={startResizing}

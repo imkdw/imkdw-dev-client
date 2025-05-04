@@ -6,7 +6,7 @@ import {
   findFolderMemos,
 } from '@imkdw-dev-client/api-client';
 import { cn } from '@imkdw-dev-client/utils';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronRight, Folder } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
@@ -69,21 +69,46 @@ export function SidebarContentFolder({ level = 0, folderName, folderId }: Props)
         <span>{folderName}</span>
       </button>
 
-      {isOpen && (
-        <ul>
-          {childFolders.map((childFolder) => (
-            <SidebarContentFolder
-              key={childFolder.id}
-              level={level + 1}
-              folderName={childFolder.name}
-              folderId={childFolder.id}
-            />
-          ))}
-          {childMemos.map((childMemo) => (
-            <SidebarContentMemo key={childMemo.id} level={level + 1} memoName={childMemo.name} slug={childMemo.slug} />
-          ))}
-        </ul>
-      )}
+      <AnimatePresence initial={false}>
+        {isOpen && (
+          <motion.ul
+            initial={{ height: 0, opacity: 0, overflow: 'hidden' }}
+            animate={{
+              height: 'auto',
+              opacity: 1,
+              transition: {
+                height: { duration: 0.2, ease: 'easeOut' },
+                opacity: { duration: 0.3, ease: 'easeOut' },
+              },
+            }}
+            exit={{
+              height: 0,
+              opacity: 0,
+              transition: {
+                height: { duration: 0.2, ease: 'easeIn' },
+                opacity: { duration: 0.1, ease: 'easeIn' },
+              },
+            }}
+          >
+            {childFolders.map((childFolder) => (
+              <SidebarContentFolder
+                key={childFolder.id}
+                level={level + 1}
+                folderName={childFolder.name}
+                folderId={childFolder.id}
+              />
+            ))}
+            {childMemos.map((childMemo) => (
+              <SidebarContentMemo
+                key={childMemo.id}
+                level={level + 1}
+                memoName={childMemo.name}
+                slug={childMemo.slug}
+              />
+            ))}
+          </motion.ul>
+        )}
+      </AnimatePresence>
     </li>
   );
 }
