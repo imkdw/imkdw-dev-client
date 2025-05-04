@@ -1,7 +1,7 @@
-import { FindRootMemoFoldersResponse } from '@/types/memo-folder/find-root-memo-folder.type';
-import { request } from '../api-client';
 import { FindChildMemoFoldersResponse } from '@/types/memo-folder/find-child-memo-folder.type';
 import { FindFolderMemosResponse } from '@/types/memo-folder/find-folder-memos.type';
+import { FindRootMemoFoldersResponse } from '@/types/memo-folder/find-root-memo-folder.type';
+import { request } from '../api-client';
 
 /**
  * 최상위 메모 폴더 목록 조회
