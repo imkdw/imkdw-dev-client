@@ -17,6 +17,7 @@
     "@imkdw-dev-client/utils": "workspace:*",
     "@tailwindcss/postcss": "^4.0.9",
     "@vercel/analytics": "^1.5.0",
+    "@vercel/speed-insights": "^1.2.0",
     "framer-motion": "^12.6.2",
     "lucide-react": "^0.483.0",
     "next": "^15.1.6",

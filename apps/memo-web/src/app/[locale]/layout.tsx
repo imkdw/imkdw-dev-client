@@ -9,6 +9,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 interface Props {
   children: React.ReactNode;
@@ -41,6 +42,7 @@ export default async function RootLayout({ children, params }: Props) {
         </NextIntlClientProvider>
       </body>
       <Analytics />
+      <SpeedInsights />
     </html>
   );
 }
