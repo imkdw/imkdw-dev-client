@@ -2,7 +2,7 @@ import {
   findChildMemoFolders,
   FindChildMemoFoldersResponse,
   findFolderMemos,
-  FindFolderMemosItem,
+  FindFolderMemosResponse,
 } from '@imkdw-dev-client/api-client';
 import { cn } from '@imkdw-dev-client/utils';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -18,7 +18,7 @@ interface Props {
 
 export function SidebarContentFolder({ level = 0, folderName, folderId }: Props) {
   const [childFolders, setChildFolders] = useState<FindChildMemoFoldersResponse[]>([]);
-  const [childMemos, setChildMemos] = useState<FindFolderMemosItem[]>([]);
+  const [childMemos, setChildMemos] = useState<FindFolderMemosResponse[]>([]);
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleFolder = () => {
@@ -40,6 +40,7 @@ export function SidebarContentFolder({ level = 0, folderName, folderId }: Props)
     const fetchChildMemos = async () => {
       if (isOpen) {
         const childMemos = await findFolderMemos(folderId);
+        console.log(childMemos);
         setChildMemos(childMemos);
       }
     };

@@ -1,9 +1,5 @@
-export interface FindFolderMemosItem {
+export interface FindFolderMemosResponse {
   id: string;
   name: string;
   slug: string;
-}
-
-export interface FindFolderMemosResponse {
-  memos: FindFolderMemosItem[];
 }

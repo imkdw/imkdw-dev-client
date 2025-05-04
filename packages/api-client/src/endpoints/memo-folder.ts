@@ -25,9 +25,8 @@ export function findChildMemoFolders(parentId: string) {
  * 폴더에 속한 메모 목록 조회
  */
 export async function findFolderMemos(folderId: string) {
-  const response = await request<never, FindFolderMemosResponse>({
+  return request<never, FindFolderMemosResponse[]>({
     url: `v1/memo-folders/${folderId}/memos`,
     method: 'GET',
   });
-  return response.memos;
 }
