@@ -4,9 +4,10 @@ import { File } from 'lucide-react';
 interface Props {
   level: number;
   memoName: string;
+  slug: string;
 }
 
-export function SidebarContentMemo({ level = 0, memoName }: Props) {
+export function SidebarContentMemo({ level = 0, memoName, slug }: Props) {
   return (
     <button
       type='button'

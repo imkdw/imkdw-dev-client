@@ -5,22 +5,6 @@ import { findRootMemoFolders, FindRootMemoFoldersResponse } from '@imkdw-dev-cli
 import { Search } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
-interface SidebarItem {
-  id: string;
-  name: string;
-  type: 'folder' | 'file';
-  children?: SidebarItem[];
-  memoId?: string;
-}
-
-// 초기 확장 상태를 컴포넌트 외부에 정의
-const initialExpandedState: Record<string, boolean> = {
-  'folder-react': true,
-  'folder-react-hooks': true,
-  'folder-typescript': true,
-  'folder-nextjs': true,
-};
-
 interface SidebarContentProps {
   activeItemId: number | null;
 }
@@ -190,7 +174,12 @@ export function SidebarContent({ activeItemId }: SidebarContentProps) {
       <div className=''>
         <div className='mt-2'>
           {rootMemoFolders.map((rootMemoFolder) => (
-            <SidebarContentFolder key={rootMemoFolder.id} level={0} folderName={rootMemoFolder.name} />
+            <SidebarContentFolder
+              key={rootMemoFolder.id}
+              level={0}
+              folderName={rootMemoFolder.name}
+              folderId={rootMemoFolder.id}
+            />
           ))}
         </div>
       </div>
