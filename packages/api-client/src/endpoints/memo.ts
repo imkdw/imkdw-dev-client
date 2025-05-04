@@ -1,5 +1,5 @@
-import { request } from '@/api-client';
-import { GetMemoResponse } from '@/types/memo/get-memo.type';
+import { request } from '../api-client';
+import { GetMemoResponse } from '../types';
 
 export async function getMemo(slug: string) {
   return request<never, GetMemoResponse>({

@@ -1,7 +1,5 @@
-import { FindChildMemoFoldersResponse } from '@/types/memo-folder/find-child-memo-folder.type';
-import { FindFolderMemosResponse } from '@/types/memo-folder/find-folder-memos.type';
-import { FindRootMemoFoldersResponse } from '@/types/memo-folder/find-root-memo-folder.type';
 import { request } from '../api-client';
+import { FindChildMemoFoldersResponse, FindFolderMemosResponse, FindRootMemoFoldersResponse } from '../types';
 
 /**
  * 최상위 메모 폴더 목록 조회
@@ -26,9 +24,10 @@ export function findChildMemoFolders(parentId: string) {
 /**
  * 폴더에 속한 메모 목록 조회
  */
-export function findFolderMemos(folderId: string) {
-  return request<never, FindFolderMemosResponse>({
+export async function findFolderMemos(folderId: string) {
+  const response = await request<never, FindFolderMemosResponse>({
     url: `v1/memo-folders/${folderId}/memos`,
     method: 'GET',
   });
+  return response.memos;
 }

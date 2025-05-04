@@ -1,14 +1,14 @@
-import { SidebarContentMemo } from '@/src/components/layout/sidebar/content/sidebar-content-memo';
 import {
-  FindChildMemoFoldersResponse,
-  FindFolderMemosItem,
   findChildMemoFolders,
+  FindChildMemoFoldersResponse,
   findFolderMemos,
+  FindFolderMemosItem,
 } from '@imkdw-dev-client/api-client';
 import { cn } from '@imkdw-dev-client/utils';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronRight, Folder } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { SidebarContentMemo } from './sidebar-content-memo';
 
 interface Props {
   level: number;

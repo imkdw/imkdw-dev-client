@@ -2,10 +2,7 @@
   "extends": "@imkdw-dev-client/typescript-config/react-library.json",
   "compilerOptions": {
     "outDir": "dist",
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"]
-    }
+    "baseUrl": "."
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["node_modules", "dist"]

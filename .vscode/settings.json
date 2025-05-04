@@ -1,5 +1,5 @@
 {
-  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "typescript.preferences.importModuleSpecifier": "relative",
   "typescript.preferences.importModuleSpecifierEnding": "auto",
   "cSpell.words": ["deepl", "IMKDW", "Kakao", "Obbnv", "Timestamptz", "turbopack", "ZPPBOMWN"],
   "editor.defaultFormatter": "biomejs.biome",
