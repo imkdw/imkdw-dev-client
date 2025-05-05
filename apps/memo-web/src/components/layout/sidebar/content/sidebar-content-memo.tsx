@@ -1,6 +1,6 @@
 import { Link, usePathname } from '@imkdw-dev-client/i18n';
 import { cn } from '@imkdw-dev-client/utils';
-import { Copy, ExternalLink, File, Pencil, Trash } from 'lucide-react';
+import { File, Pencil, Trash } from 'lucide-react';
 import * as ContextMenu from '@radix-ui/react-context-menu';
 
 interface Props {
@@ -36,14 +36,6 @@ export function SidebarContentMemo({ level = 0, memoName, slug }: Props) {
       </ContextMenu.Trigger>
       <ContextMenu.Portal>
         <ContextMenu.Content className='context-menu-content'>
-          <ContextMenu.Item className='context-menu-item'>
-            <ExternalLink size={16} className='text-blue-400' />새 창에서 열기
-          </ContextMenu.Item>
-          <ContextMenu.Item className='context-menu-item'>
-            <Copy size={16} className='text-green-400' />
-            복제
-          </ContextMenu.Item>
-          <ContextMenu.Separator className='context-menu-separator' />
           <ContextMenu.Item className='context-menu-item'>
             <Pencil size={16} className='text-orange-400' />
             이름 변경

@@ -1,13 +1,13 @@
 'use client';
 
 import { SidebarContentFolder } from '@/src/components/layout/sidebar/content/sidebar-content-folder';
-import { FindRootMemoFoldersResponse, findRootMemoFolders } from '@imkdw-dev-client/api-client';
+import { ResponseFindRootMemoFolders, findRootMemoFolders } from '@imkdw-dev-client/api-client';
 import { Search } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 export function SidebarContent() {
   const [searchQuery, setSearchQuery] = useState('');
-  const [rootMemoFolders, setRootMemoFolders] = useState<FindRootMemoFoldersResponse[]>([]);
+  const [rootMemoFolders, setRootMemoFolders] = useState<ResponseFindRootMemoFolders[]>([]);
 
   useEffect(() => {
     const fetchRootMemoFolders = async () => {

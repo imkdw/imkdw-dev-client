@@ -1,11 +1,11 @@
 import { request } from '../api-client';
-import { FindChildMemoFoldersResponse, FindFolderMemosResponse, FindRootMemoFoldersResponse } from '../types';
+import { ResponseFindChildMemoFolders, ResponseFindFolderMemos, ResponseFindRootMemoFolders } from '../types';
 
 /**
  * 최상위 메모 폴더 목록 조회
  */
 export function findRootMemoFolders() {
-  return request<never, FindRootMemoFoldersResponse[]>({
+  return request<never, ResponseFindRootMemoFolders[]>({
     url: 'v1/memo-folders/root',
     method: 'GET',
   });
@@ -15,7 +15,7 @@ export function findRootMemoFolders() {
  * 특정 메모 폴더의 자식 폴더 목록 조회
  */
 export function findChildMemoFolders(parentId: string) {
-  return request<never, FindChildMemoFoldersResponse[]>({
+  return request<never, ResponseFindChildMemoFolders[]>({
     url: `v1/memo-folders/${parentId}/children`,
     method: 'GET',
   });
@@ -25,7 +25,7 @@ export function findChildMemoFolders(parentId: string) {
  * 폴더에 속한 메모 목록 조회
  */
 export async function findFolderMemos(folderId: string) {
-  return request<never, FindFolderMemosResponse[]>({
+  return request<never, ResponseFindFolderMemos[]>({
     url: `v1/memo-folders/${folderId}/memos`,
     method: 'GET',
   });

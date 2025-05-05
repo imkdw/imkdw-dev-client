@@ -10,6 +10,7 @@ import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { Toaster } from 'sonner';
 
 interface Props {
   children: React.ReactNode;
@@ -39,10 +40,11 @@ export default async function RootLayout({ children, params }: Props) {
             <Sidebar />
             {children}
           </section>
+          <Toaster richColors position='top-right' />
         </NextIntlClientProvider>
       </body>
-      <Analytics />
-      <SpeedInsights />
+      {/* <Analytics />
+      <SpeedInsights /> */}
     </html>
   );
 }

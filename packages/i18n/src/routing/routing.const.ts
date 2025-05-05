@@ -1,3 +1,3 @@
-export const supportedLocales = ['en', 'ko'] as const;
+export const SUPPORTED_LOCALES = ['en', 'ko'] as const;
 
-export const defaultLocale = supportedLocales[1];
+export const DEFAULT_LOCALE = SUPPORTED_LOCALES[1];

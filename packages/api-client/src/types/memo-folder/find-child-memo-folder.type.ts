@@ -1,4 +1,4 @@
-export interface FindChildMemoFoldersResponse {
+export interface ResponseFindChildMemoFolders {
   id: string;
   name: string;
 }

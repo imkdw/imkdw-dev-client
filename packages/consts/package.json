@@ -1,5 +1,5 @@
 {
-  "name": "@imkdw-dev-client/api-client",
+  "name": "@imkdw-dev-client/consts",
   "version": "0.0.1",
   "private": true,
   "type": "module",

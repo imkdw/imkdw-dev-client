@@ -4,6 +4,7 @@ import { cn } from '@imkdw-dev-client/utils';
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import { SidebarNav } from './sidebar-nav';
 import { SidebarContent } from '@/src/components/layout/sidebar/content';
+import { SidebarResizer } from './sidebar-resizer';
 
 const MIN_WIDTH = 20;
 const MAX_WIDTH = 600;
@@ -15,11 +16,10 @@ export function Sidebar() {
   const [sidebarWidth, setSidebarWidth] = useState(DEFAULT_WIDTH);
   const [isResizing, setIsResizing] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const resizeRef = useRef<HTMLDivElement>(null);
   const dragOffsetRef = useRef<number>(0);
   const sidebarRef = useRef<HTMLDivElement>(null);
 
-  const startResizing = (event: React.MouseEvent) => {
+  const handleStartResizing = (event: React.MouseEvent) => {
     event.preventDefault();
     event.stopPropagation();
 
@@ -114,16 +114,7 @@ export function Sidebar() {
         <SidebarContent />
       </div>
 
-      {!isCollapsed && (
-        <div
-          ref={resizeRef}
-          className={cn(
-            'w-0.5 bg-[#3d3d3d] hover:bg-[#4d4d4d] active:bg-[#5d5d5d] z-20 cursor-col-resize',
-            isResizing && 'bg-[#5d5d5d]',
-          )}
-          onMouseDown={startResizing}
-        />
-      )}
+      {!isCollapsed && <SidebarResizer isResizing={isResizing} onStartResizing={handleStartResizing} />}
     </div>
   );
 }

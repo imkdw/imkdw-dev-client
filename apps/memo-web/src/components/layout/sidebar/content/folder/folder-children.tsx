@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { FindChildMemoFoldersResponse, FindFolderMemosResponse } from '@imkdw-dev-client/api-client';
+import { ResponseFindChildMemoFolders, ResponseFindFolderMemos } from '@imkdw-dev-client/api-client';
 import { SidebarContentMemo } from '../sidebar-content-memo';
 import { SidebarContentFolder } from '../sidebar-content-folder';
 import { CreateMemoInput } from './create-memo-input';
@@ -7,13 +7,22 @@ import { CreateMemoInput } from './create-memo-input';
 interface Props {
   isOpen: boolean;
   level: number;
-  childFolders: FindChildMemoFoldersResponse[];
-  childMemos: FindFolderMemosResponse[];
+  folderId: string;
+  childFolders: ResponseFindChildMemoFolders[];
+  childMemos: ResponseFindFolderMemos[];
   isCreatingMemo: boolean;
   setIsCreatingMemo: (value: boolean) => void;
 }
 
-export function FolderChildren({ isOpen, level, childFolders, childMemos, isCreatingMemo, setIsCreatingMemo }: Props) {
+export function FolderChildren({
+  isOpen,
+  level,
+  folderId,
+  childFolders,
+  childMemos,
+  isCreatingMemo,
+  setIsCreatingMemo,
+}: Props) {
   return (
     <AnimatePresence initial={false}>
       {isOpen && (
@@ -47,7 +56,9 @@ export function FolderChildren({ isOpen, level, childFolders, childMemos, isCrea
           ))}
 
           {/* 새 메모 생성시 파일명 입력칸 */}
-          {isCreatingMemo && <CreateMemoInput level={level} setIsCreatingMemo={setIsCreatingMemo} />}
+          {isCreatingMemo && (
+            <CreateMemoInput level={level} folderId={folderId} setIsCreatingMemo={setIsCreatingMemo} />
+          )}
 
           {/* 메모 목록 */}
           {childMemos.map((childMemo) => (
