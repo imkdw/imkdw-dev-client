@@ -6,9 +6,10 @@ import {
 } from '@imkdw-dev-client/api-client';
 import { cn } from '@imkdw-dev-client/utils';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ChevronRight, Folder } from 'lucide-react';
+import { ChevronRight, FilePlus, FolderPlus, Folder, Pencil, Trash } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { SidebarContentMemo } from './sidebar-content-memo';
+import * as ContextMenu from '@radix-ui/react-context-menu';
 
 interface Props {
   level: number;
@@ -50,25 +51,49 @@ export function SidebarContentFolder({ level = 0, folderName, folderId }: Props)
 
   return (
     <li>
-      <button
-        type='button'
-        className={cn(
-          'flex items-center p-1 w-full cursor-pointer hover:bg-[#3B3B3C] rounded',
-          'text-base text-gray-300',
-        )}
-        style={{ paddingLeft: `${level * 16 + 8}px` }}
-        onClick={toggleFolder}
-      >
-        <motion.div
-          className='mr-1 flex-shrink-0 text-gray-400 z-10'
-          animate={{ rotate: isOpen ? 90 : 0 }}
-          transition={{ duration: 0.15 }}
-        >
-          <ChevronRight size={16} />
-        </motion.div>
-        <Folder size={16} className='mr-2 flex-shrink-0 text-blue-400' />
-        <span className='truncate min-w-0'>{folderName}</span>
-      </button>
+      <ContextMenu.Root>
+        <ContextMenu.Trigger>
+          <button
+            type='button'
+            className={cn(
+              'flex items-center p-1 w-full cursor-pointer hover:bg-[#3B3B3C] rounded',
+              'text-base text-gray-300',
+            )}
+            style={{ paddingLeft: `${level * 16 + 8}px` }}
+            onClick={toggleFolder}
+          >
+            <motion.div
+              className='mr-1 flex-shrink-0 text-gray-400 z-10'
+              animate={{ rotate: isOpen ? 90 : 0 }}
+              transition={{ duration: 0.15 }}
+            >
+              <ChevronRight size={16} />
+            </motion.div>
+            <Folder size={16} className='mr-2 flex-shrink-0 text-blue-400' />
+            <span className='truncate min-w-0'>{folderName}</span>
+          </button>
+        </ContextMenu.Trigger>
+
+        <ContextMenu.Portal>
+          <ContextMenu.Content className='context-menu-content'>
+            <ContextMenu.Item className='context-menu-item'>
+              <FilePlus size={16} className='text-green-400' />새 메모
+            </ContextMenu.Item>
+            <ContextMenu.Item className='context-menu-item'>
+              <FolderPlus size={16} className='text-blue-400' />새 폴더
+            </ContextMenu.Item>
+            <ContextMenu.Separator className='context-menu-separator' />
+            <ContextMenu.Item className='context-menu-item'>
+              <Pencil size={16} className='text-orange-400' />
+              이름 변경
+            </ContextMenu.Item>
+            <ContextMenu.Item className='context-menu-item'>
+              <Trash size={16} className='text-red-400' />
+              삭제
+            </ContextMenu.Item>
+          </ContextMenu.Content>
+        </ContextMenu.Portal>
+      </ContextMenu.Root>
 
       <AnimatePresence initial={false}>
         {isOpen && (

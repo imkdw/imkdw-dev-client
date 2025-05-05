@@ -34,3 +34,51 @@ body,
   scrollbar-width: thin;
   scrollbar-color: rgba(121, 121, 121, 0.4) transparent;
 }
+
+/* 향상된 VS Code 스타일 컨텍스트 메뉴 */
+.context-menu-content {
+  @apply min-w-40 bg-gradient-to-b from-[#2A2A2B] to-[#252526] border border-[#3E3E42] rounded-md shadow-xl py-1.5 px-0 text-sm z-50;
+  animation: slide-up 0.15s ease-out;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(62, 62, 66, 0.5);
+}
+
+.context-menu-item {
+  @apply px-3 py-1.5 cursor-pointer text-gray-200 flex items-center gap-2.5 hover:bg-gradient-to-r hover:from-[#04395E] hover:to-[#0954a5] hover:text-white outline-none transition-colors duration-150;
+  position: relative;
+  margin: 0 2px;
+  border-radius: 3px;
+}
+
+.context-menu-item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 2px;
+  height: 0;
+  background: #64aaff;
+  transition: height 0.15s ease-in-out;
+}
+
+.context-menu-item:hover::before {
+  height: 70%;
+}
+
+.context-menu-separator {
+  @apply h-[1px] my-1.5 mx-1 bg-[#3E3E42] opacity-70;
+}
+
+.context-menu-disabled {
+  @apply px-3 py-1.5 text-gray-500 cursor-not-allowed opacity-60;
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

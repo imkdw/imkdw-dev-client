@@ -1,6 +1,7 @@
 import { Link, usePathname } from '@imkdw-dev-client/i18n';
 import { cn } from '@imkdw-dev-client/utils';
-import { File } from 'lucide-react';
+import { Copy, ExternalLink, File, Pencil, Trash } from 'lucide-react';
+import * as ContextMenu from '@radix-ui/react-context-menu';
 
 interface Props {
   level: number;
@@ -14,21 +15,45 @@ export function SidebarContentMemo({ level = 0, memoName, slug }: Props) {
   const isSelected = currentSlug === slug;
 
   return (
-    <li>
-      <Link
-        href={`/memo/${slug}`}
-        type='button'
-        className={cn(
-          'flex items-center p-1 w-full cursor-pointer rounded',
-          'text-base text-gray-300 hover:text-white',
-          isSelected ? 'bg-[#3B3B3C] text-white' : 'hover:bg-[#3B3B3C]',
-        )}
-        style={{ paddingLeft: `${level * 16 + 8}px` }}
-      >
-        <span className='text-gray-400 w-4 flex-shrink-0' />
-        <File size={16} className={cn('mr-2 flex-shrink-0 text-gray-400')} />
-        <span className='truncate min-w-0'>{memoName}</span>
-      </Link>
-    </li>
+    <ContextMenu.Root>
+      <ContextMenu.Trigger>
+        <li>
+          <Link
+            href={`/memo/${slug}`}
+            type='button'
+            className={cn(
+              'flex items-center p-1 w-full cursor-pointer rounded',
+              'text-base text-gray-300 hover:text-white',
+              isSelected ? 'bg-[#3B3B3C] text-white' : 'hover:bg-[#3B3B3C]',
+            )}
+            style={{ paddingLeft: `${level * 16 + 8}px` }}
+          >
+            <span className='text-gray-400 w-4 flex-shrink-0' />
+            <File size={16} className={cn('mr-2 flex-shrink-0 text-gray-400')} />
+            <span className='truncate min-w-0'>{memoName}</span>
+          </Link>
+        </li>
+      </ContextMenu.Trigger>
+      <ContextMenu.Portal>
+        <ContextMenu.Content className='context-menu-content'>
+          <ContextMenu.Item className='context-menu-item'>
+            <ExternalLink size={16} className='text-blue-400' />새 창에서 열기
+          </ContextMenu.Item>
+          <ContextMenu.Item className='context-menu-item'>
+            <Copy size={16} className='text-green-400' />
+            복제
+          </ContextMenu.Item>
+          <ContextMenu.Separator className='context-menu-separator' />
+          <ContextMenu.Item className='context-menu-item'>
+            <Pencil size={16} className='text-orange-400' />
+            이름 변경
+          </ContextMenu.Item>
+          <ContextMenu.Item className='context-menu-item'>
+            <Trash size={16} className='text-red-400' />
+            삭제
+          </ContextMenu.Item>
+        </ContextMenu.Content>
+      </ContextMenu.Portal>
+    </ContextMenu.Root>
   );
 }
