@@ -1,10 +1,9 @@
 @import "@imkdw-dev-client/ui/globals.css";
 
-html,
-body,
-#root {
+/* html,
+body {
   height: 100vh;
-}
+} */
 
 /* VS Code 스타일 스크롤바 */
 .vscode-scrollbar::-webkit-scrollbar {

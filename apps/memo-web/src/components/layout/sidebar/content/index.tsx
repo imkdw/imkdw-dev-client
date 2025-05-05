@@ -22,7 +22,7 @@ export function SidebarContent() {
       {/* 검색 영역 */}
       <div className='p-2 relative'>
         <div className='relative'>
-          <div className='absolute inset-y-0 left-0 pl-2 flex items-center pointer-events-none'>
+          <div className='absolute inset-y-0 left-0 pl-2 flex items-center'>
             <Search size={16} className='text-gray-400' />
           </div>
           <input
@@ -37,7 +37,7 @@ export function SidebarContent() {
       </div>
 
       {/* 폴더 구조 - 스크롤 영역 */}
-      <div className='overflow-scroll vscode-scrollbar pb-10'>
+      <div className='overflow-scroll vscode-scrollbar'>
         {rootMemoFolders.map((rootMemoFolder) => (
           <SidebarContentFolder
             key={rootMemoFolder.id}

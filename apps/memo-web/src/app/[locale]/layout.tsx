@@ -32,17 +32,17 @@ export default async function RootLayout({ children, params }: Props) {
 
   return (
     <html lang={locale} className={cn(mapleFont.className)}>
-      <body className='overflow-hidden'>
-        <NextIntlClientProvider messages={messages} locale={locale}>
+      <NextIntlClientProvider messages={messages} locale={locale}>
+        <body className='flex flex-col h-[100vh] overflow-hidden'>
           <Header />
-          <section className='flex h-full'>
+          <main className='flex flex-1 relative overflow-hidden'>
             <Sidebar />
-            {children}
-          </section>
-        </NextIntlClientProvider>
-      </body>
-      <Analytics />
-      <SpeedInsights />
+            <div className='flex-1'>{children}</div>
+          </main>
+          <Analytics />
+          <SpeedInsights />
+        </body>
+      </NextIntlClientProvider>
     </html>
   );
 }

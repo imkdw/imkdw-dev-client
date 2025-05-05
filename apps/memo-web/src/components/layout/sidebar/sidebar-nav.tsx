@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '@imkdw-dev-client/utils';
-import { Folder } from 'lucide-react';
+import { Folder, User } from 'lucide-react';
 import { Dispatch, SetStateAction } from 'react';
 
 interface SidebarItemProps {
@@ -33,6 +33,33 @@ const SIDEBAR_ITEMS = [
   },
 ];
 
+interface ProfileItemProps {
+  isLoggedIn: boolean;
+  onClick: () => void;
+}
+
+function ProfileItem({ isLoggedIn, onClick }: ProfileItemProps) {
+  return (
+    <button
+      type='button'
+      className={cn(
+        'flex justify-center items-center w-full cursor-pointer p-4',
+        'hover:bg-[#4A4A4C] transition-colors',
+      )}
+      onClick={onClick}
+    >
+      <div
+        className={cn(
+          'flex items-center justify-center rounded-full w-8 h-8',
+          isLoggedIn ? 'bg-emerald-600' : 'bg-gray-700 border border-gray-600',
+        )}
+      >
+        <User size={16} className='text-white' />
+      </div>
+    </button>
+  );
+}
+
 interface SidebarNavProps {
   activeItem: number | null;
   onItemChange: Dispatch<SetStateAction<number | null>>;
@@ -41,6 +68,14 @@ interface SidebarNavProps {
 export function SidebarNav({ activeItem, onItemChange }: SidebarNavProps) {
   const handleItemClick = (id: number) => {
     onItemChange(id === activeItem ? null : id);
+  };
+
+  // 임시로 isLoggedIn을 false로 설정
+  const isLoggedIn = false;
+
+  const handleProfileClick = () => {
+    // 로그인 상태에 따라 프로필 페이지 또는 로그인 페이지로 이동
+    console.log('프로필 또는 로그인 버튼 클릭됨');
   };
 
   return (
@@ -56,6 +91,10 @@ export function SidebarNav({ activeItem, onItemChange }: SidebarNavProps) {
           />
         ))}
       </ul>
+
+      <div className='mt-auto border-t border-gray-800'>
+        <ProfileItem isLoggedIn={isLoggedIn} onClick={handleProfileClick} />
+      </div>
     </div>
   );
 }
