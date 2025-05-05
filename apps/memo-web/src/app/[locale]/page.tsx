@@ -1,6 +1,6 @@
+import { Metadata } from 'next';
 import Image from 'next/image';
 import styles from './page.module.css';
-import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'IMKDW Dev | Memo',

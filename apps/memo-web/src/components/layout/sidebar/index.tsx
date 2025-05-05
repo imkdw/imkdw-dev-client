@@ -1,9 +1,9 @@
 'use client';
 
+import { SidebarContent } from '@/src/components/layout/sidebar/content';
 import { cn } from '@imkdw-dev-client/utils';
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import { SidebarNav } from './sidebar-nav';
-import { SidebarContent } from '@/src/components/layout/sidebar/content';
 import { SidebarResizer } from './sidebar-resizer';
 
 const MIN_WIDTH = 20;

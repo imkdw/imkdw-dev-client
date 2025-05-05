@@ -5,12 +5,11 @@ import { Header } from '@/src/components/layout/header';
 import { Sidebar } from '@/src/components/layout/sidebar';
 import { SupportedLocale, routing } from '@imkdw-dev-client/i18n';
 import { cn } from '@imkdw-dev-client/utils';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
-import { Analytics } from '@vercel/analytics/react';
-import { SpeedInsights } from '@vercel/speed-insights/next';
-import { Toaster } from 'sonner';
 
 interface Props {
   children: React.ReactNode;
@@ -40,11 +39,10 @@ export default async function RootLayout({ children, params }: Props) {
             <Sidebar />
             {children}
           </section>
-          <Toaster richColors position='top-right' />
         </NextIntlClientProvider>
       </body>
-      {/* <Analytics />
-      <SpeedInsights /> */}
+      <Analytics />
+      <SpeedInsights />
     </html>
   );
 }
