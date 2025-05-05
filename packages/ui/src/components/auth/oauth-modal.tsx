@@ -1,10 +1,10 @@
 'use client';
 
-import { FcGoogle } from 'react-icons/fc';
-import { BsGithub } from 'react-icons/bs';
-import * as Dialog from '@radix-ui/react-dialog';
 import { cn } from '@imkdw-dev-client/utils';
+import * as Dialog from '@radix-ui/react-dialog';
 import { X } from 'lucide-react';
+import { BsGithub } from 'react-icons/bs';
+import { FcGoogle } from 'react-icons/fc';
 
 interface OAuthModalProps {
   open?: boolean;

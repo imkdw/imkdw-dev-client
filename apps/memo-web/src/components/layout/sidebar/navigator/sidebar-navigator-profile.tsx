@@ -1,8 +1,8 @@
 'use client';
 
+import { OAuthModal } from '@imkdw-dev-client/ui';
 import { cn } from '@imkdw-dev-client/utils';
 import { UserRound } from 'lucide-react';
-import { OAuthModal } from '@imkdw-dev-client/ui';
 import { useState } from 'react';
 
 export function SidebarNavigatorProfile() {

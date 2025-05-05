@@ -3,8 +3,8 @@
 import { SidebarContent } from '@/src/components/layout/sidebar/content';
 import { cn } from '@imkdw-dev-client/utils';
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
-import { SidebarResizer } from './sidebar-resizer';
 import { SidebarNavigator } from './navigator';
+import { SidebarResizer } from './sidebar-resizer';
 
 const MIN_WIDTH = 20;
 const MAX_WIDTH = 600;

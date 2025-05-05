@@ -37,7 +37,7 @@ export function SidebarNavigator({ activeItem, onItemChange }: Props) {
       </ul>
 
       <div className='mt-auto'>
-        <SidebarNavigatorProfile onClick={() => {}} />
+        <SidebarNavigatorProfile />
       </div>
     </nav>
   );
