@@ -96,8 +96,8 @@ export function Sidebar() {
   }, [isCollapsed, sidebarWidth]);
 
   return (
-    <nav className='flex h-full bg-[#242424]'>
-      <div className='h-full w-16 flex-shrink-0 bg-[#3B3B3C] z-10 border-r border-[#383838]'>
+    <div className='flex h-full bg-[#242424]'>
+      <div className='h-full w-16 flex-shrink-0 bg-[#3B3B3C] border-r border-[#383838]'>
         <SidebarNavigator activeItem={activeItemId} onItemChange={handleItemChange} />
       </div>
 
@@ -115,6 +115,6 @@ export function Sidebar() {
       </div>
 
       {!isCollapsed && <SidebarResizer isResizing={isResizing} onStartResizing={handleStartResizing} />}
-    </nav>
+    </div>
   );
 }

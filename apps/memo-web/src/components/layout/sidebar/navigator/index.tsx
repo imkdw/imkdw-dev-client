@@ -12,18 +12,18 @@ const SIDEBAR_ITEMS = [
   },
 ];
 
-interface SidebarNavProps {
+interface Props {
   activeItem: number | null;
   onItemChange: Dispatch<SetStateAction<number | null>>;
 }
 
-export function SidebarNavigator({ activeItem, onItemChange }: SidebarNavProps) {
+export function SidebarNavigator({ activeItem, onItemChange }: Props) {
   const handleItemClick = (id: number) => {
     onItemChange(id === activeItem ? null : id);
   };
 
   return (
-    <div className='flex flex-col justify-between h-full'>
+    <nav className='flex flex-col justify-between h-full'>
       <ul className='flex flex-col items-center'>
         {SIDEBAR_ITEMS.map((item) => (
           <SidebarNavigatorItem
@@ -39,6 +39,6 @@ export function SidebarNavigator({ activeItem, onItemChange }: SidebarNavProps) 
       <div className='mt-auto'>
         <SidebarNavigatorProfile onClick={() => {}} />
       </div>
-    </div>
+    </nav>
   );
 }

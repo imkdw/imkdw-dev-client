@@ -1,5 +1,6 @@
 import { Link } from '@imkdw-dev-client/i18n';
-import { GithubIcon, InstagramIcon } from 'lucide-react';
+import { FaInstagram } from 'react-icons/fa6';
+import { ImGithub } from 'react-icons/im';
 
 export function HeaderLinks() {
   return (
@@ -10,7 +11,7 @@ export function HeaderLinks() {
         className='text-gray-300 hover:text-white transition-colors'
         aria-label='GitHub'
       >
-        <GithubIcon size={20} />
+        <ImGithub size={20} />
       </Link>
       <Link
         href='https://www.instagram.com/imkdw_/'
@@ -18,7 +19,7 @@ export function HeaderLinks() {
         className='text-gray-300 hover:text-white transition-colors'
         aria-label='Instagram'
       >
-        <InstagramIcon size={20} />
+        <FaInstagram size={20} />
       </Link>
     </div>
   );
