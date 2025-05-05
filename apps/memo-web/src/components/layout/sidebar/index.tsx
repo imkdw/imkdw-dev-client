@@ -3,8 +3,8 @@
 import { SidebarContent } from '@/src/components/layout/sidebar/content';
 import { cn } from '@imkdw-dev-client/utils';
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
-import { SidebarNav } from './sidebar-nav';
 import { SidebarResizer } from './sidebar-resizer';
+import { SidebarNavigator } from './navigator';
 
 const MIN_WIDTH = 20;
 const MAX_WIDTH = 600;
@@ -98,7 +98,7 @@ export function Sidebar() {
   return (
     <nav className='flex h-full bg-[#242424]'>
       <div className='h-full w-16 flex-shrink-0 bg-[#3B3B3C] z-10 border-r border-[#383838]'>
-        <SidebarNav activeItem={activeItemId} onItemChange={handleItemChange} />
+        <SidebarNavigator activeItem={activeItemId} onItemChange={handleItemChange} />
       </div>
 
       <div
