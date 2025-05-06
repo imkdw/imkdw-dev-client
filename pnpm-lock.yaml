@@ -26,6 +26,9 @@ importers:
       '@imkdw-dev-client/api-client':
         specifier: workspace:*
         version: link:../../packages/api-client
+      '@imkdw-dev-client/auth':
+        specifier: workspace:*
+        version: link:../../packages/auth
       '@imkdw-dev-client/consts':
         specifier: workspace:*
         version: link:../../packages/consts
@@ -105,6 +108,27 @@ importers:
 
   packages/api-client:
     devDependencies:
+      '@imkdw-dev-client/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      '@types/node':
+        specifier: ^22.13.0
+        version: 22.13.0
+      '@types/react':
+        specifier: 19.0.8
+        version: 19.0.8
+      '@types/react-dom':
+        specifier: 19.0.3
+        version: 19.0.3(@types/react@19.0.8)
+      typescript:
+        specifier: 5.7.3
+        version: 5.7.3
+
+  packages/auth:
+    devDependencies:
+      '@imkdw-dev-client/api-client':
+        specifier: workspace:*
+        version: link:../api-client
       '@imkdw-dev-client/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config

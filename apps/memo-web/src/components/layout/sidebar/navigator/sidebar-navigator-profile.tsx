@@ -4,11 +4,13 @@ import { OAuthModal } from '@imkdw-dev-client/ui';
 import { cn } from '@imkdw-dev-client/utils';
 import { UserRound } from 'lucide-react';
 import { useState } from 'react';
+import { useOAuth } from '@imkdw-dev-client/auth';
 
 export function SidebarNavigatorProfile() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { login: googleLogin } = useOAuth({ provider: 'google' });
+  const { login: githubLogin } = useOAuth({ provider: 'github' });
 
-  // Temporary variable to simulate login status
   const isLoggedIn = false;
 
   const handleClick = () => {
@@ -34,8 +36,8 @@ export function SidebarNavigatorProfile() {
       <OAuthModal
         open={isModalOpen}
         onClose={setIsModalOpen}
-        onGoogleLogin={() => console.log('Google Login Clicked')}
-        onGithubLogin={() => console.log('GitHub Login Clicked')}
+        onGoogleLogin={googleLogin}
+        onGithubLogin={githubLogin}
         // TODO: 다국어처리
         title='로그인'
         description='원하는 로그인 방법을 선택해주세요'

@@ -16,6 +16,7 @@
     "@imkdw-dev-client/i18n": "workspace:*",
     "@imkdw-dev-client/ui": "workspace:*",
     "@imkdw-dev-client/utils": "workspace:*",
+    "@imkdw-dev-client/auth": "workspace:*",
     "@radix-ui/react-context-menu": "^2.2.12",
     "@tailwindcss/postcss": "^4.0.9",
     "@vercel/analytics": "^1.5.0",
