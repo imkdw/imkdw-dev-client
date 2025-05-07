@@ -12,11 +12,15 @@
     "check-types": "tsc --noEmit"
   },
   "devDependencies": {
+    
     "@imkdw-dev-client/typescript-config": "workspace:*",
-    "@imkdw-dev-client/api-client": "workspace:*",
     "@types/node": "^22.13.0",
     "@types/react": "19.0.8",
     "@types/react-dom": "19.0.3",
     "typescript": "5.7.3"
+  },
+  "dependencies": {
+    "zustand": "^5.0.3",
+    "@imkdw-dev-client/api-client": "workspace:*",
   }
 }
