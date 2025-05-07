@@ -37,7 +37,7 @@ export function SidebarContent() {
       </div>
 
       {/* 폴더 구조 - 스크롤 영역 */}
-      <div className='overflow-scroll vscode-scrollbar'>
+      <div>
         {rootMemoFolders.map((rootMemoFolder) => (
           <SidebarContentFolder
             key={rootMemoFolder.id}

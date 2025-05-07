@@ -8,7 +8,7 @@ interface Params<Body> {
   body?: Body;
 }
 export async function request<Body, Response>({ url, method, body }: Params<Body>): Promise<Response> {
-  const BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}`;
+  const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
   const options: RequestInit = {
     method,

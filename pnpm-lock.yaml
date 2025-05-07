@@ -126,13 +126,13 @@ importers:
 
   packages/auth:
     dependencies:
+      '@imkdw-dev-client/api-client':
+        specifier: workspace:*
+        version: link:../api-client
       zustand:
         specifier: ^5.0.3
         version: 5.0.3(@types/react@19.0.8)(react@19.0.0)(use-sync-external-store@1.5.0(react@19.0.0))
     devDependencies:
-      '@imkdw-dev-client/api-client':
-        specifier: workspace:*
-        version: link:../api-client
       '@imkdw-dev-client/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
