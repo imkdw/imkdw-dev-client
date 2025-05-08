@@ -11,7 +11,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { cookies } from 'next/headers';
-import { verifyToken } from '@imkdw-dev-client/api-client';
+import { getMyInfo, verifyToken } from '@imkdw-dev-client/api-client';
 
 interface Props {
   children: React.ReactNode;
@@ -34,7 +34,8 @@ export default async function RootLayout({ children, params }: Props) {
 
   const cookieStore = await cookies();
   const accessToken = cookieStore.get('accessToken')?.value || '';
-  const response = await verifyToken(accessToken);
+  const { isValid } = await verifyToken(accessToken);
+  const loggedInUser = isValid ? await getMyInfo(accessToken) : null;
 
   return (
     <html lang={locale} className={cn(mapleFont.className)}>
