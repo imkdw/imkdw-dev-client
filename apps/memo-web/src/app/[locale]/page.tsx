@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import Image from 'next/image';
+// import Image from 'next/image';
 import styles from './page.module.css';
 
 export const metadata: Metadata = {
@@ -23,7 +23,7 @@ export default function HomePage() {
 
   return (
     <div className={styles.container}>
-      <div className={`${styles.imageWrapper} ${styles.pulseAnimation}`}>
+      {/* <div className={`${styles.imageWrapper} ${styles.pulseAnimation}`}>
         <Image
           src='/images/angelic-buster.webp'
           alt='Angelic Buster'
@@ -47,7 +47,7 @@ export default function HomePage() {
           <div className={`${styles.popStar} ${styles.popStar2}`} />
           <div className={`${styles.popStar} ${styles.popStar3}`} />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
