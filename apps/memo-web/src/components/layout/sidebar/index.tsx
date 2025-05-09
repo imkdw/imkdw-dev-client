@@ -12,7 +12,7 @@ const DEFAULT_WIDTH = 300;
 const COLLAPSE_THRESHOLD = 50;
 
 export function Sidebar() {
-  const [activeItemId, setActiveItemId] = useState<number | null>(null);
+  const [activeItemId, setActiveItemId] = useState<number | null>(1);
   const [sidebarWidth, setSidebarWidth] = useState(DEFAULT_WIDTH);
   const [isResizing, setIsResizing] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
