@@ -12,6 +12,7 @@ import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { cookies } from 'next/headers';
 import { getMyInfo, verifyToken } from '@imkdw-dev-client/api-client';
+import { AuthInitializer } from '../../components/auth/auth-initializer';
 
 interface Props {
   children: React.ReactNode;
@@ -35,11 +36,12 @@ export default async function RootLayout({ children, params }: Props) {
   const cookieStore = await cookies();
   const accessToken = cookieStore.get('accessToken')?.value || '';
   const { isValid } = await verifyToken(accessToken);
-  const loggedInUser = isValid ? await getMyInfo(accessToken) : null;
+  const loggedInMember = isValid ? await getMyInfo(accessToken) : null;
 
   return (
     <html lang={locale} className={cn(mapleFont.className)}>
       <NextIntlClientProvider messages={messages} locale={locale}>
+        <AuthInitializer loggedInMember={loggedInMember} />
         <body className='flex flex-col h-[100vh] overflow-hidden'>
           <Header />
           <main className='flex flex-1 relative overflow-hidden'>

@@ -3,4 +3,5 @@ export interface ResponseGetMyInfo {
   email: string;
   role: string;
   nickname: string;
+  profileImage: string;
 }
