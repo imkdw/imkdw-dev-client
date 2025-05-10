@@ -1,25 +1,25 @@
 'use client';
 
-import { ResponseGetMyInfo } from '@imkdw-dev-client/api-client';
+import { getMyInfo } from '@imkdw-dev-client/api-client';
 import { useAuthStore } from '../../stores/auth-store';
 import { useEffect } from 'react';
 
-interface Props {
-  loggedInMember: ResponseGetMyInfo | null;
-}
-export function AuthInitializer({ loggedInMember }: Props) {
+export function AuthInitializer() {
   const { setIsLoggedIn, setMember } = useAuthStore();
 
   useEffect(() => {
-    if (loggedInMember) {
+    const checkLoggedIn = async () => {
+      const loggedInMember = await getMyInfo();
       setMember({
         id: loggedInMember.id,
         nickname: loggedInMember.nickname,
         profileImage: loggedInMember.profileImage,
       });
       setIsLoggedIn(true);
-    }
-  }, [loggedInMember, setIsLoggedIn, setMember]);
+    };
+
+    checkLoggedIn();
+  }, [setIsLoggedIn, setMember]);
 
   return null;
 }

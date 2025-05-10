@@ -14,6 +14,7 @@ export async function request<Body, Response>({ url, method, body, headers }: Pa
   const options: RequestInit = {
     method,
     headers: { ...defaultHeaders, ...headers },
+    credentials: 'include',
   };
 
   if (method !== 'GET' && body !== undefined) {

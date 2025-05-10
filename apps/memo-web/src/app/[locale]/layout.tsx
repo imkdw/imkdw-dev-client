@@ -10,8 +10,6 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
-import { cookies } from 'next/headers';
-import { getMyInfo, verifyToken } from '@imkdw-dev-client/api-client';
 import { AuthInitializer } from '../../components/auth/auth-initializer';
 
 interface Props {
@@ -33,15 +31,10 @@ export default async function RootLayout({ children, params }: Props) {
 
   const messages = await getMessages({ locale });
 
-  const cookieStore = await cookies();
-  const accessToken = cookieStore.get('accessToken')?.value || '';
-  const { isValid } = await verifyToken(accessToken);
-  const loggedInMember = isValid ? await getMyInfo(accessToken) : null;
-
   return (
     <html lang={locale} className={cn(mapleFont.className)}>
       <NextIntlClientProvider messages={messages} locale={locale}>
-        <AuthInitializer loggedInMember={loggedInMember} />
+        <AuthInitializer />
         <body className='flex flex-col h-[100vh] overflow-hidden'>
           <Header />
           <main className='flex flex-1 relative overflow-hidden'>
