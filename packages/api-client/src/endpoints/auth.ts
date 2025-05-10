@@ -8,13 +8,10 @@ export function getAuthorizationUrl(provider: string, redirectUrl: string) {
   });
 }
 
-export function verifyToken(accessToken: string) {
+export function verifyToken() {
   return request<never, ResponseVerifyToken>({
     method: 'GET',
     url: 'v1/auth/verify-token',
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
   });
 }
 

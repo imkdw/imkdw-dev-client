@@ -1,6 +1,6 @@
 'use client';
 
-import { getMyInfo } from '@imkdw-dev-client/api-client';
+import { getMyInfo, verifyToken } from '@imkdw-dev-client/api-client';
 import { useAuthStore } from '../../stores/auth-store';
 import { useEffect } from 'react';
 
@@ -9,13 +9,16 @@ export function AuthInitializer() {
 
   useEffect(() => {
     const checkLoggedIn = async () => {
-      const loggedInMember = await getMyInfo();
-      setMember({
-        id: loggedInMember.id,
-        nickname: loggedInMember.nickname,
-        profileImage: loggedInMember.profileImage,
-      });
-      setIsLoggedIn(true);
+      const isValidTokenResponse = await verifyToken();
+      if (isValidTokenResponse.isValid) {
+        const loggedInMember = await getMyInfo();
+        setMember({
+          id: loggedInMember.id,
+          nickname: loggedInMember.nickname,
+          profileImage: loggedInMember.profileImage,
+        });
+        setIsLoggedIn(true);
+      }
     };
 
     checkLoggedIn();
