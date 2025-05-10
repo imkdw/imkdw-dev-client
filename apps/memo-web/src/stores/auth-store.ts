@@ -9,6 +9,7 @@ interface AuthStore {
   } | null;
   setIsLoggedIn: (isLoggedIn: boolean) => void;
   setMember: (member: AuthStore['member']) => void;
+  clear: () => void;
 }
 
 export const useAuthStore = create<AuthStore>((set) => ({
@@ -16,4 +17,5 @@ export const useAuthStore = create<AuthStore>((set) => ({
   member: null,
   setIsLoggedIn: (isLoggedIn: boolean) => set({ isLoggedIn }),
   setMember: (member: AuthStore['member']) => set({ member }),
+  clear: () => set({ isLoggedIn: false, member: null }),
 }));

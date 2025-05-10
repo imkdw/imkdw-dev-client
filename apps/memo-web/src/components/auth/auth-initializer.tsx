@@ -8,7 +8,7 @@ interface Props {
   loggedInMember: ResponseGetMyInfo | null;
 }
 export function AuthInitializer({ loggedInMember }: Props) {
-  const { member, setIsLoggedIn, setMember } = useAuthStore();
+  const { setIsLoggedIn, setMember } = useAuthStore();
 
   useEffect(() => {
     if (loggedInMember) {

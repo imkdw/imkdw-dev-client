@@ -17,3 +17,10 @@ export function verifyToken(accessToken: string) {
     },
   });
 }
+
+export function logout() {
+  return request<never, never>({
+    method: 'POST',
+    url: 'v1/auth/logout',
+  });
+}
