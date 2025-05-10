@@ -16,7 +16,6 @@ export function SidebarNavigatorProfile() {
   const { login: githubLogin } = useOAuth({ provider: 'github' });
 
   const { isLoggedIn, member, clear } = useAuthStore();
-  console.log(isLoggedIn, member);
 
   const handleClick = () => {
     if (!isLoggedIn) {
