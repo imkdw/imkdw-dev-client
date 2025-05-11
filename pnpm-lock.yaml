@@ -110,6 +110,16 @@ importers:
         version: 5.7.3
 
   packages/api-client:
+    dependencies:
+      next:
+        specifier: ^15.1.6
+        version: 15.1.6(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      react:
+        specifier: ^19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.0.0(react@19.0.0)
     devDependencies:
       '@imkdw-dev-client/typescript-config':
         specifier: workspace:*

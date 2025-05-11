@@ -1,5 +1,5 @@
 import { mapleFont } from '@imkdw-dev-client/fonts';
-import type { Metadata } from 'next';
+import { Metadata } from 'next';
 import './globals.css';
 import { Header } from '@/src/components/layout/header';
 import { Sidebar } from '@/src/components/layout/sidebar';

@@ -10,13 +10,10 @@ export function AuthInitializer() {
   useEffect(() => {
     const checkLoggedIn = async () => {
       const isValidTokenResponse = await verifyToken();
+
       if (isValidTokenResponse.isValid) {
-        const loggedInMember = await getMyInfo();
-        setMember({
-          id: loggedInMember.id,
-          nickname: loggedInMember.nickname,
-          profileImage: loggedInMember.profileImage,
-        });
+        const { id, nickname, profileImage } = await getMyInfo();
+        setMember({ id, nickname, profileImage });
         setIsLoggedIn(true);
       }
     };

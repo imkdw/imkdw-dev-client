@@ -11,6 +11,11 @@
     "generate:component": "turbo gen react-component",
     "check-types": "tsc --noEmit"
   },
+  "dependencies": {
+    "next": "^15.1.6",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
   "devDependencies": {
     "@imkdw-dev-client/typescript-config": "workspace:*",
     "@types/node": "^22.13.0",
