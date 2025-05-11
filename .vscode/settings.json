@@ -1,7 +1,17 @@
 {
   "typescript.preferences.importModuleSpecifier": "relative",
   "typescript.preferences.importModuleSpecifierEnding": "auto",
-  "cSpell.words": ["deepl", "IMKDW", "Kakao", "Maplestory", "Obbnv", "Timestamptz", "turbopack", "ZPPBOMWN"],
+  "cSpell.words": [
+    "blocknote",
+    "deepl",
+    "IMKDW",
+    "Kakao",
+    "Maplestory",
+    "Obbnv",
+    "Timestamptz",
+    "turbopack",
+    "ZPPBOMWN"
+  ],
   "editor.defaultFormatter": "biomejs.biome",
   "editor.formatOnSave": true,
   "[typescript]": {

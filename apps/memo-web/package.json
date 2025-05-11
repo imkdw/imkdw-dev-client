@@ -10,6 +10,10 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
+    "@blocknote/code-block": "^0.30.0",
+    "@blocknote/core": "^0.30.0",
+    "@blocknote/mantine": "^0.30.0",
+    "@blocknote/react": "^0.30.0",
     "@imkdw-dev-client/api-client": "workspace:*",
     "@imkdw-dev-client/auth": "workspace:*",
     "@imkdw-dev-client/consts": "workspace:*",

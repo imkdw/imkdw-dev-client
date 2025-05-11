@@ -19,8 +19,6 @@ export const metadata: Metadata = {
 };
 
 export default function HomePage() {
-  const title = 'The Maplestory idol, Angelic Buster!';
-
   return (
     <div className={styles.container}>
       {/* <div className={`${styles.imageWrapper} ${styles.pulseAnimation}`}>

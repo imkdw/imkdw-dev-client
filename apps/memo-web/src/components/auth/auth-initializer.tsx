@@ -1,8 +1,8 @@
 'use client';
 
 import { getMyInfo, verifyToken } from '@imkdw-dev-client/api-client';
-import { useAuthStore } from '../../stores/auth-store';
 import { useEffect } from 'react';
+import { useAuthStore } from '../../stores/auth-store';
 
 export function AuthInitializer() {
   const { setIsLoggedIn, setMember } = useAuthStore();

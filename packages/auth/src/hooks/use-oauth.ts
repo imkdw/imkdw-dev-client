@@ -1,6 +1,6 @@
+import { getAuthorizationUrl } from '@imkdw-dev-client/api-client';
 import { useCallback } from 'react';
 import { OAuthProvider } from '../types';
-import { getAuthorizationUrl } from '@imkdw-dev-client/api-client';
 
 interface Params {
   provider: OAuthProvider;

@@ -19,7 +19,7 @@ export function SidebarContentMemo({ level = 0, memoName, slug }: Props) {
       <ContextMenu.Trigger>
         <li>
           <Link
-            href={`/memo/${slug}`}
+            href={`/memo/${slug}/edit`}
             type='button'
             className={cn(
               'flex items-center p-1 w-full cursor-pointer rounded',

@@ -3,9 +3,9 @@
 import { cn } from '@imkdw-dev-client/utils';
 import * as Dialog from '@radix-ui/react-dialog';
 import { X } from 'lucide-react';
+import { ReactNode } from 'react';
 import { BsGithub } from 'react-icons/bs';
 import { FcGoogle } from 'react-icons/fc';
-import { ReactNode } from 'react';
 
 // --- OAuthButton 컴포넌트 정의 시작 ---
 interface OAuthButtonProps {

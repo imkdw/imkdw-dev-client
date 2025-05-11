@@ -12,7 +12,6 @@
     "check-types": "tsc --noEmit"
   },
   "devDependencies": {
-    
     "@imkdw-dev-client/typescript-config": "workspace:*",
     "@types/node": "^22.13.0",
     "@types/react": "19.0.8",

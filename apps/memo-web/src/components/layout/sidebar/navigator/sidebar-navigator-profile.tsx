@@ -1,14 +1,14 @@
 'use client';
 
+import { logout } from '@imkdw-dev-client/api-client';
+import { useOAuth } from '@imkdw-dev-client/auth';
 import { OAuthModal } from '@imkdw-dev-client/ui';
 import { cn } from '@imkdw-dev-client/utils';
-import { UserRound, LogOut, Settings } from 'lucide-react';
-import { useState } from 'react';
-import { useOAuth } from '@imkdw-dev-client/auth';
-import { useAuthStore } from '../../../../stores/auth-store';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { LogOut, Settings, UserRound } from 'lucide-react';
 import Image from 'next/image';
-import { logout } from '@imkdw-dev-client/api-client';
+import { useState } from 'react';
+import { useAuthStore } from '../../../../stores/auth-store';
 
 export function SidebarNavigatorProfile() {
   const [isModalOpen, setIsModalOpen] = useState(false);
