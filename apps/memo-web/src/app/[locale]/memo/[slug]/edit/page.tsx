@@ -12,7 +12,7 @@ export default async function EditMemoPage({ params }: Props) {
   const memo = await getMemo(slug);
 
   return (
-    <div>
+    <div className='h-full flex flex-col'>
       <MemoBreadcrumb memo={memo} />
       <MemoEditor memo={memo} />
     </div>

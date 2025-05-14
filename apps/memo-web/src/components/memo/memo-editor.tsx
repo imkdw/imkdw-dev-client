@@ -15,9 +15,5 @@ export function MemoEditor({ memo }: Props) {
     setContent(content);
   };
 
-  return (
-    <div>
-      <MarkdownEditor content={content} onChangeContent={handleChangeContent} />
-    </div>
-  );
+  return <MarkdownEditor content={content} onChangeContent={handleChangeContent} />;
 }
