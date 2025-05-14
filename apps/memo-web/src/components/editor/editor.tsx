@@ -1,10 +1,12 @@
 import { codeBlock } from '@blocknote/code-block';
-import { BlockNoteView, lightDefaultTheme, Theme } from '@blocknote/mantine';
+import { BlockNoteView, Theme, lightDefaultTheme } from '@blocknote/mantine';
 import { useCreateBlockNote } from '@blocknote/react';
 import '@blocknote/mantine/style.css';
 import '@blocknote/core/fonts/inter.css';
 import { useEffect } from 'react';
 import './editor.css';
+import { MemberRole } from '@imkdw-dev-client/consts';
+import { useAuthStore } from '../../stores/auth-store';
 interface Props {
   content: string;
   onChangeContent(content: string): void;
@@ -28,6 +30,9 @@ const theme = {
 } satisfies Theme;
 
 export function MarkdownEditor({ content, onChangeContent }: Props) {
+  const { member } = useAuthStore();
+  const isAdmin = member?.role === MemberRole.ADMIN;
+
   const onChange = async () => {
     const markdown = await editor.blocksToMarkdownLossy(editor.document);
     onChangeContent(markdown);
@@ -71,5 +76,13 @@ export function MarkdownEditor({ content, onChangeContent }: Props) {
     ],
   });
 
-  return <BlockNoteView editor={editor} onChange={onChange} theme={theme} className='flex-1 bg-[#242424] pt-4' />;
+  return (
+    <BlockNoteView
+      editor={editor}
+      onChange={onChange}
+      theme={theme}
+      className='flex-1 bg-[#242424] pt-4'
+      editable={isAdmin}
+    />
+  );
 }

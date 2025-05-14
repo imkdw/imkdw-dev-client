@@ -12,8 +12,8 @@ export function AuthInitializer() {
       const isValidTokenResponse = await verifyToken();
 
       if (isValidTokenResponse.isValid) {
-        const { id, nickname, profileImage } = await getMyInfo();
-        setMember({ id, nickname, profileImage });
+        const { id, nickname, profileImage, email, role } = await getMyInfo();
+        setMember({ id, nickname, profileImage, role, email });
         setIsLoggedIn(true);
       }
     };

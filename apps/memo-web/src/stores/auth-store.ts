@@ -1,3 +1,4 @@
+import { MemberRole } from '@imkdw-dev-client/consts';
 import { create } from 'zustand';
 
 interface AuthStore {
@@ -5,7 +6,9 @@ interface AuthStore {
   member: {
     id: string;
     nickname: string;
+    email: string;
     profileImage: string;
+    role: keyof typeof MemberRole;
   } | null;
   setIsLoggedIn: (isLoggedIn: boolean) => void;
   setMember: (member: AuthStore['member']) => void;
