@@ -1,5 +1,5 @@
 {
-  "name": "@imkdw-dev-client/auth",
+  "name": "@imkdw-dev-client/hooks",
   "version": "0.0.1",
   "private": true,
   "type": "module",
@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@imkdw-dev-client/api-client": "workspace:*",
+    "@imkdw-dev-client/utils": "workspace:*",
     "zustand": "^5.0.3"
   }
 }

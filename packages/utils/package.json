@@ -13,7 +13,8 @@
   },
   "dependencies": {
     "clsx": "^2.1.1",
-    "tailwind-merge": "^3.0.2"
+    "tailwind-merge": "^3.0.2",
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
     "@imkdw-dev-client/tailwind-config": "workspace:*",

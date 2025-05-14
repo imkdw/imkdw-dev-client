@@ -1,7 +1,7 @@
 'use client';
 
 import { logout } from '@imkdw-dev-client/api-client';
-import { useOAuth } from '@imkdw-dev-client/auth';
+import { useOAuth } from '@imkdw-dev-client/hooks';
 import { OAuthModal } from '@imkdw-dev-client/ui';
 import { cn } from '@imkdw-dev-client/utils';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';

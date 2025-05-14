@@ -38,15 +38,15 @@ importers:
       '@imkdw-dev-client/api-client':
         specifier: workspace:*
         version: link:../../packages/api-client
-      '@imkdw-dev-client/auth':
-        specifier: workspace:*
-        version: link:../../packages/auth
       '@imkdw-dev-client/consts':
         specifier: workspace:*
         version: link:../../packages/consts
       '@imkdw-dev-client/fonts':
         specifier: workspace:*
         version: link:../../packages/fonts
+      '@imkdw-dev-client/hooks':
+        specifier: workspace:*
+        version: link:../../packages/hooks
       '@imkdw-dev-client/i18n':
         specifier: workspace:*
         version: link:../../packages/i18n
@@ -152,31 +152,6 @@ importers:
         specifier: 5.7.3
         version: 5.7.3
 
-  packages/auth:
-    dependencies:
-      '@imkdw-dev-client/api-client':
-        specifier: workspace:*
-        version: link:../api-client
-      zustand:
-        specifier: ^5.0.3
-        version: 5.0.3(@types/react@19.0.8)(react@19.0.0)(use-sync-external-store@1.5.0(react@19.0.0))
-    devDependencies:
-      '@imkdw-dev-client/typescript-config':
-        specifier: workspace:*
-        version: link:../typescript-config
-      '@types/node':
-        specifier: ^22.13.0
-        version: 22.13.0
-      '@types/react':
-        specifier: 19.0.8
-        version: 19.0.8
-      '@types/react-dom':
-        specifier: 19.0.3
-        version: 19.0.3(@types/react@19.0.8)
-      typescript:
-        specifier: 5.7.3
-        version: 5.7.3
-
   packages/consts:
     devDependencies:
       '@imkdw-dev-client/typescript-config':
@@ -206,6 +181,34 @@ importers:
       react-dom:
         specifier: ^19.0.0
         version: 19.0.0(react@19.0.0)
+    devDependencies:
+      '@imkdw-dev-client/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      '@types/node':
+        specifier: ^22.13.0
+        version: 22.13.0
+      '@types/react':
+        specifier: 19.0.8
+        version: 19.0.8
+      '@types/react-dom':
+        specifier: 19.0.3
+        version: 19.0.3(@types/react@19.0.8)
+      typescript:
+        specifier: 5.7.3
+        version: 5.7.3
+
+  packages/hooks:
+    dependencies:
+      '@imkdw-dev-client/api-client':
+        specifier: workspace:*
+        version: link:../api-client
+      '@imkdw-dev-client/utils':
+        specifier: workspace:*
+        version: link:../utils
+      zustand:
+        specifier: ^5.0.3
+        version: 5.0.3(@types/react@19.0.8)(react@19.0.0)(use-sync-external-store@1.5.0(react@19.0.0))
     devDependencies:
       '@imkdw-dev-client/typescript-config':
         specifier: workspace:*
@@ -322,6 +325,9 @@ importers:
       tailwind-merge:
         specifier: ^3.0.2
         version: 3.0.2
+      uuid:
+        specifier: ^11.1.0
+        version: 11.1.0
     devDependencies:
       '@imkdw-dev-client/tailwind-config':
         specifier: workspace:*
@@ -2665,6 +2671,10 @@ packages:
     resolution: {integrity: sha512-Rb46I4cGGVBmjamjphe8L/UnvJD+uPPtTkNvX5mZgqdbavhI4EbgIWJiIHXJ8bc/i9EQGPRh4DwEURJ552Do0A==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+
+  uuid@11.1.0:
+    resolution: {integrity: sha512-0/A9rDy9P7cJ+8w1c9WD9V//9Wj15Ce2MPz8Ri6032usz+NfePxx5AcN3bN+r6ZL6jEo066/yNYB3tn4pQEx+A==}
+    hasBin: true
 
   uuid@8.3.2:
     resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
@@ -5407,6 +5417,8 @@ snapshots:
   use-sync-external-store@1.5.0(react@19.0.0):
     dependencies:
       react: 19.0.0
+
+  uuid@11.1.0: {}
 
   uuid@8.3.2: {}
 
