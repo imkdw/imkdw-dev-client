@@ -114,37 +114,3 @@ export function MarkdownEditor({ content, onChangeContent }: Props) {
     />
   );
 }
-
-// 이미지를 S3에 업로드하는 함수 (실제 구현에서는 presigned URL을 사용해야 함)
-async function uploadImageToS3(file: File): Promise<string> {
-  // 여기서는 실제 S3 업로드 대신 임시 URL을 반환합니다
-  // 실제 구현시에는 presigned URL을 사용하여 PUT 요청을 보내야 합니다
-
-  // 임시 구현 - 실제로는 아래 주석된 코드처럼 구현해야 합니다
-  return `https://example.com/images/${file.name}`;
-
-  /*
-  실제 구현 예시:
-  try {
-    const response = await fetch(presignedUrl, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': file.type,
-      },
-      body: file,
-    });
-    
-    if (response.ok) {
-      // presignedUrl에서 실제 접근 가능한 URL을 추출 (또는 별도로 구성)
-      // S3의 경우 보통 presignedUrl에서 쿼리 파라미터만 제거하면 실제 URL
-      const imageUrl = presignedUrl.split('?')[0];
-      return imageUrl;
-    } else {
-      throw new Error('이미지 업로드 실패');
-    }
-  } catch (error) {
-    console.error('이미지 업로드 중 오류 발생:', error);
-    return '';
-  }
-  */
-}
