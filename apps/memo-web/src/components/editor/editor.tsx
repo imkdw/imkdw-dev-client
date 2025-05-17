@@ -109,7 +109,7 @@ export function MarkdownEditor({ content, onChangeContent }: Props) {
       editor={editor}
       onChange={onChange}
       theme={theme}
-      className='flex-1 bg-[#242424] pt-4'
+      className='flex-1 bg-[#242424] pt-4 h-full overflow-scroll vscode-scrollbar'
       editable={isAdmin}
     />
   );
