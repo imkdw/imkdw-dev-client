@@ -41,6 +41,9 @@ export function MarkdownEditor({ content, onChangeContent }: Props) {
     pasteHandler: ({ defaultPasteHandler, editor, event }) => {
       const eventType = event.clipboardData?.types;
 
+      /**
+       * 이미지 업로드 처리
+       */
       if (eventType?.includes('Files') || eventType?.includes('image/png') || eventType?.includes('image/jpeg')) {
         const file = event.clipboardData?.files?.[0];
 
@@ -59,6 +62,15 @@ export function MarkdownEditor({ content, onChangeContent }: Props) {
           reader.readAsDataURL(file);
           return true;
         }
+      }
+
+      /**
+       * 기타 텍스트 및 마크다운 붙여넣기 처리
+       */
+      if (event.clipboardData?.types.includes('text/plain')) {
+        const markdown = event.clipboardData.getData('text/plain');
+        editor.pasteMarkdown(markdown);
+        return true;
       }
 
       return defaultPasteHandler();
