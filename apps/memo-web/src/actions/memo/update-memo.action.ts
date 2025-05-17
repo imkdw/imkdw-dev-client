@@ -1,16 +1,19 @@
 'use server';
 
-import { createMemo } from '@imkdw-dev-client/api-client';
+import { updateMemo } from '@imkdw-dev-client/api-client';
 import { z } from 'zod';
-import { CreateMemoState } from './memo-action.type';
+import { UpdateMemoState } from './memo-action.type';
 
 const schema = z.object({
+  slug: z.string().min(1, { message: '메모 아이디가 없습니다' }),
   folderId: z.string().min(1, { message: '폴더 아이디가 없습니다' }),
   name: z.string().min(1, { message: '이름을 필수로 입력되어야합니다' }),
+  content: z.string().min(1, { message: '내용을 필수로 입력되어야합니다' }),
 });
 
-export async function createMemoAction(_prevState: CreateMemoState, formData: FormData): Promise<CreateMemoState> {
+export async function updateMemoAction(_prevState: UpdateMemoState, formData: FormData): Promise<UpdateMemoState> {
   const validatedFields = schema.safeParse({
+    slug: formData.get('slug'),
     folderId: formData.get('folderId'),
     name: formData.get('name'),
     content: formData.get('content'),
@@ -22,16 +25,14 @@ export async function createMemoAction(_prevState: CreateMemoState, formData: Fo
       errors: {
         folderId: validatedFields.error.flatten().fieldErrors.folderId,
         name: validatedFields.error.flatten().fieldErrors.name,
+        content: validatedFields.error.flatten().fieldErrors.content,
       },
     };
   }
 
-  const { folderId, name } = validatedFields.data;
+  const { slug, folderId, name, content } = validatedFields.data;
 
-  const { slug } = await createMemo({ folderId, name, content: '' });
+  await updateMemo(slug, { folderId, name, content });
 
-  return {
-    success: true,
-    createdMemo: { slug },
-  };
+  return { success: true };
 }

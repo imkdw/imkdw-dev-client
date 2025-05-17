@@ -3,7 +3,7 @@ import { BlockNoteView, Theme, lightDefaultTheme } from '@blocknote/mantine';
 import { useCreateBlockNote } from '@blocknote/react';
 import '@blocknote/mantine/style.css';
 import '@blocknote/core/fonts/inter.css';
-import { useEffect } from 'react';
+import { useEffect, useCallback, useRef } from 'react';
 import './editor.css';
 import { MemberRole } from '@imkdw-dev-client/consts';
 import { useAuthStore } from '../../stores/auth-store';
@@ -34,16 +34,7 @@ export function MarkdownEditor({ content, onChangeContent }: Props) {
   const { member } = useAuthStore();
   const { uploadImage } = useImageUpload();
   const isAdmin = member?.role === MemberRole.ADMIN;
-
-  const onChange = async () => {
-    const markdown = await editor.blocksToMarkdownLossy(editor.document);
-    onChangeContent(markdown);
-  };
-
-  // biome-ignore lint/correctness/useExhaustiveDependencies: https://www.blocknotejs.org/docs/editor-api/converting-blocks
-  useEffect(() => {
-    onChange();
-  }, []);
+  const initialContentRef = useRef(content);
 
   const editor = useCreateBlockNote({
     codeBlock,
@@ -54,7 +45,6 @@ export function MarkdownEditor({ content, onChangeContent }: Props) {
         const file = event.clipboardData?.files?.[0];
 
         if (file?.type?.startsWith('image/')) {
-          // 파일을 읽어 Base64로 변환
           const reader = new FileReader();
           reader.onload = async () => {
             try {
@@ -73,36 +63,27 @@ export function MarkdownEditor({ content, onChangeContent }: Props) {
 
       return defaultPasteHandler();
     },
-    initialContent: [
-      {
-        type: 'heading',
-        content: 'Heading 1',
-        props: { level: 1 },
-      },
-      {
-        type: 'heading',
-        content: 'Heading 2',
-        props: { level: 2 },
-      },
-      {
-        type: 'heading',
-        content: 'Heading 3',
-        props: { level: 3 },
-      },
-      {
-        type: 'paragraph',
-        content: "You'll see that the text is now blue",
-      },
-      {
-        type: 'paragraph',
-        content: "Press the '/' key - the hovered Slash Menu items are also blue",
-      },
-      {
-        type: 'paragraph',
-        content,
-      },
-    ],
   });
+
+  const onChange = useCallback(async () => {
+    if (editor) {
+      const markdown = await editor.blocksToMarkdownLossy(editor.document);
+      onChangeContent(markdown);
+    }
+  }, [editor, onChangeContent]);
+
+  useEffect(() => {
+    onChange();
+  }, [onChange]);
+
+  useEffect(() => {
+    async function loadInitialHTML() {
+      const blocks = await editor.tryParseMarkdownToBlocks(initialContentRef.current);
+      editor.replaceBlocks(editor.document, blocks);
+    }
+
+    loadInitialHTML();
+  }, [editor]);
 
   return (
     <BlockNoteView

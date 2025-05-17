@@ -8,3 +8,12 @@ export interface CreateMemoState {
     folderId: string[] | undefined;
   };
 }
+
+export interface UpdateMemoState {
+  success: boolean;
+  errors?: {
+    name: string[] | undefined;
+    folderId: string[] | undefined;
+    content: string[] | undefined;
+  };
+}
