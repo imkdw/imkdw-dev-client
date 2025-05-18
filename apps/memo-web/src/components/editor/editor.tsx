@@ -12,6 +12,7 @@ import { useImageUpload } from '@imkdw-dev-client/hooks';
 interface Props {
   content: string;
   onChangeContent(content: string): void;
+  onUploadImage(imageName: string): void;
 }
 
 const theme = {
@@ -30,7 +31,7 @@ const theme = {
   borderRadius: 0,
 } satisfies Theme;
 
-export function MarkdownEditor({ content, onChangeContent }: Props) {
+export function MarkdownEditor({ content, onChangeContent, onUploadImage }: Props) {
   const { member } = useAuthStore();
   const { uploadImage } = useImageUpload();
   const isAdmin = member?.role === MemberRole.ADMIN;
@@ -54,6 +55,7 @@ export function MarkdownEditor({ content, onChangeContent }: Props) {
               const imageUrl = await uploadImage(file);
               const markdownImage = `![${file.name}](${imageUrl})`;
               editor.pasteMarkdown(markdownImage);
+              onUploadImage(imageUrl);
             } catch (error) {
               editor.pasteMarkdown(`이미지 업로드 실패, 사유 : ${error}`);
             }

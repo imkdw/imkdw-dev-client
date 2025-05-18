@@ -25,6 +25,9 @@
       },
       "suspicious": {
         "noConsole": "error"
+      },
+      "complexity": {
+        "noForEach": "off"
       }
     }
   },

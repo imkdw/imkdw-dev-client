@@ -9,6 +9,7 @@ const schema = z.object({
   folderId: z.string().min(1, { message: '폴더 아이디가 없습니다' }),
   name: z.string().min(1, { message: '이름을 필수로 입력되어야합니다' }),
   content: z.string().min(1, { message: '내용을 필수로 입력되어야합니다' }),
+  imageNames: z.array(z.string()).optional(),
 });
 
 export async function updateMemoAction(_prevState: UpdateMemoState, formData: FormData): Promise<UpdateMemoState> {
@@ -17,6 +18,7 @@ export async function updateMemoAction(_prevState: UpdateMemoState, formData: Fo
     folderId: formData.get('folderId'),
     name: formData.get('name'),
     content: formData.get('content'),
+    imageNames: formData.getAll('imageNames'),
   });
 
   if (!validatedFields.success) {
@@ -26,13 +28,14 @@ export async function updateMemoAction(_prevState: UpdateMemoState, formData: Fo
         folderId: validatedFields.error.flatten().fieldErrors.folderId,
         name: validatedFields.error.flatten().fieldErrors.name,
         content: validatedFields.error.flatten().fieldErrors.content,
+        imageNames: validatedFields.error.flatten().fieldErrors.imageNames,
       },
     };
   }
 
-  const { slug, folderId, name, content } = validatedFields.data;
+  const { slug, folderId, name, content, imageNames } = validatedFields.data;
 
-  await updateMemo(slug, { folderId, name, content });
+  await updateMemo(slug, { folderId, name, content, imageNames: imageNames || [] });
 
   return { success: true };
 }

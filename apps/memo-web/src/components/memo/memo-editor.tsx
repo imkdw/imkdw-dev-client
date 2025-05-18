@@ -14,6 +14,7 @@ export function MemoEditor({ memo }: Props) {
   const { folderId, name, content: memoContent, slug } = memo;
 
   const [content, setContent] = useState(memoContent);
+  const [imageNames, setImageNames] = useState<string[]>([]);
   const [_state, formAction, _isPendingFromActionState] = useActionState(updateMemoAction, { success: false });
   const [_isPending, startTransition] = useTransition();
 
@@ -29,8 +30,15 @@ export function MemoEditor({ memo }: Props) {
     formData.append('folderId', folderId);
     formData.append('name', name);
     formData.append('content', contentRef.current);
+
+    if (imageNames.length > 0) {
+      imageNames.forEach((imageName) => {
+        formData.append('imageNames', imageName);
+      });
+    }
+
     startTransition(() => formAction(formData));
-  }, [folderId, name, formAction, slug]);
+  }, [folderId, name, formAction, slug, imageNames]);
 
   useEffect(() => {
     const handleSave = (event: KeyboardEvent) => {
@@ -49,5 +57,9 @@ export function MemoEditor({ memo }: Props) {
     setContent(newContent);
   };
 
-  return <MarkdownEditor content={content} onChangeContent={handleChangeContent} />;
+  const handleUploadImage = (imageName: string) => {
+    setImageNames((prev) => [...prev, imageName]);
+  };
+
+  return <MarkdownEditor content={content} onChangeContent={handleChangeContent} onUploadImage={handleUploadImage} />;
 }
