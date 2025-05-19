@@ -1,4 +1,4 @@
-export interface ResponseGetMemo {
+export interface MemoDetail {
   id: string;
   name: string;
   slug: string;

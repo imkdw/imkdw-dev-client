@@ -1,4 +1,4 @@
-export interface ResponseFindFolderMemos {
+export interface MemoItem {
   id: string;
   name: string;
   slug: string;

@@ -1,17 +1,11 @@
 import { request } from '../api-client';
-import {
-  RequestCreateMemo,
-  RequestUpdateMemo,
-  ResponseCreateMemo,
-  ResponseGetMemo,
-  ResponseUpdateMemo,
-} from '../types';
+import { RequestCreateMemo, RequestUpdateMemo, ResponseCreateMemo, MemoDetail, ResponseUpdateMemo } from '../types';
 
 /**
  * 메모 조회
  */
 export async function getMemo(slug: string) {
-  return request<never, ResponseGetMemo>({
+  return request<never, MemoDetail>({
     url: `v1/memos/${slug}`,
     method: 'GET',
   });
