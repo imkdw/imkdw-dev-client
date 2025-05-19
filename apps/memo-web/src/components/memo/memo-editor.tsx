@@ -14,7 +14,7 @@ export function MemoEditor({ memo }: Props) {
   const { folderId, name, content: memoContent, slug } = memo;
 
   const [content, setContent] = useState(memoContent);
-  const [imageNames, setImageNames] = useState<string[]>([]);
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
   const [_state, formAction, _isPendingFromActionState] = useActionState(updateMemoAction, { success: false });
   const [_isPending, startTransition] = useTransition();
 
@@ -31,15 +31,18 @@ export function MemoEditor({ memo }: Props) {
     formData.append('name', name);
     formData.append('content', contentRef.current);
 
-    if (imageNames.length > 0) {
-      imageNames.forEach((imageName) => {
-        formData.append('imageNames', imageName);
+    if (imageUrls.length > 0) {
+      imageUrls.forEach((imageUrl) => {
+        formData.append('imageUrls', imageUrl);
       });
     }
 
     startTransition(() => formAction(formData));
-  }, [folderId, name, formAction, slug, imageNames]);
+  }, [folderId, name, formAction, slug, imageUrls]);
 
+  /**
+   * 컨트롤 S 누르면 메모 저장처리
+   */
   useEffect(() => {
     const handleSave = (event: KeyboardEvent) => {
       if ((event.ctrlKey || event.metaKey) && event.key === S_KEY) {
@@ -49,7 +52,6 @@ export function MemoEditor({ memo }: Props) {
     };
 
     window.addEventListener('keydown', handleSave);
-
     return () => window.removeEventListener('keydown', handleSave);
   }, [handleSaveMemo]);
 
@@ -57,8 +59,8 @@ export function MemoEditor({ memo }: Props) {
     setContent(newContent);
   };
 
-  const handleUploadImage = (imageName: string) => {
-    setImageNames((prev) => [...prev, imageName]);
+  const handleUploadImage = (imageUrl: string) => {
+    setImageUrls((prev) => [...prev, imageUrl]);
   };
 
   return <MarkdownEditor content={content} onChangeContent={handleChangeContent} onUploadImage={handleUploadImage} />;

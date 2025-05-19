@@ -2,7 +2,7 @@ export interface RequestUpdateMemo {
   name: string;
   folderId: string;
   content: string;
-  imageNames: string[];
+  imageUrls: string[];
 }
 
 export interface ResponseUpdateMemo {
