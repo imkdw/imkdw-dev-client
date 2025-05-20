@@ -1,3 +1,4 @@
+import { HttpStatus } from '@imkdw-dev-client/consts';
 import { isServerSide } from './utils/api-client.util';
 import { getServerSideCookies } from './utils/server-side.util';
 
@@ -32,6 +33,10 @@ export async function request<Body, Response>({ url, method, body }: Params<Body
   }
 
   const response = await fetch(`${BASE_URL}/${url}`, options);
+
+  if (response.status === HttpStatus.NO_CONTENT) {
+    return undefined as unknown as Response;
+  }
 
   const json = await response.json();
 

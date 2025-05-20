@@ -1,5 +1,6 @@
 import { request } from '../api-client';
-import { RequestCreateMemo, RequestUpdateMemo, ResponseCreateMemo, MemoDetail, ResponseUpdateMemo } from '../types';
+import { RequestCreateMemo, ResponseCreateMemo, MemoDetail } from '../types';
+import { RequestUpdateMemo } from '../types/memo/update-memo.type';
 
 /**
  * 메모 조회
@@ -26,7 +27,7 @@ export async function createMemo(body: RequestCreateMemo) {
  * 메모 수정
  */
 export async function updateMemo(slug: string, body: RequestUpdateMemo) {
-  return request<RequestUpdateMemo, ResponseUpdateMemo>({
+  return request<RequestUpdateMemo, void>({
     url: `v1/memos/${slug}`,
     method: 'PUT',
     body,
