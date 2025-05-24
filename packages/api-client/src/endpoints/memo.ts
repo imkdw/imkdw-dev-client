@@ -1,5 +1,6 @@
 import { request } from '../api-client';
 import { RequestCreateMemo, ResponseCreateMemo, MemoDetail } from '../types';
+import { RequestUpdateMemoName } from '../types/memo/update-memo-name.type';
 import { RequestUpdateMemo } from '../types/memo/update-memo.type';
 
 /**
@@ -30,6 +31,17 @@ export async function updateMemo(slug: string, body: RequestUpdateMemo) {
   return request<RequestUpdateMemo, void>({
     url: `v1/memos/${slug}`,
     method: 'PUT',
+    body,
+  });
+}
+
+/**
+ * 메모 이름 변경
+ */
+export async function updateMemoName(slug: string, body: RequestUpdateMemoName) {
+  return request<RequestUpdateMemoName, void>({
+    url: `v1/memos/${slug}/name`,
+    method: 'PATCH',
     body,
   });
 }

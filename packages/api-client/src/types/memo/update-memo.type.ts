@@ -4,7 +4,3 @@ export interface RequestUpdateMemo {
   content: string;
   imageUrls: string[];
 }
-
-export interface ResponseUpdateMemo {
-  slug: string;
-}

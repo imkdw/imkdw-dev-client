@@ -2,6 +2,7 @@
 
 import { usePathname } from '@imkdw-dev-client/i18n';
 import { useState } from 'react';
+import { updateMemoName } from '@imkdw-dev-client/api-client';
 import { MemoContextMenu } from '@/src/components/layout/sidebar/content/memo/memo-context-menu';
 import { MemoItem } from '@/src/components/layout/sidebar/content/memo/memo-item';
 import { MemoRenameForm } from '@/src/components/layout/sidebar/content/memo/memo-rename-form';
@@ -24,12 +25,11 @@ export function SidebarContentMemo({ level = 0, memoName, slug }: Props) {
     setIsRenaming(true);
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (newName.trim() !== '') {
-      // TODO: API 호출 구현
-      // 예: updateMemoName(slug, newName);
-      // 메모 이름 변경 로직은 추후 구현
+      await updateMemoName(slug, { name: newName.trim() });
     }
+
     setIsRenaming(false);
   };
 

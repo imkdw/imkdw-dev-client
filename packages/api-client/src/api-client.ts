@@ -8,7 +8,7 @@ const defaultHeaders = {
 
 interface Params<Body> {
   url: string;
-  method: 'GET' | 'POST' | 'PUT' | 'DELETE';
+  method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
   body?: Body;
 }
 export async function request<Body, Response>({ url, method, body }: Params<Body>): Promise<Response> {

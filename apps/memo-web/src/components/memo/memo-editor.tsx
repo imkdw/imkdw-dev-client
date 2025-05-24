@@ -1,13 +1,13 @@
 'use client';
 
-import { ResponseGetMemo } from '@imkdw-dev-client/api-client';
+import { MemoDetail } from '@imkdw-dev-client/api-client';
 import { useActionState, useCallback, useEffect, useState, useRef, useTransition } from 'react';
 import { MarkdownEditor } from '../editor/editor';
 import { S_KEY } from '@imkdw-dev-client/consts';
 import { updateMemoAction } from '../../actions/memo/update-memo.action';
 
 interface Props {
-  memo: ResponseGetMemo;
+  memo: MemoDetail;
 }
 
 export function MemoEditor({ memo }: Props) {
