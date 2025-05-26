@@ -1,14 +1,9 @@
-import {
-  ResponseFindChildMemoFolders,
-  ResponseFindFolderMemos,
-  findChildMemoFolders,
-  findFolderMemos,
-} from '@imkdw-dev-client/api-client';
+import { MemoFolder, MemoItem, findChildMemoFolders, findFolderMemos } from '@imkdw-dev-client/api-client';
 import * as ContextMenu from '@radix-ui/react-context-menu';
 import { useEffect, useState } from 'react';
-import { FolderChildren } from './folder/folder-children';
-import { FolderContextMenu } from './folder/folder-context-menu';
-import { FolderItem } from './folder/folder-item';
+import { FolderItem } from './folder-item';
+import { FolderContextMenu } from './folder-context-menu';
+import { FolderChildren } from './folder-children';
 
 interface Props {
   level: number;
@@ -17,8 +12,8 @@ interface Props {
 }
 
 export function SidebarContentFolder({ level = 0, folderName, folderId }: Props) {
-  const [childFolders, setChildFolders] = useState<ResponseFindChildMemoFolders[]>([]);
-  const [childMemos, setChildMemos] = useState<ResponseFindFolderMemos[]>([]);
+  const [childFolders, setChildFolders] = useState<MemoFolder[]>([]);
+  const [childMemos, setChildMemos] = useState<MemoItem[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const [isCreatingMemo, setIsCreatingMemo] = useState(false);
 

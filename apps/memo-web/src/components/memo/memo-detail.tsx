@@ -1,7 +1,7 @@
-import { ResponseGetMemo } from '@imkdw-dev-client/api-client';
+import { MemoDetail as MemoDetailType } from '@imkdw-dev-client/api-client';
 
 interface Props {
-  memo: ResponseGetMemo;
+  memo: MemoDetailType;
 }
 
 export function MemoDetail({ memo }: Props) {

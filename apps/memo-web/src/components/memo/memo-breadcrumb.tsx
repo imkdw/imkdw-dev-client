@@ -1,8 +1,8 @@
-import { ResponseGetMemo } from '@imkdw-dev-client/api-client';
+import { MemoDetail } from '@imkdw-dev-client/api-client';
 import { ChevronRight } from 'lucide-react';
 
 interface Props {
-  memo: ResponseGetMemo;
+  memo: MemoDetail;
 }
 
 export function MemoBreadcrumb({ memo }: Props) {

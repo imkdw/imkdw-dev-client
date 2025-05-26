@@ -3,9 +3,9 @@
 import { usePathname } from '@imkdw-dev-client/i18n';
 import { useState } from 'react';
 import { updateMemoName } from '@imkdw-dev-client/api-client';
-import { MemoContextMenu } from '@/src/components/layout/sidebar/content/memo/memo-context-menu';
-import { MemoItem } from '@/src/components/layout/sidebar/content/memo/memo-item';
-import { MemoRenameForm } from '@/src/components/layout/sidebar/content/memo/memo-rename-form';
+import { MemoContextMenu } from './memo-context-menu';
+import { MemoRenameForm } from './memo-rename-form';
+import { MemoItem } from './memo-item';
 
 interface Props {
   level: number;
@@ -26,10 +26,7 @@ export function SidebarContentMemo({ level = 0, memoName, slug }: Props) {
   };
 
   const handleSave = async () => {
-    if (newName.trim() !== '') {
-      await updateMemoName(slug, { name: newName.trim() });
-    }
-
+    await updateMemoName(slug, { name: newName });
     setIsRenaming(false);
   };
 

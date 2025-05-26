@@ -1,5 +1,5 @@
 import { request } from '../api-client';
-import { ResponseFindChildMemoFolders, MemoItem, ResponseFindRootMemoFolders } from '../types';
+import { MemoFolder, MemoItem, ResponseFindRootMemoFolders } from '../types';
 
 /**
  * 최상위 메모 폴더 목록 조회
@@ -15,7 +15,7 @@ export function findRootMemoFolders() {
  * 특정 메모 폴더의 자식 폴더 목록 조회
  */
 export function findChildMemoFolders(parentId: string) {
-  return request<never, ResponseFindChildMemoFolders[]>({
+  return request<never, MemoFolder[]>({
     url: `v1/memo-folders/${parentId}/children`,
     method: 'GET',
   });

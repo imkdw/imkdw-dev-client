@@ -1,15 +1,15 @@
-import { ResponseFindChildMemoFolders, ResponseFindFolderMemos } from '@imkdw-dev-client/api-client';
+import { MemoFolder, MemoItem } from '@imkdw-dev-client/api-client';
 import { AnimatePresence, motion } from 'framer-motion';
-import { SidebarContentFolder } from '../sidebar-content-folder';
-import { SidebarContentMemo } from '../sidebar-content-memo';
 import { CreateMemoInput } from './create-memo-input';
+import { SidebarContentMemo } from '../memo';
+import { SidebarContentFolder } from '.';
 
 interface Props {
   isOpen: boolean;
   level: number;
   folderId: string;
-  childFolders: ResponseFindChildMemoFolders[];
-  childMemos: ResponseFindFolderMemos[];
+  childFolders: MemoFolder[];
+  childMemos: MemoItem[];
   isCreatingMemo: boolean;
   setIsCreatingMemo: (value: boolean) => void;
 }
