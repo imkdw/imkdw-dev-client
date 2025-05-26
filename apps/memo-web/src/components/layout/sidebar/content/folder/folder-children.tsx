@@ -12,6 +12,7 @@ interface Props {
   childMemos: MemoItem[];
   isCreatingMemo: boolean;
   setIsCreatingMemo: (value: boolean) => void;
+  onMemoUpdate: (updatedMemo: MemoItem) => void;
 }
 
 export function FolderChildren({
@@ -22,6 +23,7 @@ export function FolderChildren({
   childMemos,
   isCreatingMemo,
   setIsCreatingMemo,
+  onMemoUpdate,
 }: Props) {
   return (
     <AnimatePresence initial={false}>
@@ -61,8 +63,8 @@ export function FolderChildren({
           )}
 
           {/* 메모 목록 */}
-          {childMemos.map((childMemo) => (
-            <SidebarContentMemo key={childMemo.id} level={level + 1} memoName={childMemo.name} slug={childMemo.slug} />
+          {childMemos.map((memo) => (
+            <SidebarContentMemo key={memo.id} level={level + 1} memo={memo} onMemoUpdate={onMemoUpdate} />
           ))}
         </motion.ul>
       )}

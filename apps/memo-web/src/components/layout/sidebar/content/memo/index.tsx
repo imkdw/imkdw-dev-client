@@ -2,37 +2,59 @@
 
 import { usePathname } from '@imkdw-dev-client/i18n';
 import { useState } from 'react';
-import { updateMemoName } from '@imkdw-dev-client/api-client';
+import { MemoItem, updateMemoName } from '@imkdw-dev-client/api-client';
 import { MemoContextMenu } from './memo-context-menu';
 import { MemoRenameForm } from './memo-rename-form';
-import { MemoItem } from './memo-item';
+import { MemoListItem } from './memo-list-item';
 
 interface Props {
   level: number;
-  memoName: string;
-  slug: string;
+  memo: MemoItem;
+  onMemoUpdate: (updatedMemo: MemoItem) => void;
 }
 
-export function SidebarContentMemo({ level = 0, memoName, slug }: Props) {
+export function SidebarContentMemo({ level = 0, memo, onMemoUpdate }: Props) {
+  const { name, slug } = memo;
+
   const pathname = usePathname();
   const currentSlug = pathname.split('/').pop();
   const isSelected = currentSlug === slug;
   const [isRenaming, setIsRenaming] = useState(false);
-  const [newName, setNewName] = useState(memoName);
+  const [newName, setNewName] = useState(name);
+  const [currentMemo, setCurrentMemo] = useState(memo);
 
   const handleRename = () => {
-    setNewName(memoName);
+    setNewName(currentMemo.name);
     setIsRenaming(true);
   };
 
   const handleSave = async () => {
-    await updateMemoName(slug, { name: newName });
-    setIsRenaming(false);
+    if (newName.trim() === '' || newName === currentMemo.name) {
+      handleCancel();
+      return;
+    }
+
+    try {
+      await updateMemoName(slug, { name: newName.trim() });
+
+      // 로컬 상태 업데이트
+      const updatedMemo = { ...currentMemo, name: newName.trim() };
+      setCurrentMemo(updatedMemo);
+
+      // 부모 컴포넌트에 업데이트 알림
+      onMemoUpdate?.(updatedMemo);
+
+      setIsRenaming(false);
+    } catch {
+      // 에러 발생시 원래 이름으로 복원
+      setNewName(currentMemo.name);
+      // TODO: 에러 처리 로직 추가 (토스트 메시지 등)
+    }
   };
 
   const handleCancel = () => {
     setIsRenaming(false);
-    setNewName(memoName);
+    setNewName(currentMemo.name);
   };
 
   const handleDelete = () => {
@@ -52,7 +74,7 @@ export function SidebarContentMemo({ level = 0, memoName, slug }: Props) {
             onCancel={handleCancel}
           />
         ) : (
-          <MemoItem level={level} memoName={memoName} slug={slug} isSelected={isSelected} />
+          <MemoListItem level={level} memo={currentMemo} isSelected={isSelected} />
         )}
       </li>
     </MemoContextMenu>

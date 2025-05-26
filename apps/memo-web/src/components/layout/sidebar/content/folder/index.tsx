@@ -1,3 +1,5 @@
+'use client';
+
 import { MemoFolder, MemoItem, findChildMemoFolders, findFolderMemos } from '@imkdw-dev-client/api-client';
 import * as ContextMenu from '@radix-ui/react-context-menu';
 import { useEffect, useState } from 'react';
@@ -26,6 +28,10 @@ export function SidebarContentFolder({ level = 0, folderName, folderId }: Props)
     setTimeout(() => {
       setIsCreatingMemo(true);
     }, 100);
+  };
+
+  const handleMemoUpdate = (updatedMemo: MemoItem) => {
+    setChildMemos((prevMemos) => prevMemos.map((memo) => (memo.id === updatedMemo.id ? updatedMemo : memo)));
   };
 
   /**
@@ -73,6 +79,7 @@ export function SidebarContentFolder({ level = 0, folderName, folderId }: Props)
         childMemos={childMemos}
         isCreatingMemo={isCreatingMemo}
         setIsCreatingMemo={setIsCreatingMemo}
+        onMemoUpdate={handleMemoUpdate}
       />
     </li>
   );
