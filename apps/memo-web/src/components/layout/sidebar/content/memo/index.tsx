@@ -34,22 +34,11 @@ export function SidebarContentMemo({ level = 0, memo, onMemoUpdate }: Props) {
       return;
     }
 
-    try {
-      await updateMemoName(slug, { name: newName.trim() });
-
-      // 로컬 상태 업데이트
-      const updatedMemo = { ...currentMemo, name: newName.trim() };
-      setCurrentMemo(updatedMemo);
-
-      // 부모 컴포넌트에 업데이트 알림
-      onMemoUpdate?.(updatedMemo);
-
-      setIsRenaming(false);
-    } catch {
-      // 에러 발생시 원래 이름으로 복원
-      setNewName(currentMemo.name);
-      // TODO: 에러 처리 로직 추가 (토스트 메시지 등)
-    }
+    await updateMemoName(slug, { name: newName.trim() });
+    const updatedMemo = { ...currentMemo, name: newName.trim() };
+    setCurrentMemo(updatedMemo);
+    onMemoUpdate?.(updatedMemo);
+    setIsRenaming(false);
   };
 
   const handleCancel = () => {

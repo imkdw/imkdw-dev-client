@@ -1,12 +1,11 @@
-import { MemoDetail } from '@imkdw-dev-client/api-client';
+'use client';
+
 import { ChevronRight } from 'lucide-react';
+import { useMemoStore } from '../../stores/memo-store';
 
-interface Props {
-  memo: MemoDetail;
-}
-
-export function MemoBreadcrumb({ memo }: Props) {
-  const arrayPath = memo.path.split('/').filter((path) => path.length > 0);
+export function MemoBreadcrumb() {
+  const { currentMemo } = useMemoStore();
+  const arrayPath = currentMemo?.path.split('/').filter((path) => path.length > 0) ?? [];
 
   return (
     <div className='flex items-center flex-nowrap overflow-x-auto p-2 text-sm bg-[#2d2d2d] text-gray-400 vscode-scrollbar'>
