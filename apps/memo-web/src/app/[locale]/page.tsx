@@ -1,20 +1,12 @@
-import { Metadata } from 'next';
+import { generateHomeSEOMetadata } from '../../utils/seo.util';
 
-export const metadata: Metadata = {
-  title: 'IMKDW Dev | Memo',
-  description: 'IMKDW Dev | Memo',
-  openGraph: {
-    type: 'website',
-    description: 'IMKDW Dev | Memo',
-    url: 'https://memo.imkdw.dev',
-    siteName: 'IMKDW Dev | Memo',
-    images: [
-      {
-        url: '/images/imkdw-dev.webp',
-      },
-    ],
-  },
-};
+interface Props {
+  params: Promise<{ locale: string }>;
+}
+export async function generateMetadata({ params }: Props) {
+  const { locale } = await params;
+  return generateHomeSEOMetadata({ locale });
+}
 
 export default function HomePage() {
   return <div className='w-full h-full bg-[#242424]' />;

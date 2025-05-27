@@ -3,24 +3,21 @@ import { MemoDetail } from '@/src/components/memo/memo-detail';
 import { getMemo } from '@imkdw-dev-client/api-client';
 import { Metadata } from 'next';
 import { MemoInitializer } from '../../../../components/memo/memo-initializer';
+import { removeMarkdownTags } from '@imkdw-dev-client/utils';
+import { generateMemoSEOMetadata } from '../../../../utils/seo.util';
 
 interface Props {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string; locale: string }>;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
+  const { slug, locale } = await params;
 
   const memo = await getMemo(slug);
 
-  return {
-    title: memo.name,
-    openGraph: {
-      images: '/images/angelic-buster.webp',
-      url: `https://imkdw-dev.com/memo/${slug}`,
-      type: 'website',
-    },
-  };
+  const description = removeMarkdownTags(memo.content).slice(0, 150) + (memo.content.length > 150 ? '...' : '');
+
+  return generateMemoSEOMetadata({ title: memo.name, content: description, slug, locale });
 }
 
 export default async function MemoDetailPage({ params }: Props) {
