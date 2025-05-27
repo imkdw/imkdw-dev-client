@@ -41,8 +41,8 @@ export default async function RootLayout({ children, params }: Props) {
             <Sidebar />
             <div className='flex-1'>{children}</div>
           </main>
-          <Analytics />
-          <SpeedInsights />
+          {process.env.NEXT_PUBLIC_APP_ENV === 'production' && <Analytics />}
+          {process.env.NEXT_PUBLIC_APP_ENV === 'production' && <SpeedInsights />}
         </body>
       </NextIntlClientProvider>
     </html>

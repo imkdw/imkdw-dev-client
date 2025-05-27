@@ -1,8 +1,8 @@
 'use client';
 
 import { ChevronRight } from 'lucide-react';
-import { useMemoStore } from '../../stores/memo-store';
 import { useEffect, useState } from 'react';
+import { useMemoStore } from '../../stores/memo-store';
 
 export function MemoBreadcrumb() {
   const { currentMemo } = useMemoStore();

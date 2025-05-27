@@ -10,12 +10,12 @@ export const metadata: Metadata = {
     siteName: 'IMKDW Dev | Memo',
     images: [
       {
-        url: '/images/angelic-buster.webp',
+        url: '/images/imkdw-dev.webp',
       },
     ],
   },
 };
 
 export default function HomePage() {
-  return <div />;
+  return <div className='w-full h-full bg-[#242424]' />;
 }

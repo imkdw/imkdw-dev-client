@@ -8,12 +8,11 @@ interface Props {
 
 export default async function EditMemoPage({ params }: Props) {
   const { slug } = await params;
-
   const memo = await getMemo(slug);
 
   return (
     <div className='h-full flex flex-col'>
-      <MemoBreadcrumb memo={memo} />
+      <MemoBreadcrumb />
       <MemoEditor memo={memo} />
     </div>
   );

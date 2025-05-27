@@ -1,10 +1,11 @@
 'use client';
 
 import { MemoDetail } from '@imkdw-dev-client/api-client';
-import { useActionState, useCallback, useEffect, useState, useRef, useTransition } from 'react';
-import { MarkdownEditor } from '../editor/editor';
-import { S_KEY } from '@imkdw-dev-client/consts';
+import { MemberRole, S_KEY } from '@imkdw-dev-client/consts';
+import { useActionState, useCallback, useEffect, useRef, useState, useTransition } from 'react';
 import { updateMemoAction } from '../../actions/memo/update-memo.action';
+import { useAuthStore } from '../../stores/auth-store';
+import { MarkdownEditor } from '../editor/editor';
 
 interface Props {
   memo: MemoDetail;
@@ -17,6 +18,9 @@ export function MemoEditor({ memo }: Props) {
   const [imageUrls, setImageUrls] = useState<string[]>([]);
   const [_state, formAction, _isPendingFromActionState] = useActionState(updateMemoAction, { success: false });
   const [_isPending, startTransition] = useTransition();
+
+  const { member } = useAuthStore();
+  const isEditable = member?.role === MemberRole.ADMIN;
 
   const contentRef = useRef(content);
 
@@ -41,7 +45,7 @@ export function MemoEditor({ memo }: Props) {
   }, [folderId, name, formAction, slug, imageUrls]);
 
   /**
-   * 컨트롤 S 누르면 메모 저장처리
+   * 컨트롤 + S 누르면 메모 저장처리
    */
   useEffect(() => {
     const handleSave = (event: KeyboardEvent) => {
@@ -63,5 +67,12 @@ export function MemoEditor({ memo }: Props) {
     setImageUrls((prev) => [...prev, imageUrl]);
   };
 
-  return <MarkdownEditor content={content} onChangeContent={handleChangeContent} onUploadImage={handleUploadImage} />;
+  return (
+    <MarkdownEditor
+      content={content}
+      isEditable={isEditable}
+      onChangeContent={handleChangeContent}
+      onUploadImage={handleUploadImage}
+    />
+  );
 }

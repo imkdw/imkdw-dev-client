@@ -1,8 +1,8 @@
 import { MemoFolder, MemoItem } from '@imkdw-dev-client/api-client';
 import { AnimatePresence, motion } from 'framer-motion';
-import { CreateMemoInput } from './create-memo-input';
-import { SidebarContentMemo } from '../memo';
 import { SidebarContentFolder } from '.';
+import { SidebarContentMemo } from '../memo';
+import { CreateMemoInput } from './create-memo-input';
 
 interface Props {
   isOpen: boolean;

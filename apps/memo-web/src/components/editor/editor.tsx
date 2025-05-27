@@ -3,14 +3,13 @@ import { BlockNoteView, Theme, lightDefaultTheme } from '@blocknote/mantine';
 import { useCreateBlockNote } from '@blocknote/react';
 import '@blocknote/mantine/style.css';
 import '@blocknote/core/fonts/inter.css';
-import { useEffect, useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import './editor.css';
-import { MemberRole } from '@imkdw-dev-client/consts';
-import { useAuthStore } from '../../stores/auth-store';
 import { useImageUpload } from '@imkdw-dev-client/hooks';
 
 interface Props {
   content: string;
+  isEditable: boolean;
   onChangeContent(content: string): void;
   onUploadImage(imageName: string): void;
 }
@@ -31,10 +30,8 @@ const theme = {
   borderRadius: 0,
 } satisfies Theme;
 
-export function MarkdownEditor({ content, onChangeContent, onUploadImage }: Props) {
-  const { member } = useAuthStore();
+export function MarkdownEditor({ content, isEditable, onChangeContent, onUploadImage }: Props) {
   const { uploadImage } = useImageUpload();
-  const isAdmin = member?.role === MemberRole.ADMIN;
   const initialContentRef = useRef(content);
 
   const editor = useCreateBlockNote({
@@ -105,7 +102,7 @@ export function MarkdownEditor({ content, onChangeContent, onUploadImage }: Prop
       onChange={onChange}
       theme={theme}
       className='flex-1 bg-[#242424] pt-4 h-full overflow-scroll vscode-scrollbar'
-      editable={isAdmin}
+      editable={isEditable}
     />
   );
 }
