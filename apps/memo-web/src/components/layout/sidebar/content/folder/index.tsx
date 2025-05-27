@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { FolderItem } from './folder-item';
 import { FolderContextMenu } from './folder-context-menu';
 import { FolderChildren } from './folder-children';
+import { useMemoStore } from '../../../../../stores/memo-store';
 
 interface Props {
   level: number;
@@ -18,6 +19,7 @@ export function SidebarContentFolder({ level = 0, folderName, folderId }: Props)
   const [childMemos, setChildMemos] = useState<MemoItem[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const [isCreatingMemo, setIsCreatingMemo] = useState(false);
+  const { currentMemo, setCurrentMemo } = useMemoStore();
 
   const toggleFolder = () => {
     setIsOpen(!isOpen);
@@ -32,6 +34,9 @@ export function SidebarContentFolder({ level = 0, folderName, folderId }: Props)
 
   const handleMemoUpdate = (updatedMemo: MemoItem) => {
     setChildMemos((prevMemos) => prevMemos.map((memo) => (memo.id === updatedMemo.id ? updatedMemo : memo)));
+    if (currentMemo?.id === updatedMemo.id) {
+      setCurrentMemo({ ...currentMemo, path: updatedMemo.path });
+    }
   };
 
   /**

@@ -2,7 +2,7 @@
 
 import { usePathname } from '@imkdw-dev-client/i18n';
 import { useState } from 'react';
-import { MemoItem, updateMemoName } from '@imkdw-dev-client/api-client';
+import { getMemo, MemoItem, updateMemoName } from '@imkdw-dev-client/api-client';
 import { MemoContextMenu } from './memo-context-menu';
 import { MemoRenameForm } from './memo-rename-form';
 import { MemoListItem } from './memo-list-item';
@@ -34,10 +34,11 @@ export function SidebarContentMemo({ level = 0, memo, onMemoUpdate }: Props) {
       return;
     }
 
-    await updateMemoName(slug, { name: newName.trim() });
-    const updatedMemo = { ...currentMemo, name: newName.trim() };
+    await updateMemoName(slug, { name: newName });
+    const updatedMemo = await getMemo(slug);
+
     setCurrentMemo(updatedMemo);
-    onMemoUpdate?.(updatedMemo);
+    onMemoUpdate(updatedMemo);
     setIsRenaming(false);
   };
 
