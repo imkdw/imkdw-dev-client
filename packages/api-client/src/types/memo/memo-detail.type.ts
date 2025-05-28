@@ -3,6 +3,7 @@ export interface MemoDetail {
   name: string;
   slug: string;
   content: string;
+  contentHtml: string;
   folderId: string;
   path: string;
 }

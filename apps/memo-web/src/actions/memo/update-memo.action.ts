@@ -9,6 +9,7 @@ const schema = z.object({
   folderId: z.string().min(1, { message: '폴더 아이디가 없습니다' }),
   name: z.string().min(1, { message: '이름을 필수로 입력되어야합니다' }),
   content: z.string().min(1, { message: '내용을 필수로 입력되어야합니다' }),
+  contentHtml: z.string().min(1, { message: '내용을 필수로 입력되어야합니다' }),
   imageUrls: z.array(z.string()).optional(),
 });
 
@@ -18,6 +19,7 @@ export async function updateMemoAction(_prevState: UpdateMemoState, formData: Fo
     folderId: formData.get('folderId'),
     name: formData.get('name'),
     content: formData.get('content'),
+    contentHtml: formData.get('contentHtml'),
     imageUrls: formData.getAll('imageUrls'),
   });
 
@@ -28,14 +30,15 @@ export async function updateMemoAction(_prevState: UpdateMemoState, formData: Fo
         folderId: validatedFields.error.flatten().fieldErrors.folderId,
         name: validatedFields.error.flatten().fieldErrors.name,
         content: validatedFields.error.flatten().fieldErrors.content,
+        contentHtml: validatedFields.error.flatten().fieldErrors.contentHtml,
         imageUrls: validatedFields.error.flatten().fieldErrors.imageUrls,
       },
     };
   }
 
-  const { slug, folderId, name, content, imageUrls } = validatedFields.data;
+  const { slug, folderId, name, content, contentHtml, imageUrls } = validatedFields.data;
 
-  await updateMemo(slug, { folderId, name, content, imageUrls: imageUrls || [] });
+  await updateMemo(slug, { folderId, name, content, contentHtml, imageUrls: imageUrls || [] });
 
   return { success: true };
 }

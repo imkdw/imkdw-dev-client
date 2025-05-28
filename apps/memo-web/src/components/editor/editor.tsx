@@ -4,13 +4,12 @@ import { useCreateBlockNote } from '@blocknote/react';
 import '@blocknote/mantine/style.css';
 import '@blocknote/core/fonts/inter.css';
 import { useCallback, useEffect, useRef } from 'react';
-import './editor.css';
 import { useImageUpload } from '@imkdw-dev-client/hooks';
 
 interface Props {
   content: string;
   isEditable: boolean;
-  onChangeContent(content: string): void;
+  onChangeContent(markdown: string, html: string): void;
   onUploadImage(imageName: string): void;
 }
 
@@ -79,7 +78,8 @@ export function MarkdownEditor({ content, isEditable, onChangeContent, onUploadI
   const onChange = useCallback(async () => {
     if (editor) {
       const markdown = await editor.blocksToMarkdownLossy(editor.document);
-      onChangeContent(markdown);
+      const html = await editor.blocksToFullHTML(editor.document);
+      onChangeContent(markdown, html);
     }
   }, [editor, onChangeContent]);
 

@@ -15,6 +15,7 @@ export interface UpdateMemoState {
     name: string[] | undefined;
     folderId: string[] | undefined;
     content: string[] | undefined;
+    contentHtml: string[] | undefined;
     imageUrls: string[] | undefined;
   };
 }

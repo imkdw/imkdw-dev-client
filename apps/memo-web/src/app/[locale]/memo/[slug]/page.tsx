@@ -1,10 +1,10 @@
-import { MemoBreadcrumb } from '@/src/components/memo/memo-breadcrumb';
-import { MemoDetail } from '@/src/components/memo/memo-detail';
 import { getMemo } from '@imkdw-dev-client/api-client';
 import { Metadata } from 'next';
 import { MemoInitializer } from '../../../../components/memo/memo-initializer';
 import { removeMarkdownTags } from '@imkdw-dev-client/utils';
 import { generateMemoSEOMetadata } from '../../../../utils/seo.util';
+import { MemoBreadcrumb } from '../../../../components/memo/memo-breadcrumb';
+import { MemoDetail } from '../../../../components/memo/memo-detail';
 
 interface Props {
   params: Promise<{ slug: string; locale: string }>;
