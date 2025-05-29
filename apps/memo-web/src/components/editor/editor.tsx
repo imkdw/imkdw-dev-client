@@ -2,7 +2,6 @@ import { codeBlock } from '@blocknote/code-block';
 import { BlockNoteView, Theme, lightDefaultTheme } from '@blocknote/mantine';
 import { useCreateBlockNote } from '@blocknote/react';
 import '@blocknote/mantine/style.css';
-import '@blocknote/core/fonts/inter.css';
 import { useCallback, useEffect, useRef } from 'react';
 import { useImageUpload } from '@imkdw-dev-client/hooks';
 
@@ -75,6 +74,9 @@ export function MarkdownEditor({ content, isEditable, onChangeContent, onUploadI
     },
   });
 
+  /**
+   * 메모 내부 컨텐츠 변경시 블록 -> 마크다운/HTML 변환 및 상태 변경처리
+   */
   const onChange = useCallback(async () => {
     if (editor) {
       const markdown = await editor.blocksToMarkdownLossy(editor.document);
@@ -87,6 +89,9 @@ export function MarkdownEditor({ content, isEditable, onChangeContent, onUploadI
     onChange();
   }, [onChange]);
 
+  /**
+   * 메모 수정 진입시 초기 컨텐츠 마크다운 -> 블록 파싱하여 설정처리
+   */
   useEffect(() => {
     async function loadInitialHTML() {
       const blocks = await editor.tryParseMarkdownToBlocks(initialContentRef.current);
