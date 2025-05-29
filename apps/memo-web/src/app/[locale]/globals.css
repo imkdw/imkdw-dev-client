@@ -34,7 +34,6 @@ body {
   scrollbar-color: rgba(121, 121, 121, 0.4) transparent;
 }
 
-/* 향상된 VS Code 스타일 컨텍스트 메뉴 */
 .context-menu-content {
   @apply min-w-40 bg-gradient-to-b from-[#2A2A2B] to-[#252526] border border-[#3E3E42] rounded-md shadow-xl py-1.5 px-0 text-sm z-50;
   animation: slide-up 0.15s ease-out;

@@ -1,7 +1,21 @@
+@import "tailwindcss";
+
 .bn-block-content {
   min-height: 24px;
 }
 
 .bn-block-group .bn-block-group .bn-block-outer:not([data-prev-depth-changed]):before {
   border-left: none !important;
+}
+
+.bn-block-content h1 {
+  @apply text-2xl font-bold;
+}
+
+.bn-block-content h2 {
+  @apply text-xl font-semibold;
+}
+
+.bn-block-content h3 {
+  @apply text-lg font-medium;
 }

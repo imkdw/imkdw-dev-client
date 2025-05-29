@@ -41,8 +41,11 @@ export default async function MemoViewer({ memo }: Props) {
 
   return (
     <div className='bn-container'>
-      {/* biome-ignore lint/security/noDangerouslySetInnerHtml: 정적 렌더링을 위한 코드 */}
-      <div className='memo-viewer bn-default-styles px-4 py-2' dangerouslySetInnerHTML={{ __html: highlightedHtml }} />
+      <div
+        className='memo-viewer bn-default-styles px-4 py-2 pb-4'
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: 메모 내용 렌더링을 위한 코드
+        dangerouslySetInnerHTML={{ __html: highlightedHtml }}
+      />
     </div>
   );
 }
