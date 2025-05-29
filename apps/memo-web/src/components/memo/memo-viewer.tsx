@@ -1,7 +1,7 @@
 import { MemoDetail } from '@imkdw-dev-client/api-client';
 import '@blocknote/mantine/style.css';
 import '@blocknote/core/fonts/inter.css';
-import './memo-viewer.css';
+import '@imkdw-dev-client/ui/editor.css';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/atom-one-dark.css';
 import { JSDOM } from 'jsdom';

@@ -5,7 +5,8 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
-    "./globals.css": "./src/styles/globals.css"
+    "./globals.css": "./src/styles/globals.css",
+    "./editor.css": "./src/styles/editor.css"
   },
   "scripts": {
     "lint": "biome check --write",

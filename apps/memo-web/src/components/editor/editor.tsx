@@ -2,6 +2,7 @@ import { codeBlock } from '@blocknote/code-block';
 import { BlockNoteView, Theme, lightDefaultTheme } from '@blocknote/mantine';
 import { useCreateBlockNote } from '@blocknote/react';
 import '@blocknote/mantine/style.css';
+import '@imkdw-dev-client/ui/editor.css';
 import { useCallback, useEffect, useRef } from 'react';
 import { useImageUpload } from '@imkdw-dev-client/hooks';
 
