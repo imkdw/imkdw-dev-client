@@ -293,3 +293,7 @@ div[data-milkdown-root="true"] {
 .milkdown-code-block .tools {
   display: none;
 }
+
+.image-wrapper .operation {
+  display: none;
+}
