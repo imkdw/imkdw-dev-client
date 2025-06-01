@@ -11,6 +11,7 @@ import '@imkdw-dev-client/ui/editor.css';
 import { codeBlockComponent, codeBlockConfig } from '@milkdown/kit/component/code-block';
 import { listener } from '@milkdown/kit/plugin/listener';
 import { listenerCtx } from '@milkdown/kit/plugin/listener';
+import { clipboard } from '@milkdown/kit/plugin/clipboard';
 import { getHTML } from '@milkdown/kit/utils';
 import { basicSetup } from 'codemirror';
 
@@ -57,6 +58,7 @@ export function MilkdownEditor({ content, isEditable, onChangeContent }: Props) 
       .use(listener)
       .use(commonmark)
       .use(gfm)
+      .use(clipboard)
       .use(codeBlockComponent),
   );
 
