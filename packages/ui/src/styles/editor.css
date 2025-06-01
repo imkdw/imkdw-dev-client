@@ -1,156 +1,106 @@
 @import "tailwindcss";
 
-/* Milkdown 에디터 컨테이너 */
+/* =============================== */
+/* Markdown Editor */
+/* =============================== */
 .milkdown {
   @apply flex-1 bg-[#242424] h-full overflow-auto text-white;
 }
 
-/* Milkdown 루트 컨테이너 */
 div[data-milkdown-root="true"] {
   @apply h-full overflow-hidden;
 }
 
-/* 에디터 기본 스타일 */
 .milkdown-editor {
   @apply text-white outline-0 h-full overflow-auto p-4;
-  font-family: "Segoe UI", "Helvetica Neue", sans-serif;
-  line-height: 1.6;
 }
 
-/* 제목 스타일 */
+/* =============================== */
+/* Heading */
+/* =============================== */
 .milkdown-editor h1 {
-  @apply text-2xl font-bold mb-4 pb-2 border-b border-gray-600;
-  color: #ffffff;
+  @apply text-2xl font-bold mb-4 pb-2 border-b border-gray-600 text-white;
 }
 
 .milkdown-editor h2 {
-  @apply text-xl font-semibold mb-3 pb-2 border-b border-gray-700;
-  color: #ffffff;
+  @apply text-xl font-semibold mb-3 pb-2 border-b border-gray-700 text-white;
 }
 
 .milkdown-editor h3 {
-  @apply text-lg font-medium mb-3;
-  color: #ffffff;
+  @apply text-lg font-medium mb-3 text-white;
 }
 
-.milkdown-editor h4 {
-  @apply text-base font-medium mb-2;
-  color: #ffffff;
-}
-
-.milkdown-editor h5 {
-  @apply text-sm font-medium mb-2;
-  color: #ffffff;
-}
-
-.milkdown-editor h6 {
-  @apply text-xs font-medium mb-2;
-  color: #d4d4d4;
-}
-
-/* 단락 스타일 */
+/* =============================== */
+/* Paragraph */
+/* =============================== */
 .milkdown-editor p {
-  @apply mb-4 leading-relaxed;
-  color: #d4d4d4;
-}
-
-/* 목록 스타일 */
-.milkdown-editor ul,
-.milkdown-editor ol {
-  @apply mb-4;
-  padding-left: 1.5rem !important;
+  @apply mb-2 leading-relaxed text-[#d4d4d4];
 }
 
 .milkdown-editor ul {
+  @apply text-[#d4d4d4];
   list-style-type: disc !important;
   list-style-position: outside !important;
-}
-
-.milkdown-editor ol {
-  list-style-type: decimal !important;
-  list-style-position: outside !important;
-}
-
-.milkdown-editor li {
-  @apply mb-1 leading-relaxed;
-  color: #d4d4d4;
-  display: list-item !important;
-  margin-left: 0 !important;
-}
-
-.milkdown-editor li > ul,
-.milkdown-editor li > ol {
-  @apply mt-1 mb-1;
   padding-left: 1.5rem !important;
 }
 
-/* 대체 방법: 가상 요소로 마커 생성 */
-.milkdown-editor ul li {
-  position: relative;
+.milkdown-editor ol {
+  @apply mb-4 text-[#d4d4d4];
+  list-style-type: decimal !important;
+  list-style-position: outside !important;
+  padding-left: 1.5rem !important;
 }
 
-.milkdown-editor ul li::before {
-  content: "•";
-  color: #569cd6;
-  font-weight: bold;
-  position: absolute;
-  left: -1rem;
-  font-size: 1rem;
+.milkdown-editor li {
+  @apply mb-2 leading-relaxed;
+  display: list-item !important;
+  list-style: inherit !important;
+}
+
+/* 만약 위의 방법이 안 되면 가상 요소로 강제 생성 */
+.milkdown-editor ul > li {
+  @apply relative;
 }
 
 .milkdown-editor ol {
   counter-reset: list-counter;
 }
 
-.milkdown-editor ol li {
+.milkdown-editor ol > li {
+  @apply relative;
   counter-increment: list-counter;
-  position: relative;
 }
 
-.milkdown-editor ol li::before {
-  content: counter(list-counter) ".";
-  color: #569cd6;
-  font-weight: bold;
-  position: absolute;
-  left: -1.5rem;
-  width: 1.2rem;
-  text-align: right;
+/* 중첩된 목록 */
+.milkdown-editor ul ul {
+  list-style-type: circle !important;
 }
 
-/* 중첩된 목록 스타일 */
-.milkdown-editor ul ul li::before {
-  content: "○";
-}
-
-.milkdown-editor ul ul ul li::before {
-  content: "▪";
+.milkdown-editor ul ul ul {
+  list-style-type: square !important;
 }
 
 .milkdown-editor ol ol {
-  counter-reset: sub-list-counter;
+  list-style-type: lower-alpha !important;
+  counter-reset: list-counter-alpha;
 }
 
-.milkdown-editor ol ol li {
-  counter-increment: sub-list-counter;
-}
-
-.milkdown-editor ol ol li::before {
-  content: counter(sub-list-counter, lower-alpha) ".";
+.milkdown-editor ol ol > li {
+  counter-increment: list-counter-alpha;
 }
 
 .milkdown-editor ol ol ol {
-  counter-reset: sub-sub-list-counter;
+  list-style-type: lower-roman !important;
+  counter-reset: list-counter-roman;
 }
 
-.milkdown-editor ol ol ol li {
-  counter-increment: sub-sub-list-counter;
+.milkdown-editor ol ol ol > li {
+  counter-increment: list-counter-roman;
 }
 
-.milkdown-editor ol ol ol li::before {
-  content: counter(sub-sub-list-counter, lower-roman) ".";
-}
-
-/* 인용문 스타일 */
+/* =============================== */
+/* Blockquote */
+/* =============================== */
 .milkdown-editor blockquote {
   @apply border-l-4 border-blue-500 pl-4 py-2 mb-4 bg-gray-800/30 rounded-r;
   color: #b4b4b4;
@@ -161,7 +111,9 @@ div[data-milkdown-root="true"] {
   @apply mb-2 last:mb-0;
 }
 
-/* 코드 스타일 */
+/* =============================== */
+/* Code */
+/* =============================== */
 .milkdown-editor code {
   @apply px-1.5 py-0.5 rounded text-sm font-mono;
   background-color: #1e1e1e;
@@ -183,117 +135,44 @@ div[data-milkdown-root="true"] {
   white-space: pre;
 }
 
-/* 링크 스타일 */
-.milkdown-editor a {
-  @apply text-blue-400 hover:text-blue-300 underline;
-  text-decoration-color: #569cd6;
-}
-
-.milkdown-editor a:hover {
-  text-decoration-color: #87ceeb;
-}
-
-/* 강조 텍스트 스타일 */
-.milkdown-editor strong {
-  @apply font-bold;
-  color: #ffffff;
-}
-
-.milkdown-editor em {
-  @apply italic;
-  color: #d4d4d4;
-}
-
-.milkdown-editor del {
-  @apply line-through;
-  color: #808080;
-}
-
-/* 구분선 스타일 */
+/* =============================== */
+/* Horizontal Rule */
+/* =============================== */
 .milkdown-editor hr {
   @apply border-0 h-px bg-gray-600 my-6;
 }
 
-/* 테이블 스타일 */
-.milkdown-editor table {
-  @apply w-full mb-4 border-collapse;
-}
-
-.milkdown-editor th,
-.milkdown-editor td {
-  @apply border border-gray-600 px-3 py-2 text-left;
-}
-
-.milkdown-editor th {
-  @apply bg-gray-700 font-semibold;
-  color: #ffffff;
-}
-
-.milkdown-editor td {
-  color: #d4d4d4;
-}
-
-.milkdown-editor tbody tr:nth-child(even) {
-  @apply bg-gray-800/30;
-}
-
-/* 이미지 스타일 */
+/* =============================== */
+/* Image */
+/* =============================== */
 .milkdown-editor img {
   @apply max-w-full h-auto rounded shadow-lg mb-4;
 }
 
-/* 체크박스 스타일 */
-.milkdown-editor input[type="checkbox"] {
-  @apply mr-2 accent-blue-500;
-}
-
-/* 키보드 입력 스타일 */
-.milkdown-editor kbd {
-  @apply px-2 py-1 text-xs font-mono bg-gray-700 border border-gray-600 rounded shadow-sm;
-  color: #d4d4d4;
-}
-
-/* 마크 하이라이트 스타일 */
-.milkdown-editor mark {
-  @apply bg-yellow-600/30 text-yellow-300 px-1;
-}
-
-/* 선택된 텍스트 스타일 */
+/* =============================== */
+/* Selection */
+/* =============================== */
 .milkdown-editor ::selection {
   @apply bg-blue-600/30;
 }
 
-/* 포커스된 요소 스타일 */
+/* =============================== */
+/* Focus */
+/* =============================== */
 .milkdown-editor *:focus {
   @apply outline-none ring-2 ring-blue-500/50 ring-offset-2 ring-offset-transparent;
 }
 
-/* 스크롤바 스타일 */
-.milkdown-editor.vscode-scrollbar::-webkit-scrollbar {
-  width: 14px;
-  height: 14px;
-}
-
-.milkdown-editor.vscode-scrollbar::-webkit-scrollbar-thumb {
-  @apply bg-gray-600 rounded;
-}
-
-.milkdown-editor.vscode-scrollbar::-webkit-scrollbar-thumb:hover {
-  @apply bg-gray-500;
-}
-
-.milkdown-editor.vscode-scrollbar::-webkit-scrollbar-track {
-  @apply bg-transparent;
-}
-
-.milkdown-editor.vscode-scrollbar::-webkit-scrollbar-corner {
-  @apply bg-transparent;
-}
-
+/* =============================== */
+/* Code Block */
+/* =============================== */
 .milkdown-code-block .tools {
-  display: none;
+  @apply hidden;
 }
 
+/* =============================== */
+/* Image */
+/* =============================== */
 .image-wrapper .operation {
-  display: none;
+  @apply hidden;
 }
