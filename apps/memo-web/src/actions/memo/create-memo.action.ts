@@ -28,7 +28,7 @@ export async function createMemoAction(_prevState: CreateMemoState, formData: Fo
 
   const { folderId, name } = validatedFields.data;
 
-  const { slug } = await createMemo({ folderId, name, content: '' });
+  const { slug } = await createMemo({ folderId, name });
 
   return {
     success: true,
