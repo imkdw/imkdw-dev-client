@@ -74,10 +74,10 @@ export function MemoEditor({ memo }: Props) {
 
   return (
     <MilkdownEditorWrapper
-    // content={content}
-    // isEditable={isEditable}
-    // onChangeContent={handleChangeContent}
-    // onUploadImage={handleUploadImage}
+      content={content}
+      isEditable={isEditable}
+      onChangeContent={handleChangeContent}
+      onUploadImage={handleUploadImage}
     />
   );
 }

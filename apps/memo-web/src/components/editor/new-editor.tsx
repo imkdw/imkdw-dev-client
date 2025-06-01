@@ -1,34 +1,22 @@
-import { Editor, editorViewOptionsCtx, rootCtx } from '@milkdown/kit/core';
-import { commonmark } from '@milkdown/kit/preset/commonmark';
-import { Milkdown, MilkdownProvider, useEditor } from '@milkdown/react';
-import { nord } from '@milkdown/theme-nord';
-import '@imkdw-dev-client/ui/editor.css';
-import React from 'react';
+import { MilkdownProvider } from '@milkdown/react';
+import { MilkdownEditor } from './milkdown-editor';
 
-const MilkdownEditor: React.FC = () => {
-  useEditor((root) =>
-    Editor.make()
-      .config(nord)
-      .config((ctx) => ctx.set(rootCtx, root))
-      .config((ctx) =>
-        ctx.update(editorViewOptionsCtx, (prev) => ({
-          ...prev,
-          attributes: {
-            ...prev.attributes,
-            class: 'milkdown-editor vscode-scrollbar',
-          },
-        })),
-      )
-      .use(commonmark),
-  );
+interface Props {
+  content: string;
+  isEditable: boolean;
+  onChangeContent(markdown: string, html: string): void;
+  onUploadImage(imageName: string): void;
+}
 
-  return <Milkdown />;
-};
-
-export function MilkdownEditorWrapper() {
+export function MilkdownEditorWrapper({ content, isEditable, onChangeContent, onUploadImage }: Props) {
   return (
     <MilkdownProvider>
-      <MilkdownEditor />
+      <MilkdownEditor
+        content={content}
+        isEditable={isEditable}
+        onChangeContent={onChangeContent}
+        onUploadImage={onUploadImage}
+      />
     </MilkdownProvider>
   );
 }
