@@ -5,7 +5,7 @@ import { MemberRole, S_KEY } from '@imkdw-dev-client/consts';
 import { useActionState, useCallback, useEffect, useRef, useState, useTransition } from 'react';
 import { updateMemoAction } from '../../actions/memo/update-memo.action';
 import { useAuthStore } from '../../stores/auth-store';
-import { MarkdownEditor } from '../editor/editor';
+import { MilkdownEditorWrapper } from '../editor/new-editor';
 
 interface Props {
   memo: MemoDetail;
@@ -73,11 +73,11 @@ export function MemoEditor({ memo }: Props) {
   };
 
   return (
-    <MarkdownEditor
-      content={content}
-      isEditable={isEditable}
-      onChangeContent={handleChangeContent}
-      onUploadImage={handleUploadImage}
+    <MilkdownEditorWrapper
+    // content={content}
+    // isEditable={isEditable}
+    // onChangeContent={handleChangeContent}
+    // onUploadImage={handleUploadImage}
     />
   );
 }
