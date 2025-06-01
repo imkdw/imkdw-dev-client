@@ -5,7 +5,7 @@ import { MemberRole, S_KEY } from '@imkdw-dev-client/consts';
 import { useActionState, useCallback, useEffect, useRef, useState, useTransition } from 'react';
 import { updateMemoAction } from '../../actions/memo/update-memo.action';
 import { useAuthStore } from '../../stores/auth-store';
-import { MilkdownEditorWrapper } from '../editor/new-editor';
+import { MilkdownEditorWrapper } from '../editor/markdown';
 
 interface Props {
   memo: MemoDetail;
