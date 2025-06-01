@@ -1,6 +1,6 @@
 'use client';
 
-import { MemoItem, getMemo, updateMemoName } from '@imkdw-dev-client/api-client';
+import { MemoItem, updateMemoName } from '@imkdw-dev-client/api-client';
 import { usePathname } from '@imkdw-dev-client/i18n';
 import { useState } from 'react';
 import { MemoContextMenu } from './memo-context-menu';
@@ -34,8 +34,7 @@ export function SidebarContentMemo({ level = 0, memo, onMemoUpdate }: Props) {
       return;
     }
 
-    await updateMemoName(slug, { name: newName });
-    const updatedMemo = await getMemo(slug);
+    const updatedMemo = await updateMemoName(slug, { name: newName });
 
     setCurrentMemo(updatedMemo);
     onMemoUpdate(updatedMemo);

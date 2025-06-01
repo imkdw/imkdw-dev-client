@@ -39,7 +39,7 @@ export async function updateMemo(slug: string, body: RequestUpdateMemo) {
  * 메모 이름 변경
  */
 export async function updateMemoName(slug: string, body: RequestUpdateMemoName) {
-  return request<RequestUpdateMemoName, void>({
+  return request<RequestUpdateMemoName, MemoDetail>({
     url: `v1/memos/${slug}/name`,
     method: 'PATCH',
     body,
