@@ -289,3 +289,7 @@ div[data-milkdown-root="true"] {
 .milkdown-editor.vscode-scrollbar::-webkit-scrollbar-corner {
   @apply bg-transparent;
 }
+
+.milkdown-code-block .tools {
+  display: none;
+}

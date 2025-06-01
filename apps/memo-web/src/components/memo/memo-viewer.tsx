@@ -1,9 +1,7 @@
 import { MemoDetail } from '@imkdw-dev-client/api-client';
-import '@blocknote/mantine/style.css';
-import '@blocknote/core/fonts/inter.css';
-import '@imkdw-dev-client/ui/editor.css';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/atom-one-dark.css';
+import '@imkdw-dev-client/ui/editor.css';
 import { JSDOM } from 'jsdom';
 
 interface Props {
@@ -18,10 +16,19 @@ function getHighlightedCode(contentHtml: string): string {
 
   codeBlocks.forEach((block: Element) => {
     if (block.textContent) {
-      const languageClass: string | undefined = block.className
-        .split(' ')
-        .find((cls: string) => cls.startsWith('language-'));
-      const language = languageClass ? languageClass.replace('language-', '') : undefined;
+      let language: string | undefined;
+
+      const preElement = block.parentElement;
+      if (preElement?.hasAttribute('data-language')) {
+        language = preElement.getAttribute('data-language') || undefined;
+      }
+
+      if (!language) {
+        const languageClass: string | undefined = block.className
+          .split(' ')
+          .find((cls: string) => cls.startsWith('language-'));
+        language = languageClass ? languageClass.replace('language-', '') : undefined;
+      }
 
       let highlightedCode: string;
       if (language && hljs.getLanguage(language)) {
