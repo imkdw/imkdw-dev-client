@@ -1,6 +1,6 @@
 'use client';
 
-import { MemoItem, updateMemoName } from '@imkdw-dev-client/api-client';
+import { deleteMemo, MemoItem, updateMemoName } from '@imkdw-dev-client/api-client';
 import { usePathname } from '@imkdw-dev-client/i18n';
 import { useState } from 'react';
 import { MemoContextMenu } from './memo-context-menu';
@@ -46,9 +46,8 @@ export function SidebarContentMemo({ level = 0, memo, onMemoUpdate }: Props) {
     setNewName(currentMemo.name);
   };
 
-  const handleDelete = () => {
-    // TODO: 삭제 로직 구현
-    // 메모 삭제 로직은 추후 구현
+  const handleDelete = async () => {
+    await deleteMemo(slug);
   };
 
   return (

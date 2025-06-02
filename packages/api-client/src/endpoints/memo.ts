@@ -45,3 +45,13 @@ export async function updateMemoName(slug: string, body: RequestUpdateMemoName) 
     body,
   });
 }
+
+/**
+ * 메모 삭제
+ */
+export async function deleteMemo(slug: string) {
+  return request<never, never>({
+    url: `v1/memos/${slug}`,
+    method: 'DELETE',
+  });
+}
