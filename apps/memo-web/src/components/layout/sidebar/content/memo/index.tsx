@@ -11,9 +11,10 @@ interface Props {
   level: number;
   memo: MemoItem;
   onMemoUpdate: (updatedMemo: MemoItem) => void;
+  onMemoDelete: (slug: string) => void;
 }
 
-export function SidebarContentMemo({ level = 0, memo, onMemoUpdate }: Props) {
+export function SidebarContentMemo({ level = 0, memo, onMemoUpdate, onMemoDelete }: Props) {
   const { name, slug } = memo;
 
   const pathname = usePathname();
@@ -48,6 +49,7 @@ export function SidebarContentMemo({ level = 0, memo, onMemoUpdate }: Props) {
 
   const handleDelete = async () => {
     await deleteMemo(slug);
+    onMemoDelete(slug);
   };
 
   return (

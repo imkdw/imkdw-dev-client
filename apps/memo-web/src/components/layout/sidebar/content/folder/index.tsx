@@ -39,6 +39,10 @@ export function SidebarContentFolder({ level = 0, folderName, folderId }: Props)
     }
   };
 
+  const handleMemoDelete = (slug: string) => {
+    setChildMemos((prevMemos) => prevMemos.filter((memo) => memo.slug !== slug));
+  };
+
   /**
    * 폴더 목록 조회
    */
@@ -85,6 +89,7 @@ export function SidebarContentFolder({ level = 0, folderName, folderId }: Props)
         isCreatingMemo={isCreatingMemo}
         setIsCreatingMemo={setIsCreatingMemo}
         onMemoUpdate={handleMemoUpdate}
+        onMemoDelete={handleMemoDelete}
       />
     </li>
   );
