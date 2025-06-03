@@ -17,6 +17,7 @@ export function SidebarContentSearch() {
           className='w-full bg-[#3B3B3C] text-white text-base rounded pl-8 py-1.5'
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
+          disabled
         />
       </div>
     </div>

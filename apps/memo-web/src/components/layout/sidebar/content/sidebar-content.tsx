@@ -13,6 +13,7 @@ export function SidebarContent() {
       const rootMemoFolders = await findRootMemoFolders();
       setRootMemoFolders(rootMemoFolders);
     };
+
     fetchRootMemoFolders();
   }, []);
 
@@ -20,7 +21,6 @@ export function SidebarContent() {
     <div className='flex flex-col h-full bg-[#202020]'>
       <SidebarContentSearch />
 
-      {/* 폴더 구조 - 스크롤 영역 */}
       <ul className='overflow-scroll h-full vscode-scrollbar'>
         {rootMemoFolders.map((rootMemoFolder) => (
           <SidebarContentFolder
