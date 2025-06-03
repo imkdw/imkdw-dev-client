@@ -1,7 +1,7 @@
 import { Search } from 'lucide-react';
 import { useState } from 'react';
 
-export function SidebarSearch() {
+export function SidebarContentSearch() {
   const [searchQuery, setSearchQuery] = useState('');
 
   return (

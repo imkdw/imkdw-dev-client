@@ -2,8 +2,8 @@
 
 import { ResponseFindRootMemoFolders, findRootMemoFolders } from '@imkdw-dev-client/api-client';
 import { useEffect, useState } from 'react';
-import { SidebarContentFolder } from './folder';
-import { SidebarSearch } from './search';
+import { SidebarContentFolder } from './folder/sidebar-content-folder';
+import { SidebarContentSearch } from './sidebar-content-search';
 
 export function SidebarContent() {
   const [rootMemoFolders, setRootMemoFolders] = useState<ResponseFindRootMemoFolders[]>([]);
@@ -18,7 +18,7 @@ export function SidebarContent() {
 
   return (
     <div className='flex flex-col h-full bg-[#202020]'>
-      <SidebarSearch />
+      <SidebarContentSearch />
 
       {/* 폴더 구조 - 스크롤 영역 */}
       <ul className='overflow-scroll h-full vscode-scrollbar'>

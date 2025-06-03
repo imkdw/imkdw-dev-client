@@ -1,7 +1,7 @@
 import { MemoFolder, MemoItem } from '@imkdw-dev-client/api-client';
 import { AnimatePresence, motion } from 'framer-motion';
-import { SidebarContentFolder } from '.';
-import { SidebarContentMemo } from '../memo';
+import { SidebarContentFolder } from './sidebar-content-folder';
+import { SidebarContentMemo } from '../memo/sidebar-content-memo';
 import { CreateMemoInput } from './create-memo-input';
 
 interface Props {
