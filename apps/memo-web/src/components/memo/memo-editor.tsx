@@ -6,7 +6,6 @@ import { useActionState, useCallback, useEffect, useRef, useState, useTransition
 import { updateMemoAction } from '../../actions/memo/update-memo.action';
 import { useAuthStore } from '../../stores/auth-store';
 import { MilkdownEditorWrapper } from '../editor/markdown';
-import { toast } from 'sonner';
 
 interface Props {
   memo: MemoDetail;
@@ -57,7 +56,6 @@ export function MemoEditor({ memo }: Props) {
       if ((event.ctrlKey || event.metaKey) && event.key === S_KEY) {
         event.preventDefault();
         handleSaveMemo();
-        toast.success('변경사항이 성공적으로 저장되었습니다.', { duration: 99999 });
       }
     };
 
