@@ -6,7 +6,8 @@
   "exports": {
     ".": "./src/index.ts",
     "./globals.css": "./src/styles/globals.css",
-    "./editor.css": "./src/styles/editor.css"
+    "./editor.css": "./src/styles/editor.css",
+    "./toast.css": "./src/styles/toast.css"
   },
   "scripts": {
     "lint": "biome check --write",

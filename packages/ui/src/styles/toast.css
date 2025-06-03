@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+:root {
+  --vscode-blue: #007acc;
+}
+
+.sonner-toast-vscode-style {
+  @apply bg-[#252526] text-[#cccccc] border border-[#37373d];
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.sonner-toast-vscode-style button {
+  @apply bg-[var(--vscode-blue)] text-white px-2 py-1 rounded-sm text-xs;
+}
+
+.sonner-icon-success {
+  @apply text-[#89d185];
+}
+
+.sonner-icon-error {
+  @apply text-[#f14c4c];
+}
+
+.sonner-icon-info {
+  @apply text-[var(--vscode-blue)];
+}
+
+.sonner-icon-warning {
+  @apply text-[#ffd700];
+}
