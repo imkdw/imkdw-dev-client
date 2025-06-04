@@ -5,17 +5,29 @@ import { useEffect, useState } from 'react';
 import { SidebarContentFolder } from './folder/sidebar-content-folder';
 import { SidebarContentSearch } from './sidebar-content-search';
 
-export function SidebarContent() {
+interface Props {
+  activeItemId: number | null;
+}
+
+export function SidebarContent({ activeItemId }: Props) {
   const [rootMemoFolders, setRootMemoFolders] = useState<ResponseFindRootMemoFolders[]>([]);
 
   useEffect(() => {
     const fetchRootMemoFolders = async () => {
-      const rootMemoFolders = await findRootMemoFolders();
-      setRootMemoFolders(rootMemoFolders);
+      const fetchedRootMemoFolders = await findRootMemoFolders();
+      setRootMemoFolders(fetchedRootMemoFolders);
     };
 
-    fetchRootMemoFolders();
-  }, []);
+    if (activeItemId === 1) {
+      fetchRootMemoFolders();
+    } else {
+      setRootMemoFolders([]); // Clear folders if not active or different item
+    }
+  }, [activeItemId]);
+
+  if (activeItemId !== 1) {
+    return null; // Or <div /> for a placeholder
+  }
 
   return (
     <div className='flex flex-col h-full bg-[#202020]'>

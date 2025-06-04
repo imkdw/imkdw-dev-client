@@ -5,95 +5,48 @@ import { cn } from '@imkdw-dev-client/utils';
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import { SidebarNavigator } from './navigator/sidebar-navigator';
 import { SidebarResizer } from './resizer/sidebar-resizer';
+import { useResizablePanel } from '@/src/hooks/use-resizable-panel';
 
-const MIN_WIDTH = 20;
-const MAX_WIDTH = 600;
-const DEFAULT_WIDTH = 300;
-const COLLAPSE_THRESHOLD = 50;
+// Constants like MIN_WIDTH, MAX_WIDTH, COLLAPSE_THRESHOLD are now managed by the hook.
+// DEFAULT_WIDTH can be passed to the hook.
+const SIDEBAR_DEFAULT_WIDTH = 260; // Or import from a shared constants file if available
 
 export function Sidebar() {
   const [activeItemId, setActiveItemId] = useState<number | null>(1);
-  const [sidebarWidth, setSidebarWidth] = useState(DEFAULT_WIDTH);
-  const [isResizing, setIsResizing] = useState(false);
-  const [isCollapsed, setIsCollapsed] = useState(false);
-  const dragOffsetRef = useRef<number>(0);
   const sidebarRef = useRef<HTMLDivElement>(null);
 
-  const handleStartResizing = (event: React.MouseEvent) => {
-    event.preventDefault();
-    event.stopPropagation();
-
-    dragOffsetRef.current = event.clientX - sidebarWidth;
-    setIsResizing(true);
-  };
+  const {
+    panelWidth: sidebarWidth,
+    isCollapsed,
+    isResizing,
+    handleStartResizing,
+    setIsCollapsed: setIsPanelCollapsed,
+  } = useResizablePanel({ initialWidth: SIDEBAR_DEFAULT_WIDTH });
 
   const handleItemChange: Dispatch<SetStateAction<number | null>> = (value) => {
     const newValue = typeof value === 'function' ? value(activeItemId) : value;
 
     if (newValue !== null && isCollapsed) {
-      setIsCollapsed(false);
-      setSidebarWidth(DEFAULT_WIDTH);
+      setIsPanelCollapsed(false);
+      // The hook should handle restoring the width when uncollapsing
     }
 
     setActiveItemId(newValue);
   };
 
   useEffect(() => {
+    // Collapse the panel if activeItemId becomes null and the panel is not already collapsing due to resize
     if (activeItemId === null && !isCollapsed && !isResizing) {
-      setIsCollapsed(true);
-      setSidebarWidth(0);
+      setIsPanelCollapsed(true);
     }
-  }, [activeItemId, isCollapsed, isResizing]);
-
-  useEffect(() => {
-    const handleMouseMove = (event: MouseEvent) => {
-      if (!isResizing) return;
-
-      let newWidth = event.clientX - dragOffsetRef.current;
-
-      if (newWidth < COLLAPSE_THRESHOLD) {
-        setIsCollapsed(true);
-        setSidebarWidth(0);
-        setIsResizing(false);
-        return;
-      }
-
-      if (newWidth < MIN_WIDTH) {
-        newWidth = MIN_WIDTH;
-      }
-
-      if (newWidth > MAX_WIDTH) {
-        newWidth = MAX_WIDTH;
-      }
-
-      setIsCollapsed(false);
-      setSidebarWidth(newWidth);
-    };
-
-    const handleMouseUp = () => {
-      if (isResizing) {
-        setIsResizing(false);
-      }
-    };
-
-    if (isResizing) {
-      document.body.style.userSelect = 'none';
-      document.addEventListener('mousemove', handleMouseMove);
-      document.addEventListener('mouseup', handleMouseUp);
-    }
-
-    return () => {
-      document.body.style.userSelect = '';
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
-    };
-  }, [isResizing]);
+  }, [activeItemId, isCollapsed, isResizing, setIsPanelCollapsed]);
 
   useEffect(() => {
     if (sidebarRef.current) {
-      sidebarRef.current.style.width = isCollapsed ? '0px' : `${sidebarWidth}px`;
+      // The hook now manages panelWidth directly, including when collapsed (e.g. to 0)
+      sidebarRef.current.style.width = `${sidebarWidth}px`;
     }
-  }, [isCollapsed, sidebarWidth]);
+  }, [sidebarWidth]); // isCollapsed is implicitly handled by panelWidth from the hook
 
   return (
     <div className='flex h-full bg-[#242424]'>
@@ -106,14 +59,19 @@ export function Sidebar() {
         className={cn(
           'flex-shrink-0 bg-[#242424] text-white overflow-hidden',
           !isCollapsed && 'border-r border-[#383838]',
+          // The hook doesn't expose a separate transition state,
+          // but transitions can be applied based on isResizing or kept general.
+          // For now, let's assume transitions are handled by CSS or are acceptable during resize.
+          // Consider adding !isResizing to classNames if specific transition behavior is needed.
           !isResizing && 'transition-[width,opacity] duration-200',
           isCollapsed && 'opacity-0 invisible',
         )}
-        data-collapsed={isCollapsed}
+        // data-collapsed={isCollapsed} // This can be kept if used by CSS, otherwise optional
       >
-        <SidebarContent />
+        <SidebarContent activeItemId={activeItemId} />
       </div>
 
+      {/* The resizer should only be shown when the panel is not collapsed */}
       {!isCollapsed && <SidebarResizer isResizing={isResizing} onStartResizing={handleStartResizing} />}
     </div>
   );
