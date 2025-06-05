@@ -1,7 +1,7 @@
 'use client';
 
-import { ResponseFindRootMemoFolders, findRootMemoFolders } from '@imkdw-dev-client/api-client';
-import { useEffect, useState } from 'react';
+import { ResponseFindRootMemoFolders } from '@imkdw-dev-client/api-client';
+import { useRootMemoFolders } from '../../../../hooks/use-root-memo-folders';
 import { SidebarContentFolder } from './folder/sidebar-content-folder';
 import { SidebarContentSearch } from './sidebar-content-search';
 
@@ -10,20 +10,7 @@ interface Props {
 }
 
 export function SidebarContent({ activeItemId }: Props) {
-  const [rootMemoFolders, setRootMemoFolders] = useState<ResponseFindRootMemoFolders[]>([]);
-
-  useEffect(() => {
-    const fetchRootMemoFolders = async () => {
-      const fetchedRootMemoFolders = await findRootMemoFolders();
-      setRootMemoFolders(fetchedRootMemoFolders);
-    };
-
-    if (activeItemId === 1) {
-      fetchRootMemoFolders();
-    } else {
-      setRootMemoFolders([]);
-    }
-  }, [activeItemId]);
+  const { rootMemoFolders } = useRootMemoFolders(activeItemId);
 
   if (activeItemId !== 1) {
     return null;
@@ -34,7 +21,7 @@ export function SidebarContent({ activeItemId }: Props) {
       <SidebarContentSearch />
 
       <ul className='overflow-scroll h-full vscode-scrollbar'>
-        {rootMemoFolders.map((rootMemoFolder) => (
+        {rootMemoFolders.map((rootMemoFolder: ResponseFindRootMemoFolders) => (
           <SidebarContentFolder
             key={rootMemoFolder.id}
             level={0}

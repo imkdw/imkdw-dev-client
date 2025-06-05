@@ -2,46 +2,12 @@
 
 import { SidebarContent } from '@/src/components/layout/sidebar/content/sidebar-content';
 import { cn } from '@imkdw-dev-client/utils';
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import { SidebarNavigator } from './navigator/sidebar-navigator';
 import { SidebarResizer } from './resizer/sidebar-resizer';
-import { useResizablePanel } from '@/src/hooks/use-resizable-panel';
-
-const SIDEBAR_DEFAULT_WIDTH = 260;
+import { useSidebar } from '@/src/hooks/use-sidebar';
 
 export function Sidebar() {
-  const [activeItemId, setActiveItemId] = useState<number | null>(1);
-  const sidebarRef = useRef<HTMLDivElement>(null);
-
-  const {
-    panelWidth: sidebarWidth,
-    isCollapsed,
-    isResizing,
-    handleStartResizing,
-    setIsCollapsed: setIsPanelCollapsed,
-  } = useResizablePanel({ initialWidth: SIDEBAR_DEFAULT_WIDTH });
-
-  const handleItemChange: Dispatch<SetStateAction<number | null>> = (value) => {
-    const newValue = typeof value === 'function' ? value(activeItemId) : value;
-
-    if (newValue !== null && isCollapsed) {
-      setIsPanelCollapsed(false);
-    }
-
-    setActiveItemId(newValue);
-  };
-
-  useEffect(() => {
-    if (activeItemId === null && !isCollapsed && !isResizing) {
-      setIsPanelCollapsed(true);
-    }
-  }, [activeItemId, isCollapsed, isResizing, setIsPanelCollapsed]);
-
-  useEffect(() => {
-    if (sidebarRef.current) {
-      sidebarRef.current.style.width = `${sidebarWidth}px`;
-    }
-  }, [sidebarWidth]);
+  const { activeItemId, sidebarRef, isCollapsed, isResizing, handleItemChange, handleStartResizing } = useSidebar();
 
   return (
     <div className='flex h-full bg-[#242424]'>
