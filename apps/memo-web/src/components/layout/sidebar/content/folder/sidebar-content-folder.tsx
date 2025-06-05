@@ -1,9 +1,8 @@
 'use client';
 
-import { MemoFolder, MemoItem, findChildMemoFolders, findFolderMemos } from '@imkdw-dev-client/api-client';
 import * as ContextMenu from '@radix-ui/react-context-menu';
-import { useEffect, useState } from 'react';
-import { useMemoStore } from '../../../../../stores/memo-store';
+import { useFolderData } from '../../../../../hooks/use-folder-data';
+import { useFolderActions } from '../../../../../hooks/use-folder-actions';
 import { FolderChildren } from './folder-children';
 import { FolderContextMenu } from './folder-context-menu';
 import { FolderItem } from './folder-item';
@@ -15,61 +14,17 @@ interface Props {
 }
 
 export function SidebarContentFolder({ level = 0, folderName, folderId }: Props) {
-  const [childFolders, setChildFolders] = useState<MemoFolder[]>([]);
-  const [childMemos, setChildMemos] = useState<MemoItem[]>([]);
-  const [isOpen, setIsOpen] = useState(false);
-  const [isCreatingMemo, setIsCreatingMemo] = useState(false);
-  const { currentMemo, setCurrentMemo } = useMemoStore();
+  const {
+    isOpen,
+    isCreatingMemo,
+    setIsCreatingMemo,
+    toggleFolder,
+    handleCreateMemo,
+    handleMemoUpdate,
+    handleMemoDelete,
+  } = useFolderActions();
 
-  const toggleFolder = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const handleCreateMemo = () => {
-    setIsOpen(true);
-    setTimeout(() => {
-      setIsCreatingMemo(true);
-    }, 100);
-  };
-
-  const handleMemoUpdate = (updatedMemo: MemoItem) => {
-    setChildMemos((prevMemos) => prevMemos.map((memo) => (memo.id === updatedMemo.id ? updatedMemo : memo)));
-    if (currentMemo?.id === updatedMemo.id) {
-      setCurrentMemo({ ...currentMemo, path: updatedMemo.path });
-    }
-  };
-
-  const handleMemoDelete = (slug: string) => {
-    setChildMemos((prevMemos) => prevMemos.filter((memo) => memo.slug !== slug));
-  };
-
-  /**
-   * 폴더 목록 조회
-   */
-  useEffect(() => {
-    const fetchChildFolders = async () => {
-      if (isOpen) {
-        const childFolders = await findChildMemoFolders(folderId);
-        setChildFolders(childFolders);
-      }
-    };
-
-    fetchChildFolders();
-  }, [isOpen, folderId]);
-
-  /**
-   * 메모 목록 조회
-   */
-  useEffect(() => {
-    const fetchChildMemos = async () => {
-      if (isOpen) {
-        const childMemos = await findFolderMemos(folderId);
-        setChildMemos(childMemos);
-      }
-    };
-
-    fetchChildMemos();
-  }, [isOpen, folderId]);
+  const { childFolders, childMemos, setChildMemos } = useFolderData(folderId, isOpen);
 
   return (
     <li>
@@ -88,8 +43,8 @@ export function SidebarContentFolder({ level = 0, folderName, folderId }: Props)
         childMemos={childMemos}
         isCreatingMemo={isCreatingMemo}
         setIsCreatingMemo={setIsCreatingMemo}
-        onMemoUpdate={handleMemoUpdate}
-        onMemoDelete={handleMemoDelete}
+        onMemoUpdate={(updatedMemo) => handleMemoUpdate(updatedMemo, setChildMemos)}
+        onMemoDelete={(slug) => handleMemoDelete(slug, setChildMemos)}
       />
     </li>
   );
