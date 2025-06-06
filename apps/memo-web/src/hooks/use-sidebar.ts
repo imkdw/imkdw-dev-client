@@ -1,10 +1,9 @@
 import { Dispatch, SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
+import { SIDEBAR_CONFIG } from '../constants/sidebar';
 import { useResizablePanel } from './use-resizable-panel';
 
-const SIDEBAR_DEFAULT_WIDTH = 260;
-
 export function useSidebar() {
-  const [activeItemId, setActiveItemId] = useState<number | null>(1);
+  const [activeItemId, setActiveItemId] = useState<number | null>(SIDEBAR_CONFIG.DEFAULT_ACTIVE_ITEM);
   const sidebarRef = useRef<HTMLDivElement>(null);
 
   const {
@@ -13,7 +12,7 @@ export function useSidebar() {
     isResizing,
     handleStartResizing,
     setIsCollapsed: setIsPanelCollapsed,
-  } = useResizablePanel({ initialWidth: SIDEBAR_DEFAULT_WIDTH });
+  } = useResizablePanel({ initialWidth: SIDEBAR_CONFIG.DEFAULT_WIDTH });
 
   const handleItemChange: Dispatch<SetStateAction<number | null>> = useCallback(
     (value) => {

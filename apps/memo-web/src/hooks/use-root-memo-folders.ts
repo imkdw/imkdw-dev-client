@@ -1,5 +1,6 @@
 import { ResponseFindRootMemoFolders, findRootMemoFolders } from '@imkdw-dev-client/api-client';
 import { useEffect, useState } from 'react';
+import { SIDEBAR_ITEM_ID } from '../constants/sidebar';
 
 export function useRootMemoFolders(activeItemId: number | null) {
   const [rootMemoFolders, setRootMemoFolders] = useState<ResponseFindRootMemoFolders[]>([]);
@@ -7,7 +8,7 @@ export function useRootMemoFolders(activeItemId: number | null) {
 
   useEffect(() => {
     const fetchRootMemoFolders = async () => {
-      if (activeItemId !== 1) {
+      if (activeItemId !== SIDEBAR_ITEM_ID.MEMO_FOLDERS) {
         setRootMemoFolders([]);
         return;
       }

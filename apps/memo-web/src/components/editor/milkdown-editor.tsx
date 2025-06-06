@@ -3,7 +3,7 @@ import { languages } from '@codemirror/language-data';
 import { oneDark } from '@codemirror/theme-one-dark';
 import { keymap } from '@codemirror/view';
 import { Editor, defaultValueCtx, editorCtx, editorViewOptionsCtx, rootCtx } from '@milkdown/kit/core';
-import { Uploader, upload, uploadConfig } from '@milkdown/kit/plugin/upload';
+import { upload, uploadConfig } from '@milkdown/kit/plugin/upload';
 import { commonmark } from '@milkdown/kit/preset/commonmark';
 import { gfm } from '@milkdown/kit/preset/gfm';
 import { Milkdown, useEditor } from '@milkdown/react';
@@ -14,9 +14,9 @@ import { codeBlockComponent, codeBlockConfig } from '@milkdown/kit/component/cod
 import { imageBlockComponent } from '@milkdown/kit/component/image-block';
 import { clipboard } from '@milkdown/kit/plugin/clipboard';
 import { listener, listenerCtx } from '@milkdown/kit/plugin/listener';
-import { Node } from '@milkdown/kit/prose/model';
 import { getHTML } from '@milkdown/kit/utils';
 import { basicSetup } from 'codemirror';
+import { createImageUploader } from './image-uploader';
 
 interface Props {
   content: string;
@@ -28,42 +28,7 @@ interface Props {
 export function MilkdownEditor({ content, isEditable, onChangeContent, onUploadImage }: Props) {
   const { uploadImage } = useImageUpload();
 
-  const uploader: Uploader = async (files, schema) => {
-    const images: File[] = [];
-
-    for (let i = 0; i < files.length; i++) {
-      const file = files.item(i);
-      if (!file) {
-        continue;
-      }
-
-      if (!file.type.includes('image')) {
-        continue;
-      }
-
-      images.push(file);
-    }
-
-    const nodes: Node[] = await Promise.all(
-      images.map(async (image) => {
-        const result = await uploadImage(image);
-
-        if (!result.success || !result.data) {
-          throw new Error(result.error?.message || '이미지 업로드에 실패했습니다.');
-        }
-
-        const src = result.data;
-        const alt = image.name;
-        onUploadImage(src);
-        return schema.nodes.image?.createAndFill({
-          src,
-          alt,
-        }) as Node;
-      }),
-    );
-
-    return nodes.filter((node) => node !== null);
-  };
+  const uploader = createImageUploader({ uploadImage, onUploadImage });
 
   useEditor((root) =>
     Editor.make()
