@@ -28,8 +28,10 @@ class ApiClient {
   }
 
   private log(_message: string, _data?: unknown): void {
-    // 로깅 기능은 필요시 외부 로거 라이브러리로 대체 가능
-    // 현재는 비활성화
+    if (this.options.enableLogging) {
+      // biome-ignore lint/suspicious/noConsole: 로깅 기능 사용 시 콘솔 사용
+      console.log(_message, _data);
+    }
   }
 
   private createApiError(
@@ -143,18 +145,6 @@ class ApiClient {
   }
 }
 
-// 기본 인스턴스 생성
 const apiClient = new ApiClient();
 
-// 기존 호환성을 위한 래퍼 함수
-interface LegacyParams<Body> {
-  url: string;
-  method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
-  body?: Body;
-}
-
-export async function request<Body, Response>({ url, method, body }: LegacyParams<Body>): Promise<Response> {
-  return apiClient.request<Body, Response>({ url, method, body });
-}
-
-export { ApiClient };
+export { apiClient, ApiClient };
