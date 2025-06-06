@@ -2,7 +2,7 @@ import { mapleFont } from '@imkdw-dev-client/fonts';
 import { Metadata } from 'next';
 import './globals.css';
 import '@imkdw-dev-client/ui/toast.css';
-import { Header } from '@/src/components/layout/header';
+import { Header } from '@/src/components/layout/header/header';
 import { Sidebar } from '@/src/components/layout/sidebar/sidebar';
 import { SupportedLocale, routing } from '@imkdw-dev-client/i18n';
 import { cn } from '@imkdw-dev-client/utils';
