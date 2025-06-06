@@ -1,6 +1,6 @@
 'use client';
 
-import { ENTER_KEY, ESCAPE_KEY } from '@imkdw-dev-client/consts';
+import { Keyboard } from '@imkdw-dev-client/consts';
 import { Edit2 } from 'lucide-react';
 import { KeyboardEvent, useEffect, useRef } from 'react';
 
@@ -26,9 +26,9 @@ export function MemoRenameForm({ level, newName, setNewName, onSave, onCancel }:
   }, []);
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === ENTER_KEY) {
+    if (e.key === Keyboard.ENTER) {
       onSave();
-    } else if (e.key === ESCAPE_KEY) {
+    } else if (e.key === Keyboard.ESCAPE) {
       onCancel();
     }
   };

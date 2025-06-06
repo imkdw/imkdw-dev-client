@@ -1,3 +1,5 @@
-export const ESCAPE_KEY = 'Escape';
-export const S_KEY = 's';
-export const ENTER_KEY = 'Enter';
+export const Keyboard = {
+  ESCAPE: 'Escape',
+  S: 's',
+  ENTER: 'Enter',
+} as const;

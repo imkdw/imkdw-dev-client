@@ -1,4 +1,4 @@
-import { ESCAPE_KEY } from '@imkdw-dev-client/consts';
+import { Keyboard } from '@imkdw-dev-client/consts';
 import { useRouter } from '@imkdw-dev-client/i18n';
 import { useActionState, useCallback, useEffect, useRef } from 'react';
 import { createMemoAction } from '../actions/memo/create-memo.action';
@@ -44,7 +44,7 @@ export function useCreateMemoInput({ setIsCreatingMemo }: UseCreateMemoInputProp
 
   const handleKeyDown = useCallback(
     (event: React.KeyboardEvent) => {
-      if (event.key === ESCAPE_KEY) {
+      if (event.key === Keyboard.ESCAPE) {
         setIsCreatingMemo(false);
       }
     },

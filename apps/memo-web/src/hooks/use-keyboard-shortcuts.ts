@@ -1,4 +1,4 @@
-import { S_KEY } from '@imkdw-dev-client/consts';
+import { Keyboard } from '@imkdw-dev-client/consts';
 import { useCallback, useEffect } from 'react';
 
 interface UseKeyboardShortcutsProps {
@@ -9,7 +9,7 @@ export function useKeyboardShortcuts({ onSave }: UseKeyboardShortcutsProps) {
   const handleKeyDown = useCallback(
     (event: KeyboardEvent) => {
       // Ctrl + S 또는 Cmd + S로 저장
-      if ((event.ctrlKey || event.metaKey) && event.key === S_KEY) {
+      if ((event.ctrlKey || event.metaKey) && event.key === Keyboard.S) {
         event.preventDefault();
         onSave();
       }
