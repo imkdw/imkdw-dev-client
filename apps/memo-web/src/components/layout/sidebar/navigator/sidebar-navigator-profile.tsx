@@ -3,7 +3,7 @@
 import { logout } from '@imkdw-dev-client/api-client';
 import { useOAuth } from '@imkdw-dev-client/hooks';
 import { OAuthModal } from '@imkdw-dev-client/ui';
-import { cn } from '@imkdw-dev-client/utils';
+import { cn, showSuccessToast } from '@imkdw-dev-client/utils';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { LogOut, Settings, UserRound } from 'lucide-react';
 import Image from 'next/image';
@@ -24,8 +24,14 @@ export function SidebarNavigatorProfile() {
   };
 
   const handleLogout = async () => {
-    await logout();
-    clear();
+    try {
+      await logout();
+      clear();
+      showSuccessToast('로그아웃되었습니다.');
+    } catch {
+      // API 클라이언트에서 자동으로 에러 toast가 표시되므로 별도 처리 불필요
+      // 로컬 상태는 초기화하지 않음 (서버 에러 시 로그인 상태 유지)
+    }
   };
 
   const handleAccountSettings = () => {

@@ -7,6 +7,7 @@ export async function getMemo(slug: string) {
   return apiClient.request<never, MemoDetail>({
     url: `v1/memos/${slug}`,
     method: 'GET',
+    enableErrorToast: false, // 메모 조회 실패는 조용히 처리 (404일 수 있음)
   });
 }
 

@@ -12,6 +12,7 @@ export function verifyToken() {
   return apiClient.request<never, ResponseVerifyToken>({
     method: 'GET',
     url: 'v1/auth/verify-token',
+    enableErrorToast: false, // 인증 확인은 조용히 진행
   });
 }
 
