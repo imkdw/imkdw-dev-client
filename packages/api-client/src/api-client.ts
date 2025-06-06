@@ -11,6 +11,7 @@ const DEFAULT_OPTIONS: RequestOptions = {
   enableRetry: true,
   maxRetries: 3,
   retryDelay: 1000,
+  enableErrorToast: true,
 };
 
 class ApiClient {
@@ -24,6 +25,22 @@ class ApiClient {
 
   private async delay(ms: number): Promise<void> {
     return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+  private showErrorToast(error: Error & { status?: number; apiError?: ApiError }) {
+    // 클라이언트 사이드에서만 toast 표시
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    // 동적 import로 toast 유틸리티 로드 (번들 크기 최적화)
+    import('@imkdw-dev-client/utils')
+      .then(({ showApiErrorToast }) => {
+        showApiErrorToast(error);
+      })
+      .catch(() => {
+        // toast 로드 실패 시 아무것도 하지 않음 (에러는 이미 throw됨)
+      });
   }
 
   private createApiError(
@@ -81,7 +98,7 @@ class ApiClient {
   }
 
   async request<Body, Response>(config: RequestConfig<Body>): Promise<Response> {
-    const { url, method, body, headers: customHeaders, timeout } = config;
+    const { url, method, body, headers: customHeaders, timeout, enableErrorToast } = config;
 
     const headers = {
       ...DEFAULT_HEADERS,
@@ -117,6 +134,12 @@ class ApiClient {
           await this.delay(delay);
         }
       }
+    }
+
+    // 에러 toast 표시 (옵션이 활성화된 경우)
+    const shouldShowToast = enableErrorToast ?? this.options.enableErrorToast ?? true;
+    if (shouldShowToast && lastError instanceof Error) {
+      this.showErrorToast(lastError as Error & { status?: number; apiError?: ApiError });
     }
 
     throw lastError;

@@ -22,10 +22,12 @@ export interface RequestConfig<Body = unknown> {
   headers?: Record<string, string>;
   retries?: number;
   timeout?: number;
+  enableErrorToast?: boolean;
 }
 
 export interface RequestOptions {
   enableRetry?: boolean;
   maxRetries?: number;
   retryDelay?: number;
+  enableErrorToast?: boolean;
 }

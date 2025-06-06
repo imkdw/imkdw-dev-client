@@ -168,6 +168,9 @@ importers:
       '@imkdw-dev-client/consts':
         specifier: workspace:*
         version: link:../consts
+      '@imkdw-dev-client/utils':
+        specifier: workspace:*
+        version: link:../utils
       next:
         specifier: ^15.1.6
         version: 15.1.6(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
