@@ -17,5 +17,6 @@ export interface UpdateMemoState {
     content: string[] | undefined;
     contentHtml: string[] | undefined;
     imageUrls: string[] | undefined;
+    slug: string[] | undefined;
   };
 }

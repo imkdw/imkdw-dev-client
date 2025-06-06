@@ -1,4 +1,5 @@
 import { toast } from 'sonner';
+import { ErrorMessages } from '../../consts/src/exception/exception.const';
 
 /**
  * 성공 메시지를 표시하는 toast
@@ -53,16 +54,26 @@ export const dismissAllToasts = () => {
  * API 에러 응답에 따른 에러 toast 표시
  */
 export const showApiErrorToast = (error: unknown) => {
-  // API 에러 객체에서 메시지 추출
-  if (error && typeof error === 'object' && 'message' in error) {
-    showErrorToast(error.message as string);
-  } else if (error && typeof error === 'object' && 'apiError' in error) {
-    const apiError = (error as { apiError?: { message?: string } }).apiError;
+  // API 에러 객체에서 에러코드 우선 확인
+  if (error && typeof error === 'object' && 'apiError' in error) {
+    const apiError = (error as { apiError?: { code?: string; message?: string } }).apiError;
+
+    // 에러코드가 있으면 ErrorMessages에서 매핑된 메시지 사용
+    if (apiError?.code && apiError.code in ErrorMessages) {
+      showErrorToast(ErrorMessages[apiError.code as keyof typeof ErrorMessages]);
+      return;
+    }
+
+    // 에러코드는 없지만 메시지가 있으면 그대로 사용
     if (apiError?.message) {
       showErrorToast(apiError.message);
-    } else {
-      showErrorToast('요청 처리 중 오류가 발생했습니다.');
+      return;
     }
+  }
+
+  // 일반 에러 객체의 메시지 확인
+  if (error && typeof error === 'object' && 'message' in error) {
+    showErrorToast(error.message as string);
   } else if (typeof error === 'string') {
     showErrorToast(error);
   } else {

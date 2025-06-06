@@ -7,9 +7,9 @@ import { UpdateMemoState } from './memo-action.type';
 const schema = z.object({
   slug: z.string().min(1, { message: '메모 아이디가 없습니다' }),
   folderId: z.string().min(1, { message: '폴더 아이디가 없습니다' }),
-  name: z.string().min(1, { message: '이름을 필수로 입력되어야합니다' }),
-  content: z.string().min(1, { message: '내용을 필수로 입력되어야합니다' }),
-  contentHtml: z.string().min(1, { message: '내용을 필수로 입력되어야합니다' }),
+  name: z.string().min(1, { message: '이름은 필수로 입력되어야합니다' }),
+  content: z.string().min(1, { message: '내용은 필수로 입력되어야합니다' }),
+  contentHtml: z.string().min(1, { message: 'HTML 내용은 필수로 입력되어야합니다' }),
   imageUrls: z.array(z.string()).optional(),
 });
 
@@ -32,13 +32,17 @@ export async function updateMemoAction(_prevState: UpdateMemoState, formData: Fo
         content: validatedFields.error.flatten().fieldErrors.content,
         contentHtml: validatedFields.error.flatten().fieldErrors.contentHtml,
         imageUrls: validatedFields.error.flatten().fieldErrors.imageUrls,
+        slug: validatedFields.error.flatten().fieldErrors.slug,
       },
     };
   }
 
   const { slug, folderId, name, content, contentHtml, imageUrls } = validatedFields.data;
 
-  await updateMemo(slug, { folderId, name, content, contentHtml, imageUrls: imageUrls || [] });
-
-  return { success: true };
+  try {
+    await updateMemo(slug, { folderId, name, content, contentHtml, imageUrls: imageUrls || [] });
+    return { success: true };
+  } catch {
+    return { success: false };
+  }
 }

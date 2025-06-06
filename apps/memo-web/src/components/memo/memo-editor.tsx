@@ -30,14 +30,17 @@ export function MemoEditor({ memo }: Props) {
   useKeyboardShortcuts({ onSave: handleSave });
 
   useEffect(() => {
-    if (state.success === true && hasActionBeenTriggered.current) {
-      showSuccessToast('메모가 성공적으로 저장되었습니다.');
-    } else if (state.success === false && state.errors && hasActionBeenTriggered.current) {
-      const errorMessages = Object.values(state.errors).filter(Boolean).flat().join(', ');
-
-      if (errorMessages) {
-        showErrorToast(`저장 실패: ${errorMessages}`);
+    if (hasActionBeenTriggered.current) {
+      if (state.success === true) {
+        showSuccessToast('메모가 성공적으로 저장되었습니다.');
+      } else if (state.success === false && state.errors) {
+        const errorMessages = Object.values(state.errors).filter(Boolean).flat().join(', ');
+        if (errorMessages) {
+          showErrorToast(`저장 실패: ${errorMessages}`);
+        }
       }
+
+      hasActionBeenTriggered.current = false;
     }
   }, [state]);
 

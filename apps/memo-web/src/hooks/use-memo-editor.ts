@@ -7,10 +7,10 @@ interface UseMemoEditorProps {
 }
 
 export function useMemoEditor({ memo }: UseMemoEditorProps) {
-  const { folderId, name, content: initialContent, slug } = memo;
+  const { folderId, name, content: initialContent, contentHtml: initialContentHtml, slug } = memo;
 
   const [content, setContent] = useState(initialContent);
-  const [htmlContent, setHtmlContent] = useState('');
+  const [htmlContent, setHtmlContent] = useState(initialContentHtml || '');
   const [imageUrls, setImageUrls] = useState<string[]>([]);
   const [state, formAction, isPendingFromAction] = useActionState(updateMemoAction, { success: false });
   const [isPending, startTransition] = useTransition();
