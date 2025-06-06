@@ -27,12 +27,7 @@ class ApiClient {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
-  private log(_message: string, _data?: unknown): void {
-    if (this.options.enableLogging) {
-      // biome-ignore lint/suspicious/noConsole: 로깅 기능 사용 시 콘솔 사용
-      console.log(_message, _data);
-    }
-  }
+  private log(_message: string, _data?: unknown): void {}
 
   private createApiError(
     response: Response,
@@ -57,12 +52,10 @@ class ApiClient {
   private async handleResponse<T>(response: Response): Promise<T> {
     this.log(`Response Status: ${response.status} ${response.statusText}`);
 
-    // No Content 처리
     if (response.status === HttpStatus.NO_CONTENT) {
       return undefined as unknown as T;
     }
 
-    // JSON 파싱 시도
     let responseData: ApiResponse<T> | ApiErrorResponse;
     try {
       responseData = await response.json();
@@ -71,14 +64,12 @@ class ApiClient {
       throw this.createApiError(response);
     }
 
-    // 성공 응답 처리
     if (response.ok) {
       const successData = responseData as ApiResponse<T>;
       this.log('Success Response', successData);
       return successData.data;
     }
 
-    // 에러 응답 처리
     const errorData = responseData as ApiErrorResponse;
     this.log('Error Response', errorData);
     throw this.createApiError(response, errorData);
@@ -89,7 +80,6 @@ class ApiClient {
       return false;
     }
 
-    // 네트워크 오류나 서버 에러(5xx)일 때만 재시도
     if (error instanceof Error) {
       const errorWithStatus = error as Error & { status?: number };
       return !errorWithStatus.status || errorWithStatus.status >= 500;
