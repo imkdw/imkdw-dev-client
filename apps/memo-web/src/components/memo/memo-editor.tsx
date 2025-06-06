@@ -2,6 +2,8 @@
 
 import { MemoDetail } from '@imkdw-dev-client/api-client';
 import { MemberRole } from '@imkdw-dev-client/consts';
+import { showErrorToast, showSuccessToast } from '@imkdw-dev-client/utils';
+import { useEffect, useRef } from 'react';
 import { useKeyboardShortcuts } from '../../hooks/use-keyboard-shortcuts';
 import { useMemoEditor } from '../../hooks/use-memo-editor';
 import { useAuthStatus } from '../../hooks/use-auth-status';
@@ -16,9 +18,28 @@ export function MemoEditor({ memo }: Props) {
 
   const isEditable = isAuthReady && member?.role === MemberRole.ADMIN;
 
-  const { content, saveMemo, handleContentChange, handleImageUpload } = useMemoEditor({ memo });
+  const { content, saveMemo, handleContentChange, handleImageUpload, state } = useMemoEditor({ memo });
 
-  useKeyboardShortcuts({ onSave: saveMemo });
+  const hasActionBeenTriggered = useRef(false);
+
+  const handleSave = () => {
+    hasActionBeenTriggered.current = true;
+    saveMemo();
+  };
+
+  useKeyboardShortcuts({ onSave: handleSave });
+
+  useEffect(() => {
+    if (state.success === true && hasActionBeenTriggered.current) {
+      showSuccessToast('메모가 성공적으로 저장되었습니다.');
+    } else if (state.success === false && state.errors && hasActionBeenTriggered.current) {
+      const errorMessages = Object.values(state.errors).filter(Boolean).flat().join(', ');
+
+      if (errorMessages) {
+        showErrorToast(`저장 실패: ${errorMessages}`);
+      }
+    }
+  }, [state]);
 
   if (!isAuthReady) {
     return (

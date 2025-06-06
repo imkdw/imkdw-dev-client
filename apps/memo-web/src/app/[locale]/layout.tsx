@@ -45,20 +45,7 @@ export default async function RootLayout({ children, params }: Props) {
           </main>
           {process.env.NEXT_PUBLIC_APP_ENV === 'production' && <Analytics />}
           {process.env.NEXT_PUBLIC_APP_ENV === 'production' && <SpeedInsights />}
-          <Toaster
-            richColors
-            theme='dark'
-            toastOptions={{
-              unstyled: true,
-              classNames: {
-                toast: 'sonner-toast-vscode-style',
-                success: 'sonner-toast-vscode-style sonner-icon-success',
-                error: 'sonner-toast-vscode-style sonner-icon-error',
-                info: 'sonner-toast-vscode-style sonner-icon-info',
-                warning: 'sonner-toast-vscode-style sonner-icon-warning',
-              },
-            }}
-          />
+          <Toaster theme='dark' position='bottom-right' duration={40000} closeButton gap={8} visibleToasts={3} />
         </body>
       </NextIntlClientProvider>
     </html>
