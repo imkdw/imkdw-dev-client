@@ -7,16 +7,16 @@ export function useFolderActions() {
   const [isCreatingMemo, setIsCreatingMemo] = useState(false);
   const { currentMemo, setCurrentMemo } = useMemoStore();
 
-  const toggleFolder = useCallback(() => {
+  const toggleFolder = () => {
     setIsOpen((prev) => !prev);
-  }, []);
+  };
 
-  const handleCreateMemo = useCallback(() => {
+  const handleCreateMemo = () => {
     setIsOpen(true);
     setTimeout(() => {
       setIsCreatingMemo(true);
     }, 100);
-  }, []);
+  };
 
   const handleMemoUpdate = useCallback(
     (updatedMemo: MemoItem, setChildMemos: Dispatch<SetStateAction<MemoItem[]>>) => {
@@ -29,9 +29,9 @@ export function useFolderActions() {
     [currentMemo, setCurrentMemo],
   );
 
-  const handleMemoDelete = useCallback((slug: string, setChildMemos: Dispatch<SetStateAction<MemoItem[]>>) => {
+  const handleMemoDelete = (slug: string, setChildMemos: Dispatch<SetStateAction<MemoItem[]>>) => {
     setChildMemos((prevMemos) => prevMemos.filter((memo) => memo.slug !== slug));
-  }, []);
+  };
 
   return {
     isOpen,

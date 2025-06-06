@@ -20,14 +20,14 @@ export function useMemoEditor({ memo }: UseMemoEditorProps) {
   contentRef.current = content;
   htmlContentRef.current = htmlContent;
 
-  const handleContentChange = useCallback((markdown: string, html: string) => {
+  const handleContentChange = (markdown: string, html: string) => {
     setContent(markdown);
     setHtmlContent(html);
-  }, []);
+  };
 
-  const handleImageUpload = useCallback((imageUrl: string) => {
+  const handleImageUpload = (imageUrl: string) => {
     setImageUrls((prev) => [...prev, imageUrl]);
-  }, []);
+  };
 
   const saveMemo = useCallback(async () => {
     setIsLoading(true);

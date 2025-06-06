@@ -72,13 +72,10 @@ export function useCreateMemoInput({ folderId, setIsCreatingMemo }: UseCreateMem
     [handleSubmit, isLoading, setIsCreatingMemo],
   );
 
-  const handleNameChange = useCallback(
-    (value: string) => {
-      setName(value);
-      if (error) setError(null);
-    },
-    [error],
-  );
+  const handleNameChange = (value: string) => {
+    setName(value);
+    if (error) setError(null);
+  };
 
   return {
     name,
