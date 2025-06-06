@@ -36,17 +36,12 @@ export function SidebarContentMemo({ level = 0, memo, onMemoUpdate, onMemoDelete
       return;
     }
 
-    try {
-      const updatedMemo = await updateMemoName(slug, { name: newName });
+    const updatedMemo = await updateMemoName(slug, { name: newName });
 
-      setCurrentMemo(updatedMemo);
-      onMemoUpdate(updatedMemo);
-      setIsRenaming(false);
-      showSuccessToast('메모 이름이 변경되었습니다.');
-    } catch {
-      // API 클라이언트에서 자동으로 에러 toast 표시
-      // 실패 시 이전 상태 유지
-    }
+    setCurrentMemo(updatedMemo);
+    onMemoUpdate(updatedMemo);
+    setIsRenaming(false);
+    showSuccessToast('메모 이름이 변경되었습니다.');
   };
 
   const handleCancel = () => {

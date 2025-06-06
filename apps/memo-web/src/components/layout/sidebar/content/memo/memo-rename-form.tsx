@@ -8,7 +8,7 @@ interface Props {
   level: number;
   newName: string;
   setNewName: (name: string) => void;
-  onSave: () => void;
+  onSave: () => Promise<void> | void;
   onCancel: () => void;
 }
 
@@ -25,9 +25,17 @@ export function MemoRenameForm({ level, newName, setNewName, onSave, onCancel }:
     }, 50);
   }, []);
 
+  const handleSave = async () => {
+    try {
+      await onSave();
+    } catch {
+      onCancel();
+    }
+  };
+
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === Keyboard.ENTER) {
-      onSave();
+      handleSave();
     } else if (e.key === Keyboard.ESCAPE) {
       onCancel();
     }
@@ -45,7 +53,7 @@ export function MemoRenameForm({ level, newName, setNewName, onSave, onCancel }:
         value={newName}
         onChange={(e) => setNewName(e.target.value)}
         onKeyDown={handleKeyDown}
-        onBlur={onSave}
+        onBlur={handleSave}
         className='bg-[#2B2B2C] text-white px-2 py-0.5 ml-2 rounded w-full focus:outline-none border border-gray-500 focus:border-blue-400'
         placeholder='메모 이름 입력...'
       />
