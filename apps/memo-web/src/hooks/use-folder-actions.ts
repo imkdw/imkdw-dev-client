@@ -1,5 +1,5 @@
 import { MemoItem } from '@imkdw-dev-client/api-client';
-import { useCallback, useState } from 'react';
+import { Dispatch, SetStateAction, useCallback, useState } from 'react';
 import { useMemoStore } from '../stores/memo-store';
 
 export function useFolderActions() {
@@ -19,7 +19,7 @@ export function useFolderActions() {
   }, []);
 
   const handleMemoUpdate = useCallback(
-    (updatedMemo: MemoItem, setChildMemos: React.Dispatch<React.SetStateAction<MemoItem[]>>) => {
+    (updatedMemo: MemoItem, setChildMemos: Dispatch<SetStateAction<MemoItem[]>>) => {
       setChildMemos((prevMemos) => prevMemos.map((memo) => (memo.id === updatedMemo.id ? updatedMemo : memo)));
 
       if (currentMemo?.id === updatedMemo.id) {
@@ -29,12 +29,9 @@ export function useFolderActions() {
     [currentMemo, setCurrentMemo],
   );
 
-  const handleMemoDelete = useCallback(
-    (slug: string, setChildMemos: React.Dispatch<React.SetStateAction<MemoItem[]>>) => {
-      setChildMemos((prevMemos) => prevMemos.filter((memo) => memo.slug !== slug));
-    },
-    [],
-  );
+  const handleMemoDelete = useCallback((slug: string, setChildMemos: Dispatch<SetStateAction<MemoItem[]>>) => {
+    setChildMemos((prevMemos) => prevMemos.filter((memo) => memo.slug !== slug));
+  }, []);
 
   return {
     isOpen,

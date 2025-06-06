@@ -1,6 +1,6 @@
 'use client';
 
-import { SIDEBAR_ITEM_ID } from '../../../../constants/sidebar';
+import { SIDEBAR_ITEM_ID } from '../../../../constants/sidebar.const';
 import { MemoFolderList } from './memo-folder-list';
 
 interface Props {

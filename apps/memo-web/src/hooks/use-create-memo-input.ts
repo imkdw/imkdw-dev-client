@@ -2,7 +2,7 @@ import { createMemo } from '@imkdw-dev-client/api-client';
 import { Keyboard } from '@imkdw-dev-client/consts';
 import { useRouter } from '@imkdw-dev-client/i18n';
 import { showSuccessToast } from '@imkdw-dev-client/utils';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { KeyboardEvent, useCallback, useEffect, useRef, useState } from 'react';
 
 interface UseCreateMemoInputProps {
   folderId: string;
@@ -54,7 +54,6 @@ export function useCreateMemoInput({ folderId, setIsCreatingMemo }: UseCreateMem
       setIsCreatingMemo(false);
       router.push(`/memo/${slug}`);
     } catch {
-      // API 클라이언트에서 자동으로 에러 토스트 표시
       setError('메모 생성에 실패했습니다.');
     } finally {
       setIsLoading(false);
@@ -62,7 +61,7 @@ export function useCreateMemoInput({ folderId, setIsCreatingMemo }: UseCreateMem
   }, [folderId, name, router, setIsCreatingMemo]);
 
   const handleKeyDown = useCallback(
-    (event: React.KeyboardEvent) => {
+    (event: KeyboardEvent) => {
       if (event.key === Keyboard.ENTER && !isLoading) {
         event.preventDefault();
         handleSubmit();

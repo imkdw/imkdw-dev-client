@@ -1,7 +1,7 @@
 import { ResponseFindRootMemoFolders, findRootMemoFolders } from '@imkdw-dev-client/api-client';
 import { showErrorToast } from '@imkdw-dev-client/utils';
 import { useEffect, useState } from 'react';
-import { SIDEBAR_ITEM_ID } from '../constants/sidebar';
+import { SIDEBAR_ITEM_ID } from '../constants/sidebar.const';
 
 export function useRootMemoFolders(activeItemId: number | null) {
   const [rootMemoFolders, setRootMemoFolders] = useState<ResponseFindRootMemoFolders[]>([]);

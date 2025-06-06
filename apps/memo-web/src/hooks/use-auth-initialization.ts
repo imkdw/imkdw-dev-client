@@ -14,12 +14,10 @@ export function useAuthInitialization() {
         setMember({ id, nickname, profileImage, role, email });
         setIsLoggedIn(true);
       } else {
-        // 토큰이 유효하지 않은 경우
         setIsLoggedIn(false);
         setMember(null);
       }
     } catch {
-      // 인증 확인 실패 (네트워크 오류 등) - 조용히 처리
       setIsLoggedIn(false);
       setMember(null);
     } finally {

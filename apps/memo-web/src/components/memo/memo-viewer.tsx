@@ -1,7 +1,7 @@
 import { MemoDetail } from '@imkdw-dev-client/api-client';
 import 'highlight.js/styles/atom-one-dark.css';
 import '@imkdw-dev-client/ui/editor.css';
-import { highlightCodeBlocks } from '../../utils/code-highlighter';
+import { highlightCodeBlocks } from '../../utils/code-highlighter.util';
 
 interface Props {
   memo: MemoDetail;

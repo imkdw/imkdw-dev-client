@@ -1,5 +1,6 @@
 import { mapleFont } from '@imkdw-dev-client/fonts';
 import { Metadata } from 'next';
+import { ReactNode } from 'react';
 import './globals.css';
 import '@imkdw-dev-client/ui/toast.css';
 import { Header } from '@/src/components/layout/header/header';
@@ -15,7 +16,7 @@ import { Toaster } from 'sonner';
 import { AuthInitializer } from '../../components/auth/auth-initializer';
 
 interface Props {
-  children: React.ReactNode;
+  children: ReactNode;
   params: Promise<{ locale: string }>;
 }
 
@@ -43,9 +44,9 @@ export default async function RootLayout({ children, params }: Props) {
             <Sidebar />
             <div className='flex-1'>{children}</div>
           </main>
+          <Toaster theme='dark' position='bottom-right' duration={4000} closeButton gap={8} visibleToasts={3} />
           {process.env.NEXT_PUBLIC_APP_ENV === 'production' && <Analytics />}
           {process.env.NEXT_PUBLIC_APP_ENV === 'production' && <SpeedInsights />}
-          <Toaster theme='dark' position='bottom-right' duration={40000} closeButton gap={8} visibleToasts={3} />
         </body>
       </NextIntlClientProvider>
     </html>

@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
-import { SIDEBAR_CONFIG } from '../constants/sidebar';
+import { SIDEBAR_CONFIG } from '../constants/sidebar.const';
 import { useResizablePanel } from './use-resizable-panel';
 
 export function useSidebar() {
