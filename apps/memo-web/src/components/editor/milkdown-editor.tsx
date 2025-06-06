@@ -46,7 +46,13 @@ export function MilkdownEditor({ content, isEditable, onChangeContent, onUploadI
 
     const nodes: Node[] = await Promise.all(
       images.map(async (image) => {
-        const src = await uploadImage(image);
+        const result = await uploadImage(image);
+
+        if (!result.success || !result.data) {
+          throw new Error(result.error?.message || '이미지 업로드에 실패했습니다.');
+        }
+
+        const src = result.data;
         const alt = image.name;
         onUploadImage(src);
         return schema.nodes.image?.createAndFill({
