@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback, RefObject, MouseEvent as ReactMouseEvent } from 'react';
+import { MouseEvent as ReactMouseEvent, RefObject, useCallback, useEffect, useRef, useState } from 'react';
 
 const MIN_WIDTH = 200;
 const MAX_WIDTH = 500;

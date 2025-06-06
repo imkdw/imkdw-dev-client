@@ -11,8 +11,8 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
-import { AuthInitializer } from '../../components/auth/auth-initializer';
 import { Toaster } from 'sonner';
+import { AuthInitializer } from '../../components/auth/auth-initializer';
 
 interface Props {
   children: React.ReactNode;

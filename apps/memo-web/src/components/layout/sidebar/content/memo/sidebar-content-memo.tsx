@@ -1,6 +1,6 @@
 'use client';
 
-import { deleteMemo, MemoItem, updateMemoName } from '@imkdw-dev-client/api-client';
+import { MemoItem, deleteMemo, updateMemoName } from '@imkdw-dev-client/api-client';
 import { usePathname } from '@imkdw-dev-client/i18n';
 import { useState } from 'react';
 import { MemoContextMenu } from './memo-context-menu';
