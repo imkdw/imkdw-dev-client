@@ -11,7 +11,6 @@ const DEFAULT_OPTIONS: RequestOptions = {
   enableRetry: true,
   maxRetries: 3,
   retryDelay: 1000,
-  enableLogging: process.env.NODE_ENV === 'development',
 };
 
 class ApiClient {
@@ -26,8 +25,6 @@ class ApiClient {
   private async delay(ms: number): Promise<void> {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
-
-  private log(_message: string, _data?: unknown): void {}
 
   private createApiError(
     response: Response,
@@ -50,8 +47,6 @@ class ApiClient {
   }
 
   private async handleResponse<T>(response: Response): Promise<T> {
-    this.log(`Response Status: ${response.status} ${response.statusText}`);
-
     if (response.status === HttpStatus.NO_CONTENT) {
       return undefined as unknown as T;
     }
@@ -59,19 +54,16 @@ class ApiClient {
     let responseData: ApiResponse<T> | ApiErrorResponse;
     try {
       responseData = await response.json();
-    } catch (error) {
-      this.log('JSON 파싱 실패', error);
+    } catch {
       throw this.createApiError(response);
     }
 
     if (response.ok) {
       const successData = responseData as ApiResponse<T>;
-      this.log('Success Response', successData);
       return successData.data;
     }
 
     const errorData = responseData as ApiErrorResponse;
-    this.log('Error Response', errorData);
     throw this.createApiError(response, errorData);
   }
 
@@ -90,8 +82,6 @@ class ApiClient {
 
   async request<Body, Response>(config: RequestConfig<Body>): Promise<Response> {
     const { url, method, body, headers: customHeaders, timeout } = config;
-
-    this.log(`${method} ${this.baseUrl}/${url}`, body);
 
     const headers = {
       ...DEFAULT_HEADERS,
@@ -116,7 +106,6 @@ class ApiClient {
         return await this.handleResponse<Response>(response);
       } catch (error) {
         lastError = error;
-        this.log(`Attempt ${attempt + 1} failed`, error);
 
         if (!this.shouldRetry(error, attempt)) {
           break;
@@ -125,7 +114,6 @@ class ApiClient {
         attempt++;
         if (attempt <= (this.options.maxRetries || 3)) {
           const delay = (this.options.retryDelay || 1000) * attempt;
-          this.log(`재시도 대기 중... (${delay}ms)`);
           await this.delay(delay);
         }
       }

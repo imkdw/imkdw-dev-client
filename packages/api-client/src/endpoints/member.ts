@@ -1,8 +1,8 @@
-import { request } from '../api-client';
+import { apiClient } from '../api-client';
 import { ResponseGetMyInfo } from '../types/member';
 
 export async function getMyInfo() {
-  return request<never, ResponseGetMyInfo>({
+  return apiClient.request<never, ResponseGetMyInfo>({
     url: 'v1/members/me',
     method: 'GET',
   });

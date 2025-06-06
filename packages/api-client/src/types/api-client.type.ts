@@ -28,5 +28,4 @@ export interface RequestOptions {
   enableRetry?: boolean;
   maxRetries?: number;
   retryDelay?: number;
-  enableLogging?: boolean;
 }
