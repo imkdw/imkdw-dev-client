@@ -4,8 +4,9 @@ globs:
 alwaysApply: true
 ---
 # 파일 및 폴더명
-- 모든 파일은 kebab case를 따릅니다
+- 컴포넌트, 커스텀 훅 등의 경우 kebab case를 따릅니다
   - ex) kebab-case.tsx, sidebar-nav
+- 유틸, 타입 등은 `*.util.ts` 형식으로 구성합니다 
 
 # 주석
 - 불필요한 라인마다 주석을 작성하지 말아주세요
@@ -19,3 +20,28 @@ alwaysApply: true
 
 # 컴포넌트 Props 지정
 - 하나의 파일 내부에서 단일 컴포넌트만 export 한다면 `interface Props { ... }` 형태로 네이밍해주세요
+
+# 다국어 처리
+- next-intl을 이용한 다국어를 지원합니다
+- 페이지 이동시 `next/link`가 아닌 `@imkdw-dev-client/i18n` 패키지 내부의 useRouter, Link 등 을 활용해야합니다
+
+# 컴포넌트
+- 꼭 필요하지 않은 경우라면 `use client`를 사용하지 말아주세요
+- 대부분의 컴포넌트는 서버 컴포넌트로 작성해주세요
+
+
+# 아이콘
+- lucide-react를 사용합니다
+
+# CSS
+- 기본적으로 TailwindCSS v4를 사용합니다
+- 만약 구현이 복잡한 경우는 CSS를 사용합니다
+
+# 프로젝트
+- turborepo를 통해 구성된 모노레포 프로젝트 입니다
+- apps : next.js 프로젝트들이 구성되어 있습니다
+- packages : 유틸, 스타일 등 다양한 공통적으로 사용 가능한 요소들이 구성되어 있습니다
+
+# 패키지 설치
+- `<rootDir>`의 `package.json`을 참고해서 설치합니다
+- ex) `pnpm memo-web add @blocknote/code-block`
