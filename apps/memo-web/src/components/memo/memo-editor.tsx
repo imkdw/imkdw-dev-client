@@ -16,7 +16,7 @@ export function MemoEditor({ memo }: Props) {
 
   const isEditable = isAuthReady && member?.role === MemberRole.ADMIN;
 
-  const { content, isLoading, saveMemo, handleContentChange, handleImageUpload } = useMemoEditor({ memo });
+  const { content, saveMemo, handleContentChange, handleImageUpload } = useMemoEditor({ memo });
 
   useKeyboardShortcuts({ onSave: saveMemo });
 
@@ -29,7 +29,7 @@ export function MemoEditor({ memo }: Props) {
   }
 
   return (
-    <div className={isLoading ? 'opacity-50 pointer-events-none' : ''}>
+    <div className='h-full'>
       <MilkdownEditorWrapper
         content={content}
         isEditable={isEditable}
