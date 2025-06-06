@@ -1,5 +1,6 @@
 import { Uploader } from '@milkdown/kit/plugin/upload';
 import { Node } from '@milkdown/kit/prose/model';
+import { showErrorToast } from '@imkdw-dev-client/utils';
 
 interface CreateImageUploaderOptions {
   uploadImage: (file: File) => Promise<{ success: boolean; data?: string; error?: { message: string } }>;
@@ -30,7 +31,9 @@ export function createImageUploader({ uploadImage, onUploadImage }: CreateImageU
         const result = await uploadImage(image);
 
         if (!result.success || !result.data) {
-          throw new Error(result.error?.message || '이미지 업로드에 실패했습니다.');
+          const errorMessage = result.error?.message || '이미지 업로드에 실패했습니다.';
+          showErrorToast(errorMessage);
+          throw new Error(errorMessage);
         }
 
         const src = result.data;

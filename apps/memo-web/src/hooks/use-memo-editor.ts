@@ -1,6 +1,6 @@
-import { MemoDetail } from '@imkdw-dev-client/api-client';
-import { useActionState, useCallback, useRef, useState, useTransition } from 'react';
-import { updateMemoAction } from '../actions/memo/update-memo.action';
+import { updateMemo, MemoDetail } from '@imkdw-dev-client/api-client';
+import { showSuccessToast } from '@imkdw-dev-client/utils';
+import { useCallback, useRef, useState } from 'react';
 
 interface UseMemoEditorProps {
   memo: MemoDetail;
@@ -12,8 +12,7 @@ export function useMemoEditor({ memo }: UseMemoEditorProps) {
   const [content, setContent] = useState(initialContent);
   const [htmlContent, setHtmlContent] = useState(initialContentHtml || '');
   const [imageUrls, setImageUrls] = useState<string[]>([]);
-  const [state, formAction, isPendingFromAction] = useActionState(updateMemoAction, { success: false });
-  const [isPending, startTransition] = useTransition();
+  const [isLoading, setIsLoading] = useState(false);
 
   const contentRef = useRef(content);
   const htmlContentRef = useRef(htmlContent);
@@ -30,27 +29,29 @@ export function useMemoEditor({ memo }: UseMemoEditorProps) {
     setImageUrls((prev) => [...prev, imageUrl]);
   }, []);
 
-  const saveMemo = useCallback(() => {
-    const formData = new FormData();
-    formData.append('slug', slug);
-    formData.append('folderId', folderId);
-    formData.append('name', name);
-    formData.append('content', contentRef.current);
-    formData.append('contentHtml', htmlContentRef.current);
+  const saveMemo = useCallback(async () => {
+    setIsLoading(true);
 
-    if (imageUrls.length > 0) {
-      imageUrls.forEach((imageUrl) => {
-        formData.append('imageUrls', imageUrl);
+    try {
+      await updateMemo(slug, {
+        folderId,
+        name,
+        content: contentRef.current,
+        contentHtml: htmlContentRef.current,
+        imageUrls,
       });
-    }
 
-    startTransition(() => formAction(formData));
-  }, [folderId, name, formAction, slug, imageUrls]);
+      showSuccessToast('메모가 성공적으로 저장되었습니다.');
+    } catch {
+      // API 클라이언트에서 자동으로 에러 토스트 표시
+    } finally {
+      setIsLoading(false);
+    }
+  }, [folderId, name, slug, imageUrls]);
 
   return {
     content,
-    isLoading: isPending || isPendingFromAction,
-    state,
+    isLoading,
     saveMemo,
     handleContentChange,
     handleImageUpload,

@@ -2,7 +2,7 @@
 
 import { MemoItem, deleteMemo, updateMemoName } from '@imkdw-dev-client/api-client';
 import { usePathname } from '@imkdw-dev-client/i18n';
-import { showSuccessToast } from '@imkdw-dev-client/utils';
+import { showErrorToast, showSuccessToast } from '@imkdw-dev-client/utils';
 import { useState } from 'react';
 import { MemoContextMenu } from './memo-context-menu';
 import { MemoListItem } from './memo-list-item';
@@ -45,6 +45,7 @@ export function SidebarContentMemo({ level = 0, memo, onMemoUpdate, onMemoDelete
       showSuccessToast('메모 이름이 변경되었습니다.');
     } catch {
       setNewName(currentMemo.name);
+      showErrorToast('메모 이름 변경에 실패했습니다.');
     }
   };
 
@@ -58,7 +59,9 @@ export function SidebarContentMemo({ level = 0, memo, onMemoUpdate, onMemoDelete
       await deleteMemo(slug);
       onMemoDelete(slug);
       showSuccessToast('메모가 삭제되었습니다.');
-    } catch {}
+    } catch {
+      showErrorToast('메모 삭제에 실패했습니다.');
+    }
   };
 
   return (

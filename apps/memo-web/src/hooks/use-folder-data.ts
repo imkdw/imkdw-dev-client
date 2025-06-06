@@ -1,4 +1,5 @@
 import { MemoFolder, MemoItem, findChildMemoFolders, findFolderMemos } from '@imkdw-dev-client/api-client';
+import { showErrorToast } from '@imkdw-dev-client/utils';
 import { useEffect, useState } from 'react';
 
 export function useFolderData(folderId: string, isOpen: boolean) {
@@ -17,6 +18,7 @@ export function useFolderData(folderId: string, isOpen: boolean) {
         setChildFolders(folders);
       } catch {
         setChildFolders([]);
+        showErrorToast('폴더 목록을 불러오는데 실패했습니다.');
       } finally {
         setIsLoading(false);
       }
@@ -35,6 +37,7 @@ export function useFolderData(folderId: string, isOpen: boolean) {
         setChildMemos(memos);
       } catch {
         setChildMemos([]);
+        showErrorToast('메모 목록을 불러오는데 실패했습니다.');
       }
     };
 

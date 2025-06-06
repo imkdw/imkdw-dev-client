@@ -1,6 +1,7 @@
 'use client';
 
 import { Keyboard } from '@imkdw-dev-client/consts';
+import { showErrorToast } from '@imkdw-dev-client/utils';
 import { Edit2 } from 'lucide-react';
 import { KeyboardEvent, useEffect, useRef } from 'react';
 
@@ -29,6 +30,7 @@ export function MemoRenameForm({ level, newName, setNewName, onSave, onCancel }:
     try {
       await onSave();
     } catch {
+      showErrorToast('메모 이름 변경 중 오류가 발생했습니다.');
       onCancel();
     }
   };

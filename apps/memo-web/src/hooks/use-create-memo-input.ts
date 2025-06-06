@@ -1,16 +1,21 @@
+import { createMemo } from '@imkdw-dev-client/api-client';
 import { Keyboard } from '@imkdw-dev-client/consts';
 import { useRouter } from '@imkdw-dev-client/i18n';
-import { useActionState, useCallback, useEffect, useRef } from 'react';
-import { createMemoAction } from '../actions/memo/create-memo.action';
+import { showSuccessToast } from '@imkdw-dev-client/utils';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 interface UseCreateMemoInputProps {
+  folderId: string;
   setIsCreatingMemo: (value: boolean) => void;
 }
 
-export function useCreateMemoInput({ setIsCreatingMemo }: UseCreateMemoInputProps) {
-  const [state, formAction, isPending] = useActionState(createMemoAction, { success: false });
+export function useCreateMemoInput({ folderId, setIsCreatingMemo }: UseCreateMemoInputProps) {
+  const [name, setName] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
   const inputRef = useRef<HTMLInputElement>(null);
-  const formRef = useRef<HTMLFormElement>(null);
+  const formRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
   // 폼 외부 클릭 감지
@@ -34,32 +39,56 @@ export function useCreateMemoInput({ setIsCreatingMemo }: UseCreateMemoInputProp
     return () => clearTimeout(focusTimer);
   }, []);
 
-  // 메모 생성 성공 시 리다이렉트
-  useEffect(() => {
-    if (state.success && state.createdMemo?.slug) {
-      setIsCreatingMemo(false);
-      router.push(`/memo/${state.createdMemo.slug}`);
+  const handleSubmit = useCallback(async () => {
+    if (!name.trim()) {
+      setError('메모 이름을 입력해주세요.');
+      return;
     }
-  }, [state.success, state.createdMemo?.slug, router, setIsCreatingMemo]);
+
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const { slug } = await createMemo({ folderId, name: name.trim() });
+      showSuccessToast('메모가 생성되었습니다.');
+      setIsCreatingMemo(false);
+      router.push(`/memo/${slug}`);
+    } catch {
+      // API 클라이언트에서 자동으로 에러 토스트 표시
+      setError('메모 생성에 실패했습니다.');
+    } finally {
+      setIsLoading(false);
+    }
+  }, [folderId, name, router, setIsCreatingMemo]);
 
   const handleKeyDown = useCallback(
     (event: React.KeyboardEvent) => {
-      if (event.key === Keyboard.ESCAPE) {
+      if (event.key === Keyboard.ENTER && !isLoading) {
+        event.preventDefault();
+        handleSubmit();
+      } else if (event.key === Keyboard.ESCAPE) {
         setIsCreatingMemo(false);
       }
     },
-    [setIsCreatingMemo],
+    [handleSubmit, isLoading, setIsCreatingMemo],
   );
 
-  const hasError = state.errors?.name && state.errors.name.length > 0;
+  const handleNameChange = useCallback(
+    (value: string) => {
+      setName(value);
+      if (error) setError(null);
+    },
+    [error],
+  );
 
   return {
+    name,
+    setName: handleNameChange,
     inputRef,
     formRef,
-    formAction,
-    isPending,
-    hasError,
-    errorMessage: state.errors?.name,
+    isLoading,
+    error,
+    handleSubmit,
     handleKeyDown,
   };
 }
