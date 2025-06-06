@@ -1,10 +1,7 @@
 'use client';
 
 import { MemoDetail } from '@imkdw-dev-client/api-client';
-import { MemberRole } from '@imkdw-dev-client/consts';
-import { useRouter } from '@imkdw-dev-client/i18n';
-import { useEffect } from 'react';
-import { useAuthStore } from '../../stores/auth-store';
+import { useLayoutEffect } from 'react';
 import { useMemoStore } from '../../stores/memo-store';
 
 interface Props {
@@ -13,16 +10,8 @@ interface Props {
 
 export function MemoInitializer({ memo }: Props) {
   const { setCurrentMemo } = useMemoStore();
-  const { member } = useAuthStore();
-  const router = useRouter();
 
-  useEffect(() => {
-    if (member?.role === MemberRole.ADMIN) {
-      router.push(`/memo/${memo.slug}/edit`);
-    }
-  }, [member?.role, memo.slug, router]);
-
-  useEffect(() => {
+  useLayoutEffect(() => {
     setCurrentMemo(memo);
   }, [memo, setCurrentMemo]);
 

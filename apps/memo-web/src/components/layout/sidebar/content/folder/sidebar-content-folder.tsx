@@ -17,14 +17,15 @@ export function SidebarContentFolder({ level = 0, folderName, folderId }: Props)
   const {
     isOpen,
     isCreatingMemo,
+    isCreatingFolder,
     setIsCreatingMemo,
+    setIsCreatingFolder,
     toggleFolder,
     handleCreateMemo,
-    handleMemoUpdate,
-    handleMemoDelete,
-  } = useFolderActions();
+    handleCreateFolder,
+  } = useFolderActions(folderId);
 
-  const { childFolders, childMemos, setChildMemos } = useFolderData(folderId, isOpen);
+  const { childFolders, childMemos } = useFolderData(folderId);
 
   return (
     <li>
@@ -32,7 +33,7 @@ export function SidebarContentFolder({ level = 0, folderName, folderId }: Props)
         <ContextMenu.Trigger>
           <FolderItem level={level} folderName={folderName} isOpen={isOpen} onClick={toggleFolder} />
         </ContextMenu.Trigger>
-        <FolderContextMenu onCreateMemo={handleCreateMemo} />
+        <FolderContextMenu onCreateMemo={handleCreateMemo} onCreateFolder={handleCreateFolder} />
       </ContextMenu.Root>
 
       <FolderChildren
@@ -42,9 +43,9 @@ export function SidebarContentFolder({ level = 0, folderName, folderId }: Props)
         childFolders={childFolders}
         childMemos={childMemos}
         isCreatingMemo={isCreatingMemo}
+        isCreatingFolder={isCreatingFolder}
         setIsCreatingMemo={setIsCreatingMemo}
-        onMemoUpdate={(updatedMemo) => handleMemoUpdate(updatedMemo, setChildMemos)}
-        onMemoDelete={(slug) => handleMemoDelete(slug, setChildMemos)}
+        setIsCreatingFolder={setIsCreatingFolder}
       />
     </li>
   );

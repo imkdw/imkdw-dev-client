@@ -1,9 +1,9 @@
 'use client';
 
-import { MemoItem, deleteMemo, updateMemoName } from '@imkdw-dev-client/api-client';
+import { MemoItem } from '@imkdw-dev-client/api-client';
 import { usePathname } from '@imkdw-dev-client/i18n';
-import { showErrorToast, showSuccessToast } from '@imkdw-dev-client/utils';
 import { useState } from 'react';
+import { useMemoCrud } from '../../../../../hooks/use-memo-crud';
 import { MemoContextMenu } from './memo-context-menu';
 import { MemoListItem } from './memo-list-item';
 import { MemoRenameForm } from './memo-rename-form';
@@ -11,11 +11,9 @@ import { MemoRenameForm } from './memo-rename-form';
 interface Props {
   level: number;
   memo: MemoItem;
-  onMemoUpdate: (updatedMemo: MemoItem) => void;
-  onMemoDelete: (slug: string) => void;
 }
 
-export function SidebarContentMemo({ level = 0, memo, onMemoUpdate, onMemoDelete }: Props) {
+export function SidebarContentMemo({ level = 0, memo }: Props) {
   const { name, slug } = memo;
 
   const pathname = usePathname();
@@ -23,45 +21,32 @@ export function SidebarContentMemo({ level = 0, memo, onMemoUpdate, onMemoDelete
   const isSelected = currentSlug === slug;
   const [isRenaming, setIsRenaming] = useState(false);
   const [newName, setNewName] = useState(name);
-  const [currentMemo, setCurrentMemo] = useState(memo);
+  const { updateMemo, removeMemo } = useMemoCrud();
 
   const handleRename = () => {
-    setNewName(currentMemo.name);
+    setNewName(memo.name);
     setIsRenaming(true);
   };
 
   const handleSave = async () => {
-    if (newName.trim() === '' || newName === currentMemo.name) {
+    if (newName.trim() === '' || newName === memo.name) {
       handleCancel();
       return;
     }
 
-    try {
-      const updatedMemo = await updateMemoName(slug, { name: newName });
-
-      setCurrentMemo(updatedMemo);
-      onMemoUpdate(updatedMemo);
+    const result = await updateMemo(slug, { name: newName });
+    if (result) {
       setIsRenaming(false);
-      showSuccessToast('메모 이름이 변경되었습니다.');
-    } catch {
-      setNewName(currentMemo.name);
-      showErrorToast('메모 이름 변경에 실패했습니다.');
     }
   };
 
   const handleCancel = () => {
     setIsRenaming(false);
-    setNewName(currentMemo.name);
+    setNewName(memo.name);
   };
 
   const handleDelete = async () => {
-    try {
-      await deleteMemo(slug);
-      onMemoDelete(slug);
-      showSuccessToast('메모가 삭제되었습니다.');
-    } catch {
-      showErrorToast('메모 삭제에 실패했습니다.');
-    }
+    await removeMemo(slug);
   };
 
   return (
@@ -76,7 +61,7 @@ export function SidebarContentMemo({ level = 0, memo, onMemoUpdate, onMemoDelete
             onCancel={handleCancel}
           />
         ) : (
-          <MemoListItem level={level} memo={currentMemo} isSelected={isSelected} />
+          <MemoListItem level={level} memo={memo} isSelected={isSelected} />
         )}
       </li>
     </MemoContextMenu>

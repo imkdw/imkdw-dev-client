@@ -4,6 +4,7 @@ import { MemoItem } from '@imkdw-dev-client/api-client';
 import { Link } from '@imkdw-dev-client/i18n';
 import { cn } from '@imkdw-dev-client/utils';
 import { File } from 'lucide-react';
+import { useAuthStore } from '../../../../../stores/auth-store';
 
 interface Props {
   level: number;
@@ -12,9 +13,11 @@ interface Props {
 }
 
 export function MemoListItem({ level, memo: { name, slug }, isSelected }: Props) {
+  const { member } = useAuthStore();
+
   return (
     <Link
-      href={`/memo/${slug}`}
+      href={member?.role === 'ADMIN' ? `/memo/${slug}/edit` : `/memo/${slug}`}
       type='button'
       className={cn(
         'flex items-center p-1 w-full cursor-pointer rounded',

@@ -1,45 +1,43 @@
-import { MemoItem } from '@imkdw-dev-client/api-client';
-import { Dispatch, SetStateAction, useCallback, useState } from 'react';
+import { useState } from 'react';
 import { useMemoStore } from '../stores/memo-store';
 
-export function useFolderActions() {
-  const [isOpen, setIsOpen] = useState(false);
+export function useFolderActions(folderId: string) {
   const [isCreatingMemo, setIsCreatingMemo] = useState(false);
-  const { currentMemo, setCurrentMemo } = useMemoStore();
+  const [isCreatingFolder, setIsCreatingFolder] = useState(false);
+  const { expandedFolders, toggleFolder, setFolderExpanded } = useMemoStore();
 
-  const toggleFolder = () => {
-    setIsOpen((prev) => !prev);
+  const isOpen = expandedFolders[folderId] || false;
+
+  const handleToggleFolder = () => {
+    toggleFolder(folderId);
   };
 
   const handleCreateMemo = () => {
-    setIsOpen(true);
+    if (!isOpen) {
+      setFolderExpanded(folderId, true);
+    }
     setTimeout(() => {
       setIsCreatingMemo(true);
     }, 100);
   };
 
-  const handleMemoUpdate = useCallback(
-    (updatedMemo: MemoItem, setChildMemos: Dispatch<SetStateAction<MemoItem[]>>) => {
-      setChildMemos((prevMemos) => prevMemos.map((memo) => (memo.id === updatedMemo.id ? updatedMemo : memo)));
-
-      if (currentMemo?.id === updatedMemo.id) {
-        setCurrentMemo({ ...currentMemo, path: updatedMemo.path });
-      }
-    },
-    [currentMemo, setCurrentMemo],
-  );
-
-  const handleMemoDelete = (slug: string, setChildMemos: Dispatch<SetStateAction<MemoItem[]>>) => {
-    setChildMemos((prevMemos) => prevMemos.filter((memo) => memo.slug !== slug));
+  const handleCreateFolder = () => {
+    if (!isOpen) {
+      setFolderExpanded(folderId, true);
+    }
+    setTimeout(() => {
+      setIsCreatingFolder(true);
+    }, 100);
   };
 
   return {
     isOpen,
     isCreatingMemo,
+    isCreatingFolder,
     setIsCreatingMemo,
-    toggleFolder,
+    setIsCreatingFolder,
+    toggleFolder: handleToggleFolder,
     handleCreateMemo,
-    handleMemoUpdate,
-    handleMemoDelete,
+    handleCreateFolder,
   };
 }

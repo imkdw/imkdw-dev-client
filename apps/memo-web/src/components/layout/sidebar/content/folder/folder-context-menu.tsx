@@ -3,16 +3,17 @@ import { FilePlus, FolderPlus, Pencil, Trash } from 'lucide-react';
 
 interface Props {
   onCreateMemo: () => void;
+  onCreateFolder: () => void;
 }
 
-export function FolderContextMenu({ onCreateMemo }: Props) {
+export function FolderContextMenu({ onCreateMemo, onCreateFolder }: Props) {
   return (
     <ContextMenu.Portal>
       <ContextMenu.Content className='context-menu-content'>
         <ContextMenu.Item className='context-menu-item' onClick={onCreateMemo}>
           <FilePlus size={16} className='text-green-400' />새 메모
         </ContextMenu.Item>
-        <ContextMenu.Item className='context-menu-item'>
+        <ContextMenu.Item className='context-menu-item' onClick={onCreateFolder}>
           <FolderPlus size={16} className='text-blue-400' />새 폴더
         </ContextMenu.Item>
         <ContextMenu.Separator className='context-menu-separator' />

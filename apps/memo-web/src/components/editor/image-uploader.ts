@@ -1,6 +1,6 @@
+import { showErrorToast } from '@imkdw-dev-client/utils';
 import { Uploader } from '@milkdown/kit/plugin/upload';
 import { Node } from '@milkdown/kit/prose/model';
-import { showErrorToast } from '@imkdw-dev-client/utils';
 
 interface CreateImageUploaderOptions {
   uploadImage: (file: File) => Promise<{ success: boolean; data?: string; error?: { message: string } }>;

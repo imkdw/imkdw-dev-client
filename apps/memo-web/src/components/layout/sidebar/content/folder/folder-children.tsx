@@ -1,6 +1,7 @@
 import { MemoFolder, MemoItem } from '@imkdw-dev-client/api-client';
 import { AnimatePresence, motion } from 'framer-motion';
 import { SidebarContentMemo } from '../memo/sidebar-content-memo';
+import { CreateFolderInput } from './create-folder-input';
 import { CreateMemoInput } from './create-memo-input';
 import { SidebarContentFolder } from './sidebar-content-folder';
 
@@ -11,9 +12,9 @@ interface Props {
   childFolders: MemoFolder[];
   childMemos: MemoItem[];
   isCreatingMemo: boolean;
+  isCreatingFolder: boolean;
   setIsCreatingMemo: (value: boolean) => void;
-  onMemoUpdate: (updatedMemo: MemoItem) => void;
-  onMemoDelete: (slug: string) => void;
+  setIsCreatingFolder: (value: boolean) => void;
 }
 
 export function FolderChildren({
@@ -23,9 +24,9 @@ export function FolderChildren({
   childFolders,
   childMemos,
   isCreatingMemo,
+  isCreatingFolder,
   setIsCreatingMemo,
-  onMemoUpdate,
-  onMemoDelete,
+  setIsCreatingFolder,
 }: Props) {
   return (
     <AnimatePresence initial={false}>
@@ -49,7 +50,6 @@ export function FolderChildren({
             },
           }}
         >
-          {/* 폴더 목록 */}
           {childFolders.map((childFolder) => (
             <SidebarContentFolder
               key={childFolder.id}
@@ -59,20 +59,16 @@ export function FolderChildren({
             />
           ))}
 
-          {/* 새 메모 생성시 파일명 입력칸 */}
+          {isCreatingFolder && (
+            <CreateFolderInput level={level} parentId={folderId} setIsCreatingFolder={setIsCreatingFolder} />
+          )}
+
           {isCreatingMemo && (
             <CreateMemoInput level={level} folderId={folderId} setIsCreatingMemo={setIsCreatingMemo} />
           )}
 
-          {/* 메모 목록 */}
           {childMemos.map((memo) => (
-            <SidebarContentMemo
-              key={memo.id}
-              level={level + 1}
-              memo={memo}
-              onMemoUpdate={onMemoUpdate}
-              onMemoDelete={onMemoDelete}
-            />
+            <SidebarContentMemo key={memo.id} level={level + 1} memo={memo} />
           ))}
         </motion.ul>
       )}

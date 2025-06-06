@@ -1,4 +1,4 @@
-import { updateMemo, MemoDetail } from '@imkdw-dev-client/api-client';
+import { MemoDetail, updateMemo } from '@imkdw-dev-client/api-client';
 import { showSuccessToast } from '@imkdw-dev-client/utils';
 import { useCallback, useRef, useState } from 'react';
 

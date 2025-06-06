@@ -16,6 +16,7 @@ import { clipboard } from '@milkdown/kit/plugin/clipboard';
 import { listener, listenerCtx } from '@milkdown/kit/plugin/listener';
 import { getHTML } from '@milkdown/kit/utils';
 import { basicSetup } from 'codemirror';
+import { history } from '@milkdown/kit/plugin/history';
 import { createImageUploader } from './image-uploader';
 
 interface Props {
@@ -71,6 +72,7 @@ export function MilkdownEditor({ content, isEditable, onChangeContent, onUploadI
 
       .use(listener)
       .use(commonmark)
+      .use(history)
       .use(imageBlockComponent)
       .use(gfm)
       .use(upload)

@@ -10,3 +10,12 @@ alwaysApply: true
 # 주석
 - 불필요한 라인마다 주석을 작성하지 말아주세요
 - 꼭 필요하거나 복잡한 부분에만 주석을 작성해주면 됩니다
+
+# 리액트 패키지
+- `React.MouseEvent` 등이 아닌 `import { MouseEvent } from 'react'` 방식으로 코드를 작성해주세요
+
+# 키보드 입력값
+- `Escape` 등 문자열이 아닌 `packages/consts/src/common/keyboard.const.ts`에 존재하는 `Keyboard` 열거형 상수를 사용해주세요
+
+# 컴포넌트 Props 지정
+- 하나의 파일 내부에서 단일 컴포넌트만 export 한다면 `interface Props { ... }` 형태로 네이밍해주세요

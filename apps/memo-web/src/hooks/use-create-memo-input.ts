@@ -1,8 +1,12 @@
+'use client';
+
 import { createMemo } from '@imkdw-dev-client/api-client';
-import { Keyboard } from '@imkdw-dev-client/consts';
+import { Keyboard, MemberRole } from '@imkdw-dev-client/consts';
 import { useRouter } from '@imkdw-dev-client/i18n';
 import { showSuccessToast } from '@imkdw-dev-client/utils';
 import { KeyboardEvent, useCallback, useEffect, useRef, useState } from 'react';
+import { useAuthStore } from '../stores/auth-store';
+import { useMemoStore } from '../stores/memo-store';
 
 interface UseCreateMemoInputProps {
   folderId: string;
@@ -13,6 +17,8 @@ export function useCreateMemoInput({ folderId, setIsCreatingMemo }: UseCreateMem
   const [name, setName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const { triggerRefresh } = useMemoStore();
+  const { member } = useAuthStore();
 
   const inputRef = useRef<HTMLInputElement>(null);
   const formRef = useRef<HTMLDivElement>(null);
@@ -51,14 +57,18 @@ export function useCreateMemoInput({ folderId, setIsCreatingMemo }: UseCreateMem
     try {
       const { slug } = await createMemo({ folderId, name: name.trim() });
       showSuccessToast('메모가 생성되었습니다.');
+
+      triggerRefresh();
       setIsCreatingMemo(false);
-      router.push(`/memo/${slug}`);
+
+      const targetPath = member?.role === MemberRole.ADMIN ? `/memo/${slug}/edit` : `/memo/${slug}`;
+      router.push(targetPath);
     } catch {
       setError('메모 생성에 실패했습니다.');
     } finally {
       setIsLoading(false);
     }
-  }, [folderId, name, router, setIsCreatingMemo]);
+  }, [folderId, name, router, setIsCreatingMemo, triggerRefresh, member?.role]);
 
   const handleKeyDown = useCallback(
     (event: KeyboardEvent) => {
