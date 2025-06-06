@@ -4,7 +4,7 @@ import { MemoDetail } from '@imkdw-dev-client/api-client';
 import { MemberRole } from '@imkdw-dev-client/consts';
 import { useKeyboardShortcuts } from '../../hooks/use-keyboard-shortcuts';
 import { useMemoEditor } from '../../hooks/use-memo-editor';
-import { useAuthStore } from '../../stores/auth-store';
+import { useAuthStatus } from '../../hooks/use-auth-status';
 import { MilkdownEditorWrapper } from '../editor/markdown';
 
 interface Props {
@@ -12,12 +12,21 @@ interface Props {
 }
 
 export function MemoEditor({ memo }: Props) {
-  const { member } = useAuthStore();
-  const isEditable = member?.role === MemberRole.ADMIN;
+  const { member, isAuthReady } = useAuthStatus();
+
+  const isEditable = isAuthReady && member?.role === MemberRole.ADMIN;
 
   const { content, saveMemo, handleContentChange, handleImageUpload } = useMemoEditor({ memo });
 
   useKeyboardShortcuts({ onSave: saveMemo });
+
+  if (!isAuthReady) {
+    return (
+      <div className='flex items-center justify-center h-full'>
+        <div className='text-gray-400'>Loading...</div>
+      </div>
+    );
+  }
 
   return (
     <MilkdownEditorWrapper

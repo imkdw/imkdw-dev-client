@@ -1,10 +1,9 @@
 import { getMyInfo, verifyToken } from '@imkdw-dev-client/api-client';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useAuthStore } from '../stores/auth-store';
 
 export function useAuthInitialization() {
-  const [isInitializing, setIsInitializing] = useState(true);
-  const { setIsLoggedIn, setMember } = useAuthStore();
+  const { setIsLoggedIn, setMember, setIsInitializing, isInitializing } = useAuthStore();
 
   const checkAuthentication = useCallback(async () => {
     try {
@@ -22,7 +21,7 @@ export function useAuthInitialization() {
     } finally {
       setIsInitializing(false);
     }
-  }, [setIsLoggedIn, setMember]);
+  }, [setIsLoggedIn, setMember, setIsInitializing]);
 
   useEffect(() => {
     checkAuthentication();
