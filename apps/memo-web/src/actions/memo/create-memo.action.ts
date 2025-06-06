@@ -28,10 +28,20 @@ export async function createMemoAction(_prevState: CreateMemoState, formData: Fo
 
   const { folderId, name } = validatedFields.data;
 
-  const { slug } = await createMemo({ folderId, name });
+  try {
+    const { slug } = await createMemo({ folderId, name });
 
-  return {
-    success: true,
-    createdMemo: { slug },
-  };
+    return {
+      success: true,
+      createdMemo: { slug },
+    };
+  } catch {
+    return {
+      success: false,
+      errors: {
+        name: ['메모 생성에 실패했습니다. 다시 시도해주세요.'],
+        folderId: undefined,
+      },
+    };
+  }
 }

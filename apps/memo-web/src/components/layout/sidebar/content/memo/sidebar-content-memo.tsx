@@ -36,12 +36,16 @@ export function SidebarContentMemo({ level = 0, memo, onMemoUpdate, onMemoDelete
       return;
     }
 
-    const updatedMemo = await updateMemoName(slug, { name: newName });
+    try {
+      const updatedMemo = await updateMemoName(slug, { name: newName });
 
-    setCurrentMemo(updatedMemo);
-    onMemoUpdate(updatedMemo);
-    setIsRenaming(false);
-    showSuccessToast('메모 이름이 변경되었습니다.');
+      setCurrentMemo(updatedMemo);
+      onMemoUpdate(updatedMemo);
+      setIsRenaming(false);
+      showSuccessToast('메모 이름이 변경되었습니다.');
+    } catch {
+      setNewName(currentMemo.name);
+    }
   };
 
   const handleCancel = () => {
@@ -54,10 +58,7 @@ export function SidebarContentMemo({ level = 0, memo, onMemoUpdate, onMemoDelete
       await deleteMemo(slug);
       onMemoDelete(slug);
       showSuccessToast('메모가 삭제되었습니다.');
-    } catch {
-      // API 클라이언트에서 자동으로 에러 toast 표시
-      // 실패 시 UI 상태 변경하지 않음
-    }
+    } catch {}
   };
 
   return (
