@@ -23,7 +23,7 @@ export function MemoFolderCreateForm({ parentId, onSuccess, onCancel, initialEdi
 
     const result = await createFolder({
       name: name.trim(),
-      parentId,
+      parentId: parentId ?? null,
     });
 
     if (result) {

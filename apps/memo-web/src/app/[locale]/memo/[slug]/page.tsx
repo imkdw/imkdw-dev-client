@@ -54,7 +54,7 @@ export default async function MemoDetailPage({ params }: Props) {
     <Suspense fallback={<MemoSkeleton />}>
       <div className='w-full h-full'>
         <MemoInitializer memo={memo} />
-        <MemoBreadcrumb initialPath={memo.path} />
+        <MemoBreadcrumb memo={memo} />
         <MemoDetail memo={memo} />
       </div>
     </Suspense>

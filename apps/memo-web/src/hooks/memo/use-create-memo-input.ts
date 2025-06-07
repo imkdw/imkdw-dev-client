@@ -51,6 +51,11 @@ export function useCreateMemoInput({ folderId, setIsCreatingMemo }: UseCreateMem
       return;
     }
 
+    if (!folderId) {
+      setError('폴더를 선택해주세요.');
+      return;
+    }
+
     setIsLoading(true);
     setError(null);
 
