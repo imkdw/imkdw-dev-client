@@ -1,10 +1,10 @@
 export interface RequestCreateMemoFolder {
   name: string;
-  parentId?: string;
+  parentId: string | null;
 }
 
 export interface ResponseCreateMemoFolder {
   id: string;
   name: string;
-  parentId?: string;
+  parentId: string | null;
 }

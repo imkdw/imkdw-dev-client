@@ -4,7 +4,7 @@ import { useCreateMemoInput } from '@/src/hooks/memo/use-create-memo-input';
 
 interface Props {
   level: number;
-  folderId: string;
+  folderId: string | null;
   setIsCreatingMemo: (value: boolean) => void;
 }
 

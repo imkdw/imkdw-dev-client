@@ -8,7 +8,7 @@ import { SidebarContentFolder } from './sidebar-content-folder';
 interface Props {
   isOpen: boolean;
   level: number;
-  folderId: string;
+  folderId: string | null;
   childFolders: MemoFolder[];
   childMemos: MemoItem[];
   isCreatingMemo: boolean;

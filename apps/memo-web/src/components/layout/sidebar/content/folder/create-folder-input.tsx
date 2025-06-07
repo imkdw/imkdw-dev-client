@@ -6,7 +6,7 @@ import { useMemoFolderCrud } from '../../../../../hooks/folder/use-memo-folder-c
 
 interface Props {
   level: number;
-  parentId: string;
+  parentId: string | null;
   setIsCreatingFolder: (value: boolean) => void;
 }
 
@@ -31,10 +31,7 @@ export function CreateFolderInput({ level, parentId, setIsCreatingFolder }: Prop
 
     setError('');
 
-    await createFolder({
-      name: name.trim(),
-      parentId,
-    });
+    await createFolder({ name, parentId });
 
     setName('');
     setIsCreatingFolder(false);

@@ -9,7 +9,7 @@ import { useAuthStore } from '../../stores/auth-store';
 import { useMemoStore } from '../../stores/memo-store';
 
 interface UseCreateMemoInputProps {
-  folderId: string;
+  folderId: string | null;
   setIsCreatingMemo: (value: boolean) => void;
 }
 
