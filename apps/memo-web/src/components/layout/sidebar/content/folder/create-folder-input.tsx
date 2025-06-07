@@ -2,7 +2,7 @@
 
 import { Keyboard } from '@imkdw-dev-client/consts';
 import { KeyboardEvent, useEffect, useRef, useState } from 'react';
-import { useMemoFolderCrud } from '../../../../../hooks/use-memo-folder-crud';
+import { useMemoFolderCrud } from '../../../../../hooks/folder/use-memo-folder-crud';
 
 interface Props {
   level: number;
@@ -19,7 +19,7 @@ export function CreateFolderInput({ level, parentId, setIsCreatingFolder }: Prop
 
   useEffect(() => {
     if (inputRef.current) {
-      inputRef.current.focus();
+      inputRef.current?.focus();
     }
   }, []);
 

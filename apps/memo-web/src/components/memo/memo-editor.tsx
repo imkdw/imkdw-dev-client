@@ -2,9 +2,9 @@
 
 import { MemoDetail } from '@imkdw-dev-client/api-client';
 import { MemberRole } from '@imkdw-dev-client/consts';
-import { useAuthStatus } from '../../hooks/use-auth-status';
-import { useKeyboardShortcuts } from '../../hooks/use-keyboard-shortcuts';
-import { useMemoEditor } from '../../hooks/use-memo-editor';
+import { useAuthStatus } from '../../hooks/auth/use-auth-status';
+import { useKeyboardShortcuts } from '../../hooks/ui/use-keyboard-shortcuts';
+import { useMemoEditor } from '../../hooks/memo/use-memo-editor';
 import { MilkdownEditorWrapper } from '../editor/markdown';
 
 interface Props {

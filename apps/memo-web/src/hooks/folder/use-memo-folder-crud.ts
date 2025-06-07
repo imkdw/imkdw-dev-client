@@ -1,15 +1,15 @@
 'use client';
 
-import { createMemoFolder, deleteMemoFolder, updateMemoFolder } from '@imkdw-dev-client/api-client';
+import { createMemoFolder, deleteMemoFolder, updateMemoFolderName } from '@imkdw-dev-client/api-client';
 import type {
   MemoFolder,
   RequestCreateMemoFolder,
-  RequestUpdateMemoFolder,
+  RequestUpdateMemoFolderName,
   ResponseCreateMemoFolder,
 } from '@imkdw-dev-client/api-client';
 import { showErrorToast, showSuccessToast } from '@imkdw-dev-client/utils';
 import { useCallback, useState } from 'react';
-import { useMemoStore } from '../stores/memo-store';
+import { useMemoStore } from '../../stores/memo-store';
 
 export const useMemoFolderCrud = () => {
   const [isCreating, setIsCreating] = useState(false);
@@ -36,10 +36,10 @@ export const useMemoFolderCrud = () => {
   );
 
   const updateFolder = useCallback(
-    async (id: string, data: RequestUpdateMemoFolder): Promise<MemoFolder | null> => {
+    async (id: string, data: RequestUpdateMemoFolderName): Promise<MemoFolder | null> => {
       setIsUpdating(true);
       try {
-        const result = await updateMemoFolder(id, data);
+        const result = await updateMemoFolderName(id, data);
         showSuccessToast('폴더명이 변경되었습니다.');
         triggerRefresh();
         return result;

@@ -1,7 +1,7 @@
 'use client';
 
 import { SidebarContent } from '@/src/components/layout/sidebar/content/sidebar-content';
-import { useSidebar } from '@/src/hooks/use-sidebar';
+import { useSidebar } from '@/src/hooks/ui/use-sidebar';
 import { cn } from '@imkdw-dev-client/utils';
 import { SidebarNavigator } from './navigator/sidebar-navigator';
 import { SidebarResizer } from './resizer/sidebar-resizer';

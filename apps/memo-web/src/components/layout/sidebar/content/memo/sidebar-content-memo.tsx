@@ -3,7 +3,7 @@
 import { MemoItem } from '@imkdw-dev-client/api-client';
 import { usePathname } from '@imkdw-dev-client/i18n';
 import { useState } from 'react';
-import { useMemoCrud } from '../../../../../hooks/use-memo-crud';
+import { useMemoCrud } from '../../../../../hooks/memo/use-memo-crud';
 import { MemoContextMenu } from './memo-context-menu';
 import { MemoListItem } from './memo-list-item';
 import { MemoRenameForm } from './memo-rename-form';

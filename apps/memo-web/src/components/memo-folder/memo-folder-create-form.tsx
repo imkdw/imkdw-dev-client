@@ -1,6 +1,6 @@
 import { PlusIcon } from 'lucide-react';
 import { FormEvent, useState } from 'react';
-import { useMemoFolderCrud } from '../../hooks/use-memo-folder-crud';
+import { useMemoFolderCrud } from '../../hooks/folder/use-memo-folder-crud';
 
 interface Props {
   parentId?: string;

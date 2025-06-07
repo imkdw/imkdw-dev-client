@@ -1,8 +1,8 @@
 'use client';
 
 import * as ContextMenu from '@radix-ui/react-context-menu';
-import { useFolderActions } from '../../../../../hooks/use-folder-actions';
-import { useFolderData } from '../../../../../hooks/use-folder-data';
+import { useFolderActions } from '../../../../../hooks/folder/use-folder-actions';
+import { useFolderData } from '../../../../../hooks/folder/use-folder-data';
 import { FolderChildren } from './folder-children';
 import { FolderContextMenu } from './folder-context-menu';
 import { FolderItem } from './folder-item';
@@ -20,6 +20,8 @@ export function SidebarContentFolder({ level = 0, folderName, folderId }: Props)
     isCreatingFolder,
     isDeleting,
     isDeleteDialogOpen,
+    isEditing,
+    isUpdating,
     setIsCreatingMemo,
     setIsCreatingFolder,
     setIsDeleteDialogOpen,
@@ -28,6 +30,9 @@ export function SidebarContentFolder({ level = 0, folderName, folderId }: Props)
     handleCreateFolder,
     handleDeleteClick,
     handleDeleteConfirm,
+    handleRenameFolder,
+    handleRenameConfirm,
+    handleRenameCancel,
     folderName: hookFolderName,
   } = useFolderActions(folderId, folderName);
 
@@ -37,16 +42,27 @@ export function SidebarContentFolder({ level = 0, folderName, folderId }: Props)
     <li>
       <ContextMenu.Root>
         <ContextMenu.Trigger>
-          <FolderItem level={level} folderName={folderName} isOpen={isOpen} onClick={toggleFolder} />
+          <FolderItem
+            level={level}
+            folderName={folderName}
+            isOpen={isOpen}
+            isEditing={isEditing}
+            isUpdating={isUpdating}
+            onClick={toggleFolder}
+            onRenameConfirm={handleRenameConfirm}
+            onRenameCancel={handleRenameCancel}
+          />
         </ContextMenu.Trigger>
         <FolderContextMenu
           onCreateMemo={handleCreateMemo}
           onCreateFolder={handleCreateFolder}
+          onRenameFolder={handleRenameFolder}
           onDeleteClick={handleDeleteClick}
           onDeleteConfirm={handleDeleteConfirm}
           isDeleting={isDeleting}
           isDeleteDialogOpen={isDeleteDialogOpen}
           onDeleteDialogChange={setIsDeleteDialogOpen}
+          isUpdating={isUpdating}
           folderName={hookFolderName}
         />
       </ContextMenu.Root>

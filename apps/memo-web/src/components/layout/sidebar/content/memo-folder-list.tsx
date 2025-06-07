@@ -1,7 +1,7 @@
 'use client';
 
 import { ResponseFindRootMemoFolders } from '@imkdw-dev-client/api-client';
-import { useRootMemoFolders } from '../../../../hooks/use-root-memo-folders';
+import { useRootMemoFolders } from '../../../../hooks/folder/use-root-memo-folders';
 import { SidebarContentFolder } from './folder/sidebar-content-folder';
 import { SidebarContentSearch } from './sidebar-content-search';
 

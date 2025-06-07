@@ -1,6 +1,6 @@
 'use client';
 
-import { useCreateMemoInput } from '@/src/hooks/use-create-memo-input';
+import { useCreateMemoInput } from '@/src/hooks/memo/use-create-memo-input';
 
 interface Props {
   level: number;

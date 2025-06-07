@@ -1,6 +1,6 @@
 'use client';
 
-import { useAuthInitialization } from '../../hooks/use-auth-initialization';
+import { useAuthInitialization } from '../../hooks/auth/use-auth-initialization';
 
 export function AuthInitializer() {
   useAuthInitialization();

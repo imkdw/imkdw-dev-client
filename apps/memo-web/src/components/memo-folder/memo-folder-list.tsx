@@ -1,7 +1,7 @@
 import type { ResponseFindRootMemoFolders } from '@imkdw-dev-client/api-client';
 import { useState } from 'react';
 import { SIDEBAR_ITEM_ID } from '../../constants/sidebar.const';
-import { useRootMemoFolders } from '../../hooks/use-root-memo-folders';
+import { useRootMemoFolders } from '../../hooks/folder/use-root-memo-folders';
 import { MemoFolderCreateForm } from './memo-folder-create-form';
 import { MemoFolderItem } from './memo-folder-item';
 

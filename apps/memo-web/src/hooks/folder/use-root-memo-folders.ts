@@ -1,8 +1,8 @@
 import { ResponseFindRootMemoFolders, findRootMemoFolders } from '@imkdw-dev-client/api-client';
 import { showErrorToast } from '@imkdw-dev-client/utils';
 import { useEffect, useRef, useState } from 'react';
-import { SIDEBAR_ITEM_ID } from '../constants/sidebar.const';
-import { useMemoStore } from '../stores/memo-store';
+import { SIDEBAR_ITEM_ID } from '../../constants/sidebar.const';
+import { useMemoStore } from '../../stores/memo-store';
 
 export function useRootMemoFolders(activeItemId: number | null) {
   const [rootMemoFolders, setRootMemoFolders] = useState<ResponseFindRootMemoFolders[]>([]);

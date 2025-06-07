@@ -5,12 +5,13 @@ import { DeleteConfirmDialog } from '../../../../common/delete-confirm-dialog';
 interface Props {
   onCreateMemo: () => void;
   onCreateFolder: () => void;
-  onRenameFolder?: () => void;
+  onRenameFolder: () => void;
   onDeleteClick?: () => void;
   onDeleteConfirm?: () => void;
   isDeleting?: boolean;
   isDeleteDialogOpen?: boolean;
   onDeleteDialogChange?: (open: boolean) => void;
+  isUpdating?: boolean;
   folderName?: string;
 }
 
@@ -23,6 +24,7 @@ export function FolderContextMenu({
   isDeleting = false,
   isDeleteDialogOpen = false,
   onDeleteDialogChange,
+  isUpdating = false,
   folderName,
 }: Props) {
   return (
@@ -36,12 +38,10 @@ export function FolderContextMenu({
             <FolderPlus size={16} className='text-blue-400' />새 폴더
           </ContextMenu.Item>
           <ContextMenu.Separator className='context-menu-separator' />
-          {onRenameFolder && (
-            <ContextMenu.Item className='context-menu-item' onClick={onRenameFolder}>
-              <Pencil size={16} className='text-orange-400' />
-              이름 변경
-            </ContextMenu.Item>
-          )}
+          <ContextMenu.Item className='context-menu-item' onClick={onRenameFolder} disabled={isUpdating}>
+            <Pencil size={16} className='text-orange-400' />
+            {isUpdating ? '변경 중...' : '이름 변경'}
+          </ContextMenu.Item>
           {onDeleteClick && (
             <ContextMenu.Item className='context-menu-item' onClick={onDeleteClick} disabled={isDeleting}>
               <Trash size={16} className='text-red-400' />

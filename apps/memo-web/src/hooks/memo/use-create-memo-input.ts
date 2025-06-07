@@ -5,8 +5,8 @@ import { Keyboard, MemberRole } from '@imkdw-dev-client/consts';
 import { useRouter } from '@imkdw-dev-client/i18n';
 import { showSuccessToast } from '@imkdw-dev-client/utils';
 import { KeyboardEvent, useCallback, useEffect, useRef, useState } from 'react';
-import { useAuthStore } from '../stores/auth-store';
-import { useMemoStore } from '../stores/memo-store';
+import { useAuthStore } from '../../stores/auth-store';
+import { useMemoStore } from '../../stores/memo-store';
 
 interface UseCreateMemoInputProps {
   folderId: string;

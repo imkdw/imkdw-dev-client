@@ -1,7 +1,7 @@
 import { MemoFolder, MemoItem, findChildMemoFolders, findFolderMemos } from '@imkdw-dev-client/api-client';
 import { showErrorToast } from '@imkdw-dev-client/utils';
 import { useEffect, useRef, useState } from 'react';
-import { useMemoStore } from '../stores/memo-store';
+import { useMemoStore } from '../../stores/memo-store';
 
 export function useFolderData(folderId: string) {
   const [childFolders, setChildFolders] = useState<MemoFolder[]>([]);

@@ -4,7 +4,7 @@ import { deleteMemo, updateMemoName } from '@imkdw-dev-client/api-client';
 import type { MemoItem } from '@imkdw-dev-client/api-client';
 import { showErrorToast, showSuccessToast } from '@imkdw-dev-client/utils';
 import { useCallback, useState } from 'react';
-import { useMemoStore } from '../stores/memo-store';
+import { useMemoStore } from '../../stores/memo-store';
 
 export const useMemoCrud = () => {
   const [isUpdating, setIsUpdating] = useState(false);
@@ -36,7 +36,6 @@ export const useMemoCrud = () => {
       try {
         await deleteMemo(slug);
         showSuccessToast('메모가 삭제되었습니다.');
-        // 삭제 후 데이터 갱신
         triggerRefresh();
         return true;
       } catch {
