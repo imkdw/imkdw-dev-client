@@ -28,26 +28,18 @@ class ApiClient {
   }
 
   private showErrorToast(error: Error & { status?: number; apiError?: ApiError }) {
-    if (typeof window === 'undefined') {
+    if (isServerSide()) {
       return;
     }
 
     if (error.status === HttpStatus.FORBIDDEN) {
       const forbiddenError = { ...error, message: '권한이 없습니다' };
 
-      import('@imkdw-dev-client/utils')
-        .then(({ showApiErrorToast }) => {
-          showApiErrorToast(forbiddenError);
-        })
-        .catch(() => {});
+      import('@imkdw-dev-client/utils').then(({ showApiErrorToast }) => showApiErrorToast(forbiddenError));
       return;
     }
 
-    import('@imkdw-dev-client/utils')
-      .then(({ showApiErrorToast }) => {
-        showApiErrorToast(error);
-      })
-      .catch(() => {});
+    import('@imkdw-dev-client/utils').then(({ showApiErrorToast }) => showApiErrorToast(error));
   }
 
   private createApiError(

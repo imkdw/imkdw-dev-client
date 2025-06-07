@@ -18,12 +18,18 @@ export function SidebarContentFolder({ level = 0, folderName, folderId }: Props)
     isOpen,
     isCreatingMemo,
     isCreatingFolder,
+    isDeleting,
+    isDeleteDialogOpen,
     setIsCreatingMemo,
     setIsCreatingFolder,
+    setIsDeleteDialogOpen,
     toggleFolder,
     handleCreateMemo,
     handleCreateFolder,
-  } = useFolderActions(folderId);
+    handleDeleteClick,
+    handleDeleteConfirm,
+    folderName: hookFolderName,
+  } = useFolderActions(folderId, folderName);
 
   const { childFolders, childMemos } = useFolderData(folderId);
 
@@ -33,7 +39,16 @@ export function SidebarContentFolder({ level = 0, folderName, folderId }: Props)
         <ContextMenu.Trigger>
           <FolderItem level={level} folderName={folderName} isOpen={isOpen} onClick={toggleFolder} />
         </ContextMenu.Trigger>
-        <FolderContextMenu onCreateMemo={handleCreateMemo} onCreateFolder={handleCreateFolder} />
+        <FolderContextMenu
+          onCreateMemo={handleCreateMemo}
+          onCreateFolder={handleCreateFolder}
+          onDeleteClick={handleDeleteClick}
+          onDeleteConfirm={handleDeleteConfirm}
+          isDeleting={isDeleting}
+          isDeleteDialogOpen={isDeleteDialogOpen}
+          onDeleteDialogChange={setIsDeleteDialogOpen}
+          folderName={hookFolderName}
+        />
       </ContextMenu.Root>
 
       <FolderChildren
