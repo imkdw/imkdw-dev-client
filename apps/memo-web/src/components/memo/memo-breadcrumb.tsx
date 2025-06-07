@@ -1,20 +1,14 @@
 'use client';
 
 import { ChevronRight } from 'lucide-react';
-import { useMemo } from 'react';
-import { useMemoStore } from '../../stores/memo-store';
+import { MemoDetail } from '@imkdw-dev-client/api-client';
 
 interface Props {
-  initialPath?: string;
+  memo: MemoDetail;
 }
 
-export function MemoBreadcrumb({ initialPath }: Props) {
-  const { currentMemo } = useMemoStore();
-
-  const arrayPath = useMemo(() => {
-    const path = currentMemo?.path || initialPath || '';
-    return path.split('/').filter((segment) => segment.length > 0);
-  }, [currentMemo?.path, initialPath]);
+export function MemoBreadcrumb({ memo }: Props) {
+  const arrayPath = memo?.path?.split('/').filter((segment: string) => segment.length > 0) || [];
 
   if (arrayPath.length === 0) {
     return null;
