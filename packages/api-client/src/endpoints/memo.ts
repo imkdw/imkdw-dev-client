@@ -1,5 +1,5 @@
 import { apiClient } from '../api-client';
-import { MemoDetail, RequestCreateMemo, ResponseCreateMemo } from '../types';
+import { MemoDetail, MemoItem, RequestCreateMemo, ResponseCreateMemo } from '../types';
 import { RequestUpdateMemoName } from '../types/memo/update-memo-name.type';
 import { RequestUpdateMemo } from '../types/memo/update-memo.type';
 
@@ -39,5 +39,12 @@ export async function deleteMemo(slug: string) {
   return apiClient.request<never, never>({
     url: `v1/memos/${slug}`,
     method: 'DELETE',
+  });
+}
+
+export async function getMemos() {
+  return apiClient.request<never, MemoItem[]>({
+    url: 'v1/memos',
+    method: 'GET',
   });
 }
