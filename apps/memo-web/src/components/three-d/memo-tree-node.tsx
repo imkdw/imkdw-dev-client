@@ -3,7 +3,7 @@
 import { useFrame } from '@react-three/fiber';
 import { Text, Line } from '@react-three/drei';
 import { useRef, useState } from 'react';
-import { Mesh } from 'three';
+import { Group, BoxGeometry } from 'three';
 import { useRouter } from 'next/navigation';
 import { TreeNode } from '../../types/memo-tree.types';
 
@@ -11,21 +11,126 @@ interface Props {
   node: TreeNode;
 }
 
+// 폴더 아이콘 컴포넌트 (3D 지오메트리)
+function FolderIcon({
+  hovered,
+  clicked,
+  onClick,
+  onPointerOver,
+  onPointerOut,
+}: {
+  hovered: boolean;
+  clicked: boolean;
+  onClick: () => void;
+  onPointerOver: () => void;
+  onPointerOut: () => void;
+}) {
+  const folderColor = clicked ? '#ff6b6b' : hovered ? '#fcd34d' : '#f59e0b';
+  const emissiveColor = hovered ? '#92400e' : '#000';
+
+  return (
+    /* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, jsx-a11y/interactive-supports-focus */
+    <group onClick={onClick} onPointerOver={onPointerOver} onPointerOut={onPointerOut}>
+      {/* 폴더 탭 */}
+      <mesh position={[-0.1, 0.1, 0]}>
+        <boxGeometry args={[0.3, 0.1, 0.3]} />
+        <meshStandardMaterial color={folderColor} emissive={emissiveColor} transparent opacity={0.9} />
+      </mesh>
+
+      {/* 폴더 본체 */}
+      <mesh position={[0, 0, 0]}>
+        <boxGeometry args={[0.8, 0.6, 0.4]} />
+        <meshStandardMaterial color={folderColor} emissive={emissiveColor} transparent opacity={0.9} />
+      </mesh>
+
+      {/* 폴더 테두리 효과 */}
+      <lineSegments>
+        <edgesGeometry args={[new BoxGeometry(0.8, 0.6, 0.4)]} />
+        <lineBasicMaterial color={hovered ? '#92400e' : '#b45309'} />
+      </lineSegments>
+
+      {/* 호버 시 빛 효과 */}
+      {hovered && <pointLight position={[0, 0, 0]} color='#fcd34d' intensity={0.5} distance={2} decay={2} />}
+    </group>
+  );
+}
+
+// 메모 아이콘 컴포넌트 (3D 지오메트리)
+function MemoIcon({
+  hovered,
+  clicked,
+  onClick,
+  onPointerOver,
+  onPointerOut,
+}: {
+  hovered: boolean;
+  clicked: boolean;
+  onClick: () => void;
+  onPointerOver: () => void;
+  onPointerOut: () => void;
+}) {
+  const memoColor = clicked ? '#ff6b6b' : hovered ? '#dbeafe' : '#bfdbfe';
+  const lineColor = hovered ? '#3b82f6' : '#6b7280';
+  const emissiveColor = hovered ? '#1e40af' : '#000';
+
+  return (
+    /* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, jsx-a11y/interactive-supports-focus */
+    <group onClick={onClick} onPointerOver={onPointerOver} onPointerOut={onPointerOut}>
+      {/* 메모 배경 */}
+      <mesh position={[0, 0, 0]}>
+        <boxGeometry args={[0.6, 0.8, 0.1]} />
+        <meshStandardMaterial color={memoColor} emissive={emissiveColor} transparent opacity={0.9} />
+      </mesh>
+
+      {/* 메모 라인들 */}
+      {[0, 1, 2, 3, 4].map((i) => (
+        <mesh key={i} position={[0, 0.25 - i * 0.12, 0.06]}>
+          <boxGeometry args={[0.4, 0.02, 0.01]} />
+          <meshBasicMaterial color={lineColor} transparent opacity={0.7} />
+        </mesh>
+      ))}
+
+      {/* 메모 헤더 (상단 여백) */}
+      <mesh position={[0, 0.3, 0.06]}>
+        <boxGeometry args={[0.45, 0.05, 0.01]} />
+        <meshBasicMaterial color={lineColor} transparent opacity={0.5} />
+      </mesh>
+
+      {/* 호버 시 반짝이는 효과 */}
+      {hovered && (
+        <>
+          <mesh position={[0.2, 0.3, 0.1]}>
+            <sphereGeometry args={[0.03, 8, 8]} />
+            <meshBasicMaterial color='#fbbf24' />
+          </mesh>
+          <mesh position={[0.25, 0.2, 0.1]}>
+            <sphereGeometry args={[0.02, 8, 8]} />
+            <meshBasicMaterial color='#fbbf24' />
+          </mesh>
+          <pointLight position={[0, 0, 0]} color='#45b7d1' intensity={0.5} distance={2} decay={2} />
+        </>
+      )}
+    </group>
+  );
+}
+
 export function MemoTreeNode({ node }: Props) {
-  const meshRef = useRef<Mesh>(null);
+  const iconRef = useRef<Group>(null);
   const [hovered, setHovered] = useState(false);
   const [clicked, setClicked] = useState(false);
   const router = useRouter();
 
   // 호버 애니메이션
   useFrame(() => {
-    if (meshRef.current) {
+    // 아이콘 크기 애니메이션
+    if (iconRef.current) {
       const scale = hovered ? 1.2 : 1;
-      meshRef.current.scale.setScalar(scale);
+      iconRef.current.scale.setScalar(scale);
 
-      // 부드러운 회전 애니메이션
+      // 아이콘 살짝 흔들기 효과
       if (hovered) {
-        meshRef.current.rotation.y += 0.02;
+        iconRef.current.rotation.z = Math.sin(Date.now() * 0.005) * 0.05;
+        iconRef.current.rotation.y += 0.01;
       }
     }
   });
@@ -42,21 +147,6 @@ export function MemoTreeNode({ node }: Props) {
     }
   };
 
-  // 노드 타입에 따른 색상 결정
-  const getNodeColor = () => {
-    if (clicked) return '#ff6b6b';
-    if (hovered) return node.type === 'folder' ? '#4ecdc4' : '#45b7d1';
-    return node.type === 'folder' ? '#2c3e50' : '#3498db';
-  };
-
-  // 노드 타입에 따른 모양 결정
-  const getNodeGeometry = () => {
-    if (node.type === 'folder') {
-      return <boxGeometry args={[1, 1, 1]} />;
-    }
-    return <sphereGeometry args={[0.5, 16, 16]} />;
-  };
-
   // 텍스트 색상
   const getTextColor = () => {
     return hovered ? '#ffffff' : '#e0e0e0';
@@ -64,22 +154,31 @@ export function MemoTreeNode({ node }: Props) {
 
   return (
     <group position={node.position}>
-      {/* 메인 노드 */}
-      {/* eslint-disable-next-line jsx-a11y/interactive-supports-focus, jsx-a11y/click-events-have-key-events */}
-      <mesh
-        ref={meshRef}
-        onClick={handleClick}
-        onPointerOver={() => setHovered(true)}
-        onPointerOut={() => setHovered(false)}
-      >
-        {getNodeGeometry()}
-        <meshStandardMaterial color={getNodeColor()} transparent opacity={0.8} emissive={hovered ? '#222' : '#000'} />
-      </mesh>
+      {/* 아이콘이 메인 노드 역할 */}
+      <group ref={iconRef}>
+        {node.type === 'folder' ? (
+          <FolderIcon
+            hovered={hovered}
+            clicked={clicked}
+            onClick={handleClick}
+            onPointerOver={() => setHovered(true)}
+            onPointerOut={() => setHovered(false)}
+          />
+        ) : (
+          <MemoIcon
+            hovered={hovered}
+            clicked={clicked}
+            onClick={handleClick}
+            onPointerOver={() => setHovered(true)}
+            onPointerOut={() => setHovered(false)}
+          />
+        )}
+      </group>
 
       {/* 노드 텍스트 */}
       <Text
-        position={[0, -1.2, 0]}
-        fontSize={0.3}
+        position={[0, -0.8, 0]}
+        fontSize={0.25}
         color={getTextColor()}
         anchorX='center'
         anchorY='top'
@@ -88,20 +187,6 @@ export function MemoTreeNode({ node }: Props) {
       >
         {node.name}
       </Text>
-
-      {/* 폴더 아이콘 (폴더 타입인 경우) */}
-      {node.type === 'folder' && (
-        <Text position={[0, 0.3, 0.51]} fontSize={0.4} color='#f39c12' anchorX='center' anchorY='middle'>
-          📁
-        </Text>
-      )}
-
-      {/* 메모 아이콘 (메모 타입인 경우) */}
-      {node.type === 'memo' && (
-        <Text position={[0, 0.3, 0.51]} fontSize={0.3} color='#ffffff' anchorX='center' anchorY='middle'>
-          📝
-        </Text>
-      )}
 
       {/* 자식 노드들 렌더링 */}
       {node.children.map((child) => (
@@ -119,17 +204,6 @@ export function MemoTreeNode({ node }: Props) {
           opacity={0.6}
         />
       ))}
-
-      {/* 호버 시 파티클 효과 */}
-      {hovered && (
-        <pointLight
-          position={[0, 0, 0]}
-          color={node.type === 'folder' ? '#4ecdc4' : '#45b7d1'}
-          intensity={1}
-          distance={3}
-          decay={2}
-        />
-      )}
     </group>
   );
 }
