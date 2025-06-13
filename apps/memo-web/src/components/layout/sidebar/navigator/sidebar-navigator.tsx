@@ -1,9 +1,10 @@
 'use client';
 
-import { Folder } from 'lucide-react';
+import { Folder, Network } from 'lucide-react';
 import { Dispatch, SetStateAction } from 'react';
 import { SidebarNavigatorItem } from './sidebar-navigator-item';
 import { SidebarNavigatorProfile } from './sidebar-navigator-profile';
+import { useRouter } from '@imkdw-dev-client/i18n';
 
 const SIDEBAR_ITEMS = [
   {
@@ -18,6 +19,8 @@ interface Props {
 }
 
 export function SidebarNavigator({ activeItem, onItemChange }: Props) {
+  const router = useRouter();
+
   const handleItemClick = (id: number) => {
     onItemChange(id === activeItem ? null : id);
   };
@@ -34,6 +37,7 @@ export function SidebarNavigator({ activeItem, onItemChange }: Props) {
             onClick={() => handleItemClick(item.id)}
           />
         ))}
+        <SidebarNavigatorItem id={2} icon={<Network size={24} />} onClick={() => router.push('/memo-tree')} />
       </ul>
 
       <div className='mt-auto'>
