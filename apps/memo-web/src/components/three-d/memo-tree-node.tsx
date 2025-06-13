@@ -29,7 +29,7 @@ function FolderIcon({
   const emissiveColor = hovered ? '#92400e' : '#000';
 
   return (
-    /* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, jsx-a11y/interactive-supports-focus */
+    // biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
     <group onClick={onClick} onPointerOver={onPointerOver} onPointerOut={onPointerOut}>
       {/* 폴더 탭 */}
       <mesh position={[-0.1, 0.1, 0]}>
@@ -74,7 +74,7 @@ function MemoIcon({
   const emissiveColor = hovered ? '#1e40af' : '#000';
 
   return (
-    /* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, jsx-a11y/interactive-supports-focus */
+    // biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
     <group onClick={onClick} onPointerOver={onPointerOver} onPointerOut={onPointerOut}>
       {/* 메모 배경 */}
       <mesh position={[0, 0, 0]}>
