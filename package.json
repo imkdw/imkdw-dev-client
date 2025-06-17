@@ -9,6 +9,7 @@
     "check-types": "turbo run check-types",
     "============================== APPS ==============================": "",
     "memo-web": "pnpm -F memo-web",
+    "blog-web": "pnpm -F blog-web",
     "============================== PACKAGES ==============================": "",
     "ui": "pnpm -F ui",
     "i18n": "pnpm -F i18n",
